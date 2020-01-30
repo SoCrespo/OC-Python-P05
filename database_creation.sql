@@ -42,6 +42,7 @@ DROP TABLE IF EXISTS `openfoodfacts`.`product` ;
 
 CREATE TABLE IF NOT EXISTS `openfoodfacts`.`product` (
   `prod_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `prod_brand` VARCHAR(50) NOT NULL,
   `prod_name` VARCHAR(50) NOT NULL,
   `prod_full_name` VARCHAR(50) CHARACTER SET 'utf8' NULL,
   `prod_nutriscore_index` CHAR(1) NOT NULL,
