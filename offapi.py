@@ -6,9 +6,11 @@ import parameters as pm
 
 
 class Products():
+    max_nb = pm.MAX_PRODUCTS_NB
 
-    def __init__(self, category):
+    def __init__(self, category, nb=max_nb):
         self.category = category
+        self.nb = nb
         self.content = self.get_products_by_category()
 
     def get_products_by_category(self):
@@ -16,24 +18,13 @@ class Products():
         Downloaded fields are defined in parameters.py.
         :rtype: list of dictionaries (1 dict = 1 product)
          '''
-        fields = pm.FILTERING_FIELDS
         url = pm.URL
-        payload = {
-            'action': 'process',
-            'tagtype_0': 'categories',
-            'tag_contains_0': 'contains',
-            'tag_0': self.category,
-            'tagtype_1': 'nutrition_grade',
-            'tag_contains_1': 'contains',
-            'fields': fields,
-            'page_size': 10,
-            'json': 'true',
-        }
+        payload = pm.payloadFor(self.category, self.nb)
         req = requests.get(url, params=payload)
         return req.json().get('products')
 
 
 if __name__ == "__main__":
-    pat = Products('pate-a-tartiner')
+    pat = Products('pate-a-tartiner-sucree', 10)
 
     print(pat.content)
