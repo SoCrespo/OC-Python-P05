@@ -5,7 +5,7 @@ import parameters as pm
 
 
 class ProductRetriever:
-    
+
     def __init__(self):
         pass
 
