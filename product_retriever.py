@@ -12,7 +12,7 @@ class ProductRetriever:
     def get_products_by_category(self, category, nb):
         '''Call the OpenFoodFact API to retrieve products in selected category.
         Downloaded fields are defined in parameters.py.
-        :rtype: list of dictionaries (1 dict = 1 product)
+        :rtype: list of nb dictionaries (1 dict = 1 product)
          '''
         url = pm.URL
         payload = pm.payloadFor(category, nb)
