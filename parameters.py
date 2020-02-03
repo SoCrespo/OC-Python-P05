@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+
+#######################################
+# API PARAMETERS
+#######################################
+
 URL = 'https://fr.openfoodfacts.org/cgi/search.pl'
 
 
@@ -22,6 +28,7 @@ FILTERING_FIELDS = ','.join([
 
 MAX_PRODUCTS_NB = 10
 
+
 def payloadFor(category, nb):
     return {
             'action': 'process',
@@ -34,3 +41,12 @@ def payloadFor(category, nb):
             'page_size': nb,
             'json': 'true',
         }    
+
+
+#######################################
+# DATABASE PARAMETERS
+#######################################
+
+DATABASE = 'offapi2020p5'
+USER = 'offuser'
+PASSWORD = 'my!pass1worD'
