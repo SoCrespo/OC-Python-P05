@@ -5,22 +5,17 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema openfoodfacts
+-- Schema offdb2020p5
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `openfoodfacts` ;
+CREATE SCHEMA IF NOT EXISTS `offdb2020p5` DEFAULT CHARACTER SET latin1 ;
+USE `offdb2020p5` ;
 
 -- -----------------------------------------------------
--- Schema openfoodfacts
+-- Table `offdb2020p5`.`category`
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `openfoodfacts` DEFAULT CHARACTER SET latin1 ;
-USE `openfoodfacts` ;
+DROP TABLE IF EXISTS `offdb2020p5`.`category` ;
 
--- -----------------------------------------------------
--- Table `openfoodfacts`.`category`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `openfoodfacts`.`category` ;
-
-CREATE TABLE IF NOT EXISTS `openfoodfacts`.`category` (
+CREATE TABLE IF NOT EXISTS `offdb2020p5`.`category` (
   `cat_id` INT(11) NOT NULL AUTO_INCREMENT,
   `cat_name` VARCHAR(50) CHARACTER SET 'utf8' NOT NULL COMMENT 'corresponds to categories field in OFF answer',
   PRIMARY KEY (`cat_id`))
@@ -29,11 +24,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `openfoodfacts`.`product`
+-- Table `offdb2020p5`.`product`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `openfoodfacts`.`product` ;
+DROP TABLE IF EXISTS `offdb2020p5`.`product` ;
 
-CREATE TABLE IF NOT EXISTS `openfoodfacts`.`product` (
+CREATE TABLE IF NOT EXISTS `offdb2020p5`.`product` (
   `prod_id` INT(11) NOT NULL AUTO_INCREMENT,
   `prod_brand` VARCHAR(50) NOT NULL COMMENT 'Corresponds to brands_tags',
   `prod_name` VARCHAR(50) NOT NULL COMMENT 'Corresponds to product_name_fr',
@@ -48,17 +43,17 @@ CREATE TABLE IF NOT EXISTS `openfoodfacts`.`product` (
   INDEX `idx_prod_name` (`prod_name` ASC),
   CONSTRAINT `fk_product_category`
     FOREIGN KEY (`cat_id`)
-    REFERENCES `openfoodfacts`.`category` (`cat_id`))
+    REFERENCES `offdb2020p5`.`category` (`cat_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `openfoodfacts`.`substition`
+-- Table `offdb2020p5`.`substition`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `openfoodfacts`.`substition` ;
+DROP TABLE IF EXISTS `offdb2020p5`.`substition` ;
 
-CREATE TABLE IF NOT EXISTS `openfoodfacts`.`substition` (
+CREATE TABLE IF NOT EXISTS `offdb2020p5`.`substition` (
   `sub_id` INT NOT NULL AUTO_INCREMENT,
   `sub_origin_id` INT NOT NULL,
   `sub_substitute_id` INT NOT NULL,
@@ -68,12 +63,12 @@ CREATE TABLE IF NOT EXISTS `openfoodfacts`.`substition` (
   INDEX `fk_substitute_product_idx` (`sub_substitute_id` ASC),
   CONSTRAINT `fk_origin_product`
     FOREIGN KEY (`sub_origin_id`)
-    REFERENCES `openfoodfacts`.`product` (`prod_id`)
+    REFERENCES `offdb2020p5`.`product` (`prod_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_substitute_product`
     FOREIGN KEY (`sub_substitute_id`)
-    REFERENCES `openfoodfacts`.`product` (`prod_id`)
+    REFERENCES `offdb2020p5`.`product` (`prod_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
