@@ -49,11 +49,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `offdb2020p5`.`substition`
+-- Table `offdb2020p5`.`substitution`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `offdb2020p5`.`substition` ;
+DROP TABLE IF EXISTS `offdb2020p5`.`substitution` ;
 
-CREATE TABLE IF NOT EXISTS `offdb2020p5`.`substition` (
+CREATE TABLE IF NOT EXISTS `offdb2020p5`.`substitution` (
   `sub_id` INT NOT NULL AUTO_INCREMENT,
   `sub_origin_id` INT NOT NULL,
   `sub_substitute_id` INT NOT NULL,
