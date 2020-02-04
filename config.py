@@ -40,13 +40,18 @@ def payloadFor(category, nb):
             'fields': FILTERING_FIELDS,
             'page_size': nb,
             'json': 'true',
-        }    
+        }
 
 
 #######################################
 # DATABASE PARAMETERS
 #######################################
 
-DATABASE = 'offapi2020p5'
-USER = 'offuser'
-PASSWORD = 'my!pass1worD'
+DB_CONNECTION_PARAMS = {
+    'user': 'offuser',
+    'password': 'my!pass1worD',
+    'host': 'localhost',
+    'database': 'offdb2020p5',
+    }
+
+DB_SCHEMA = 'project5/database_schema.sql'
