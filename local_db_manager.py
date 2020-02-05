@@ -21,13 +21,6 @@ class LocalDBManager():
     def close_connection(self):
         self.cursor.close()
 
-    def create_tables(self, schema):
-        with open(schema, "r") as f:
-            lines = f.readlines()
-            print(lines)
-            # for line in lines:
-                # self.cursor.execute(line, multi=True)
-
 
 if __name__ == "__main__":
     pass

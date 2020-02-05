@@ -53,5 +53,3 @@ DB_CONNECTION_PARAMS = {
     'host': 'localhost',
     'database': 'offdb2020p5',
     }
-
-DB_SCHEMA = 'project5/database_schema.sql'
