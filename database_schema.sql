@@ -5,12 +5,6 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema offdb2020p5
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `offdb2020p5` DEFAULT CHARACTER SET latin1 ;
-USE `offdb2020p5` ;
-
--- -----------------------------------------------------
 -- Table `offdb2020p5`.`category`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `offdb2020p5`.`category` ;
