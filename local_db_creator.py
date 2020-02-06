@@ -35,6 +35,16 @@ class LocalDBCreator():
         except RuntimeError:
             pass
 
+    def fill_category_table(self, categories):
+        ''' Take a list of categories as argument
+        and insert each as a new line in category table (cat_name).
+        '''
+        for category in categories:
+            query = f"INSERT INTO category (cat_name) VALUES ('{category}');"
+            self.cursor.execute(query)
+            self.mydb.commit()
+            print(f'{category} record inserted')
+
 
 if __name__ == "__main__":
     pass
