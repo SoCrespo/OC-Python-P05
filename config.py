@@ -29,7 +29,7 @@ FILTERING_FIELDS = ','.join([
 MAX_PRODUCTS_NB = 10
 
 
-def payloadFor(category, nb):
+def payload_for(category, nb):
     return {
             'action': 'process',
             'tagtype_0': 'categories',
@@ -55,3 +55,5 @@ DB_CONNECTION_PARAMS = {
     }
 
 DB_SCHEMA = 'project5/database_schema.sql'
+
+DB_TABLES_NAMES = ['category', 'product', 'substitution']
