@@ -3,7 +3,7 @@
 import mysql.connector
 
 
-class LocalDBCreator():
+class LocalDBManager():
 
     def __init__(self):
         self.mydb = None
