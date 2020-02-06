@@ -6,27 +6,34 @@ import mysql.connector
 class LocalDBCreator():
 
     def __init__(self):
+        self.mydb = None
         self.cursor = None
 
     def connect_to_database(self, user, password, host, database):
-        
-        mydb = mysql.connector.connect(
+        self.mydb = mysql.connector.connect(
             user=user,
-            passwd=password,
+            password=password,
             host=host,
             database=database
             )
-        self.cursor = mydb.cursor()
+        self.cursor = self.mydb.cursor()
 
-    def close_connection(self):
+    def close_db(self):
         self.cursor.close()
 
     def create_tables(self, schema):
         with open(schema, "r") as f:
-            query = " ".join(f.readlines())
-            self.cursor.execute(query)
-
-
+            lines = f.readlines()
+            self.query = " ".join(lines)
+        # the try...except... below is there because of a new behavior
+        # of generators in Python 3.7. See here :
+        # https://stackoverflow.com/questions/51700960/runtimeerror-generator-raised-stopiteration-every-time-i-try-to-run-app
+        try:
+            for item in self.cursor.execute(self.query, multi=True):
+                # cursor.execute is an iterator if multi=True
+                pass
+        except RuntimeError:
+            pass
 
 
 if __name__ == "__main__":
