@@ -2,7 +2,6 @@
 
 import requests
 import config as cf
-import product
 
 
 class OpenFoodFactsClient:
@@ -32,16 +31,13 @@ class OpenFoodFactsClient:
         list = []
         for category in categories:
             data = self.get_data_by_category(category, nb)
-            for product in data:
-                product['category'] = category
+            for item in data:
+                item['category'] = category
             list.extend(data)
         return list
 
     def data_to_product():
         pass
-        
-
-
 
 
 if __name__ == "__main__":

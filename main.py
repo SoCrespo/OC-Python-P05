@@ -15,10 +15,9 @@ nb = cf.MAX_PRODUCTS_NB
 db = local_db_manager.LocalDBManager()
 db.connect_to_database(**connect_params)
 db.create_tables(schema)
-
 db.fill_category_table(categories)
 
 # GET PRODUCTS
 off_client = openfoodfacts_client.OpenFoodFactsClient()
-products = off_client.get_products_by_categories(categories, nb)
-print(products)
+products_data = off_client.get_data_by_categories(categories, nb)
+print(products_data)
