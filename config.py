@@ -20,7 +20,6 @@ FIELDS = [
     'generic_name_fr',
     'brands',
     'quantity',
-    'categories_tags',
     'url',
     'stores',
     'nutrition_grade_fr',

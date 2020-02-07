@@ -2,6 +2,7 @@
 
 import requests
 import config as cf
+import product
 
 
 class OpenFoodFactsClient:
@@ -9,12 +10,12 @@ class OpenFoodFactsClient:
     def __init__(self):
         pass
 
-    def get_products_by_category(self, category, nb):
+    def get_data_by_category(self, category, nb):
         '''Call the OpenFoodFact API to retrieve products
         in the given category.
 
-        Downloaded fields are defined in params.py.
-        :rtype: list of nb dictionaries (1 dict = 1 product).
+        Downloaded fields are defined in config.py.
+        :rtype: list of nb dictionaries (1 dict = data of 1 product).
 
          '''
         url = cf.URL
@@ -22,19 +23,28 @@ class OpenFoodFactsClient:
         req = requests.get(url, params=payload)
         return req.json().get('products')
 
-    def get_products_by_categories(self, categories, nb):
+    def get_data_by_categories(self, categories, nb):
         '''
-        Call get_product_by_category() for a list of categories.
+        Call get_data_by_category() for a list of categories.
+        return a list of dictionaries (1 dict = data of  1 product)
 
          '''
         list = []
         for category in categories:
-            products = self.get_products_by_category(category, nb)
-            list.extend(products)
+            data = self.get_data_by_category(category, nb)
+            for product in data:
+                product['category'] = category
+            list.extend(data)
         return list
+
+    def data_to_product():
+        pass
+        
+
+
 
 
 if __name__ == "__main__":
     pr = OpenFoodFactsClient()
-    pat = pr.get_products_by_category('pate-a-tartiner', 20)
+    pat = pr.get_data_by_category('pate-a-tartiner', 20)
     print(pat)
