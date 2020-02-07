@@ -20,29 +20,28 @@ See requirements.txt.
 
 ## How it works
 
-### Tables creation
+### Local database
 
-***LocalDBManager*** class creates the required tables and foreign keys.
+***LocalDBManager*** class manages the MySQL tables : connection, tables creation, data insertion.
 
-### Database filling 
+### OpenFoodFact data retrieving
 
- ***OpenFoodFactsClient*** class uses the get_products_by_category() method gets the products using the OpenFoodFacts API for a given category and for a given number of products (default value is 10, this setting can be changed in params.py).
+ ***OpenFoodFactsClient***  
+ get_products_by_categories() method gets the products using the OpenFoodFacts API for a given category and for a given number of products (default value is 10, this setting can be changed in params.py).
 
-***DataTrimmer*** cleans retrieved data and suppress multiple entries (as the weight of the product is not considered)
+ ***data_to_product*** converts the list of dictionaries in list of Product objects.
 
-***Product*** converts data for each product in a Product with the following fields :
-categories
-generic_name_fr
-product_name_fr
-brands 
-url
-stores
-nutrition_grade_fr
-ingredient_text_fr
+***Product*** class affects data for each product in a Product object with the following attributes (and their quivalent in OpenFoodFacts tables):
+category / categories
+brand / brands
+name / product_name_fr
+full_name / generic_name_fr
+quantity / quantity
+nutriscore / nutrition_grade_fr
+url / url
+ingredients / ingredients_text_fr
+stores / stores
 
-***LocalDBManager*** class, as the name suggests, has the following methods:
-- insert_in_database() 
-- reset_database()
 
 ***Menu*** Manages the main menu.
 
