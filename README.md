@@ -24,10 +24,10 @@ See requirements.txt.
 
 ***LocalDBManager*** class manages the MySQL tables : connection, tables creation, data insertion.
 
+
 ### OpenFoodFact data retrieving
 
- ***OpenFoodFactsClient***  
- get_products_by_categories() method gets the products using the OpenFoodFacts API for a given category and for a given number of products (default value is 10, this setting can be changed in params.py).
+ ***OpenFoodFactsClient***  get_products_by_categories() method gets the products using the OpenFoodFacts API for a given category and for a given number of products (default value is 10, this setting can be changed in params.py).
 
  ***data_to_product*** converts the list of dictionaries in list of Product objects.
 
