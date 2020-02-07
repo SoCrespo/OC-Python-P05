@@ -51,15 +51,23 @@ class OpenFoodFactsClient:
                      for product_data in list]
         return conv_list
 
+    def valid(self, dict):
+        required_keys = cf.CONVERTING_FIELDS.values()
+        dict_keys = dict.keys()
+        dict_values = dict.values()
 
-        
+        check_nb_keys = len(dict_keys) == len(required_keys)
+        check_keys = all([key in dict_keys for key in required_keys])
+        check_values = all(dict_values)
+
+        return all((check_nb_keys, check_keys, check_values))
 
     def data_to_product(self, list):
         '''
-        Takes a list of dict (product data)
+        Takes a list of dict (product data), checks arguments
         and returns a list of Product instances.
         '''
-        return [product.Product(data) for data in list]
+        return [product.Product(data) for data in list if self.valid(data)]
 
 
 if __name__ == "__main__":

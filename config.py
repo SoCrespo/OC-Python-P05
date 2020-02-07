@@ -42,7 +42,7 @@ CONVERTING_FIELDS = {
     }
 
 
-MAX_PRODUCTS_NB = 10
+MAX_PRODUCTS_NB = 50
 
 
 def payload_for(category, nb):

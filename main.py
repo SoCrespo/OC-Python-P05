@@ -31,4 +31,5 @@ conv_data = off_client.change_data_keys(data)
 products = off_client.data_to_product(conv_data)
 
 for product in products:
-    print(f'{product.name}, {product.quantity}, Nutriscore : {product.nutriscore.upper()}')
+    print(f'{product.brand} {product.name}'
+          f', {product.quantity}, Nutriscore : {product.nutriscore.upper()}')
