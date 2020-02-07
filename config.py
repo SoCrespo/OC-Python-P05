@@ -15,7 +15,7 @@ CATEGORIES = [
     'confiture-de-lait'
 ]
 
-FILTERING_FIELDS = ','.join([
+FIELDS = [
     'product_name_fr',
     'generic_name_fr',
     'brands',
@@ -25,7 +25,9 @@ FILTERING_FIELDS = ','.join([
     'stores',
     'nutrition_grade_fr',
     'ingredients_text_fr'
-    ])
+    ]
+
+FILTERING_FIELDS = ','.join(FIELDS)
 
 MAX_PRODUCTS_NB = 10
 
