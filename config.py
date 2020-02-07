@@ -15,18 +15,20 @@ CATEGORIES = [
     'confiture-de-lait'
 ]
 
-FIELDS = [
-    'product_name_fr',
-    'generic_name_fr',
-    'brands',
-    'quantity',
-    'url',
-    'stores',
-    'nutrition_grade_fr',
-    'ingredients_text_fr'
-    ]
+API_FIELDS = {
+    'product_name_fr': 'name',
+    'generic_name_fr': 'full_name',
+    'brands': 'brands',
+    'quantity': 'quantity',
+    'url': 'url',
+    'stores': 'stores',
+    'nutrition_grade_fr': 'nutriscore',
+    'ingredients_text_fr': 'ingredients',
+    }
 
-FILTERING_FIELDS = ','.join(FIELDS)
+API_FILTERING_FIELDS = ','.join(API_FIELDS.keys())
+
+CONVERTING_FIELDS = API_FIELDS.update({'category': 'category'})
 
 MAX_PRODUCTS_NB = 10
 
@@ -39,7 +41,7 @@ def payload_for(category, nb):
             'tag_0': category,
             'tagtype_1': 'nutrition_grade',
             'tag_contains_1': 'contains',
-            'fields': FILTERING_FIELDS,
+            'fields': API_FILTERING_FIELDS,
             'page_size': nb,
             'json': 'true',
         }

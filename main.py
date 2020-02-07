@@ -19,5 +19,6 @@ db.fill_category_table(categories)
 
 # GET PRODUCTS
 off_client = openfoodfacts_client.OpenFoodFactsClient()
-products_data = off_client.get_data_by_categories(categories, nb)
-print(products_data)
+data = off_client.get_data_by_categories(categories, nb)
+conv_data = off_client.change_data_keys(data)
+products = off_client.data_to_product(conv_data)
