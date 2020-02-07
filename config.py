@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 #######################################
 # API PARAMETERS
 #######################################
@@ -15,20 +16,31 @@ CATEGORIES = [
     'confiture-de-lait'
 ]
 
-API_FIELDS = {
+API_FIELDS = [
+    'product_name_fr',
+    'generic_name_fr',
+    'brands',
+    'quantity',
+    'url',
+    'stores',
+    'nutrition_grade_fr',
+    'ingredients_text_fr',
+    ]
+
+API_FILTERING_FIELDS = ','.join(API_FIELDS)
+
+CONVERTING_FIELDS = {
     'product_name_fr': 'name',
     'generic_name_fr': 'full_name',
-    'brands': 'brands',
+    'brands': 'brand',
     'quantity': 'quantity',
     'url': 'url',
     'stores': 'stores',
     'nutrition_grade_fr': 'nutriscore',
     'ingredients_text_fr': 'ingredients',
+    'category': 'category'
     }
 
-API_FILTERING_FIELDS = ','.join(API_FIELDS.keys())
-
-CONVERTING_FIELDS = API_FIELDS.update({'category': 'category'})
 
 MAX_PRODUCTS_NB = 10
 

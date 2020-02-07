@@ -51,15 +51,20 @@ class OpenFoodFactsClient:
                      for product_data in list]
         return conv_list
 
+
+        
+
     def data_to_product(self, list):
         '''
         Takes a list of dict (product data)
         and returns a list of Product instances.
         '''
-        return [product.Product(item) for item in list]
+        return [product.Product(data) for data in list]
 
 
 if __name__ == "__main__":
     pr = OpenFoodFactsClient()
-    pat = pr.get_data_by_category('pate-a-tartiner', 20)
-    print(pr.data_to_product(pat))
+    pat = pr.get_data_by_categories(['pate-a-tartiner'], 50)
+    conv_pat = pr.change_data_keys(pat)
+    products = pr.data_to_product(conv_pat)
+    print([product.nutriscore for product in products])
