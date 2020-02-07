@@ -19,6 +19,7 @@ FILTERING_FIELDS = ','.join([
     'product_name_fr',
     'generic_name_fr',
     'brands',
+    'quantity',
     'categories_tags',
     'url',
     'stores',
