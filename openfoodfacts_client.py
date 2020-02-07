@@ -6,19 +6,21 @@ import product
 
 
 class OpenFoodFactsClient:
-    '''Retrieve data from openFoodFactAPI and converts them
-    in a list of Product objects.'''
+    '''
+    Retrieves data from openFoodFactAPI and converts them
+    in a list of Product objects.
+    '''
 
     def __init__(self):
         pass
 
     def get_data_by_category(self, category, nb):
         '''
-        Call the OpenFoodFact API to retrieve products
+        Calls the OpenFoodFact API to retrieve products
         in the given category.
 
         Downloaded fields are defined in config.py.
-        :rtype: list of nb dictionaries (1 dict = data of 1 product).
+        Returns a list of nb dictionaries (1 dict = data of 1 product).
 
          '''
         url = cf.URL
@@ -28,11 +30,10 @@ class OpenFoodFactsClient:
 
     def get_data_by_categories(self, categories, nb):
         '''
-        Call get_data_by_category() for a list of categories.
-        Return a list of dictionaries (1 dict = data of  1 product)
-        Add the 'category' key in each dict.
-
-         '''
+        Calls get_data_by_category() for a list of categories.
+        Returns a list of dictionaries (1 dict = data of  1 product)
+        Adds the 'category' key in each dict.
+        '''
         list = []
         for category in categories:
             data = self.get_data_by_category(category, nb)
@@ -51,7 +52,11 @@ class OpenFoodFactsClient:
                      for product_data in list]
         return conv_list
 
-    def valid(self, dict):
+    def validate_data(self, dict):
+        '''
+        Checks if dict data comply with arguments for product.Product().
+        Returns a boolean.
+        '''
         required_keys = cf.CONVERTING_FIELDS.values()
         dict_keys = dict.keys()
         dict_values = dict.values()
@@ -67,7 +72,8 @@ class OpenFoodFactsClient:
         Takes a list of dict (product data), checks arguments
         and returns a list of Product instances.
         '''
-        return [product.Product(data) for data in list if self.valid(data)]
+        return [product.Product(data) for data in list
+                if self.validate_data(data)]
 
 
 if __name__ == "__main__":
