@@ -34,6 +34,7 @@ class OpenFoodFactsClient:
         Returns a list of dictionaries (1 dict = data of  1 product)
         Adds the 'category' key in each dict.
         '''
+        print("Retrieving data, please wait...")
         list = []
         for category in categories:
             data = self.get_data_by_category(category, nb)
