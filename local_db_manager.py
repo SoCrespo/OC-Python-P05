@@ -36,7 +36,8 @@ class LocalDBManager():
             pass
 
     def fill_category_table(self, categories):
-        ''' Take a list of categories as argument
+        '''
+        Take a list of categories as argument
         and insert each as a new line in category table (cat_name).
         '''
         for category in categories:
@@ -44,6 +45,17 @@ class LocalDBManager():
             self.cursor.execute(query)
             self.mydb.commit()
             print(f'{category} record inserted')
+
+    def fill_database(self, fields, products):
+        ''' Inserts products in local database.
+        Fields is the list of table columns and
+        products a list of Product objects.'''
+        str_fields = ", ".join(fields)
+        print(str_fields)
+        for product in products:
+            prod_attribs = vars(product)
+            print(prod_attribs)
+            query = f"INSERT INTO product({', '.join(str_fields)}) VALUES ()"
 
 
 if __name__ == "__main__":
