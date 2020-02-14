@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `offdb2020p5`.`product` (
   `prod_brand` VARCHAR(50) NOT NULL COMMENT 'Corresponds to brands',
   `prod_name` VARCHAR(50) NOT NULL COMMENT 'Corresponds to product_name_fr',
   `prod_full_name` VARCHAR(50) CHARACTER SET 'utf8' NULL COMMENT 'Corresponds to generic_name_fr',
-  `quantity` VARCHAR(5) CHARACTER SET 'utf8' NULL COMMENT 'Corresponds to quantity',
+  `prod_quantity` VARCHAR(5) CHARACTER SET 'utf8' NULL COMMENT 'Corresponds to quantity',
   `prod_nutriscore_index` CHAR(1) NOT NULL COMMENT 'corresponds to nutrition_grade_fr',
   `cat_id` INT(11) NOT NULL,
   `prod_url` VARCHAR(2000) NOT NULL COMMENT 'corresponds to url',
