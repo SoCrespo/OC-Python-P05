@@ -9,6 +9,7 @@ connect_params = cf.DB_CONNECTION_PARAMS
 schema = cf.DB_SCHEMA
 categories = cf.CATEGORIES
 nb = cf.MAX_PRODUCTS_NB
+db_fields = cf.DB_PRODUCT_FIELDS.keys()
 
 # ##################################################
 # Database creation
@@ -33,3 +34,5 @@ products = off_client.data_to_product(conv_data)
 for product in products:
     print(f'{product.brand} {product.name}'
           f', {product.quantity}, Nutriscore : {product.nutriscore.upper()}')
+
+db.fill_database(db_fields, products)

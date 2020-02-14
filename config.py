@@ -29,7 +29,7 @@ API_FIELDS = [
 
 API_FILTERING_FIELDS = ','.join(API_FIELDS)
 
-CONVERTING_FIELDS = {
+API_TO_PRODUCT_FIELDS = {
     'product_name_fr': 'name',
     'generic_name_fr': 'full_name',
     'brands': 'brand',
@@ -73,3 +73,14 @@ DB_CONNECTION_PARAMS = {
 DB_SCHEMA = 'project5/database_schema.sql'
 
 DB_TABLES_NAMES = ['category', 'product', 'substitution']
+
+# Matching between database fields and Product attributes
+DB_PRODUCT_FIELDS = {'prod_brand': 'brand',
+                     'prod_name': 'name',
+                     'prod_full_name': 'full_name',
+                     'prod_quantity': 'quantity',
+                     'prod_nutriscore_index': 'nutriscore',
+                     'cat_id': 'category',
+                     'prod_url': 'url',
+                     'prod_ingredients': 'ingredients',
+                     'prod_stores': 'stores'}
