@@ -16,19 +16,6 @@ CATEGORIES = [
     'confiture-de-lait'
 ]
 
-API_FIELDS = [
-    'product_name_fr',
-    'generic_name_fr',
-    'brands',
-    'quantity',
-    'url',
-    'stores',
-    'nutrition_grade_fr',
-    'ingredients_text_fr',
-    ]
-
-API_FILTERING_FIELDS = ','.join(API_FIELDS)
-
 API_TO_PRODUCT_FIELDS = {
     'product_name_fr': 'name',
     'generic_name_fr': 'full_name',
@@ -41,6 +28,7 @@ API_TO_PRODUCT_FIELDS = {
     'category': 'category'
     }
 
+API_FILTERING_FIELDS = ','.join(API_TO_PRODUCT_FIELDS.keys())
 
 MAX_PRODUCTS_NB = 50
 
