@@ -20,16 +20,11 @@ db.create_tables(schema)
 db.fill_category_table(categories)
 
 # ##################################################
-# Data retrieving from API
+# Data retrieving from API as Product objects
 # ##################################################
 off_client = openfoodfacts_client.OpenFoodFactsClient()
-data = off_client.get_data_by_categories(categories, nb)
+products = off_client.get_Products_from_API(categories, nb)
 
-# ##################################################
-# Data conversion to Product objects
-# ##################################################
-conv_data = off_client.change_data_keys(data)
-products = off_client.data_to_product(conv_data)
 
 for product in products:
     print(f'{product.brand} {product.name}'

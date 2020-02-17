@@ -14,7 +14,7 @@ class OpenFoodFactsClient:
     def __init__(self):
         pass
 
-    def get_data_by_category(self, category, nb):
+    def _get_data_by_category(self, category, nb):
         '''
         Calls the OpenFoodFact API to retrieve products
         in the given category.
@@ -28,22 +28,22 @@ class OpenFoodFactsClient:
         req = requests.get(url, params=payload)
         return req.json().get('products')
 
-    def get_data_by_categories(self, categories, nb):
+    def _get_data_by_categories(self, categories, nb):
         '''
-        Calls get_data_by_category() for a list of categories.
+        Calls _get_data_by_category() for a list of categories.
         Returns a list of dictionaries (1 dict = data of  1 product)
         Adds the 'category' key in each dict.
         '''
         print("Retrieving data, please wait...")
         list = []
         for category in categories:
-            data = self.get_data_by_category(category, nb)
+            data = self._get_data_by_category(category, nb)
             for item in data:
                 item['category'] = category
             list.extend(data)
         return list
 
-    def change_data_keys(self, list):
+    def _change_data_keys(self, list):
         '''
         Returns a list of product data (dict) where keys are translated
         into those expected by Product class.
@@ -53,7 +53,7 @@ class OpenFoodFactsClient:
                      for product_data in list]
         return conv_list
 
-    def validate_data(self, dict):
+    def _validate_data(self, dict):
         '''
         Checks if dict data comply with arguments for product.Product().
         Returns a boolean.
@@ -68,18 +68,27 @@ class OpenFoodFactsClient:
 
         return all((check_nb_keys, check_keys, check_values))
 
-    def data_to_product(self, list):
+    def _data_to_product(self, list):
         '''
         Takes a list of dict (product data), checks arguments
         and returns a list of Product instances.
         '''
         return [product.Product(data) for data in list
-                if self.validate_data(data)]
+                if self._validate_data(data)]
+
+    def get_Products_from_API(self, categories, nb):
+        '''
+        Retrieve data from API, for categories
+        (and for nb products in each category).
+        Returns a list of Product objects.
+        '''
+        data = self._get_data_by_categories(categories, nb)
+        conv_data = self._change_data_keys(data)
+        products = self._data_to_product(conv_data)
+        return products
 
 
 if __name__ == "__main__":
     pr = OpenFoodFactsClient()
-    pat = pr.get_data_by_categories(['pate-a-tartiner'], 50)
-    conv_pat = pr.change_data_keys(pat)
-    products = pr.data_to_product(conv_pat)
+    products = pr.from_API_to_Products('pates-a-tartiner', 20)
     print([product.nutriscore for product in products])
