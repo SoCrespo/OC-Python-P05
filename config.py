@@ -63,12 +63,12 @@ DB_SCHEMA = 'project5/database_schema.sql'
 DB_TABLES_NAMES = ['category', 'product', 'substitution']
 
 # Matching between database fields and Product attributes
-DB_PRODUCT_FIELDS = {'prod_brand': 'brand',
-                     'prod_name': 'name',
-                     'prod_full_name': 'full_name',
-                     'prod_quantity': 'quantity',
-                     'prod_nutriscore_index': 'nutriscore',
+DB_PRODUCT_FIELDS = {'brand': 'brand',
+                     'name': 'name',
+                     'full_name': 'full_name',
+                     'quantity': 'quantity',
+                     'nutriscore_index': 'nutriscore',
                      'cat_id': 'category',
-                     'prod_url': 'url',
-                     'prod_ingredients': 'ingredients',
-                     'prod_stores': 'stores'}
+                     'url': 'url',
+                     'ingredients': 'ingredients',
+                     'stores': 'stores'}

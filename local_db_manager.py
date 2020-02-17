@@ -38,10 +38,10 @@ class LocalDBManager():
     def fill_category_table(self, categories):
         '''
         Take a list of categories as argument
-        and insert each as a new line in category table (cat_name).
+        and insert each as a new line in category table (name).
         '''
         for category in categories:
-            query = f"INSERT INTO category (cat_name) VALUES ('{category}');"
+            query = f"INSERT INTO category (name) VALUES ('{category}');"
             self.cursor.execute(query)
             self.mydb.commit()
             print(f'{category} record inserted')
