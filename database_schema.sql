@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `brand` VARCHAR(50) NOT NULL COMMENT 'Corresponds to brands_tags',
   `name` VARCHAR(50) NOT NULL COMMENT 'Corresponds to product_name_fr',
   `full_name` VARCHAR(100) CHARACTER SET 'utf8' NULL COMMENT 'Corresponds to generic_name_fr',
-  `nutriscore_index` CHAR(1) NOT NULL COMMENT 'corresponds to nutriscore_grades',
+  `nutriscore` CHAR(1) NOT NULL COMMENT 'corresponds to nutriscore_grades',
   `cat_id` INT(11) NOT NULL,
   `url` VARCHAR(2000) NOT NULL COMMENT 'corresponds to url',
   `ingredients` VARCHAR(2000) NULL COMMENT 'corresponds to ingredients_text',
