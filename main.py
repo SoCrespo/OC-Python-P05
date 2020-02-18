@@ -26,8 +26,8 @@ off_client = openfoodfacts_client.OpenFoodFactsClient()
 products = off_client.get_Products_from_API(categories, nb)
 
 
-for product in products:
-    print(f'{product.brand} {product.name}'
-          f', {product.quantity}, Nutriscore : {product.nutriscore.upper()}')
+# for product in products:
+#     print(f'{product.brand} {product.name}'
+#           f', {product.quantity}, Nutriscore : {product.nutriscore.upper()}')
 
-db.fill_database(db_fields, products)
+db.fill_database(products)

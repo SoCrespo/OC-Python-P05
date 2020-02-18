@@ -46,16 +46,28 @@ class LocalDBManager():
             self.mydb.commit()
             print(f'{category} record inserted')
 
-    def fill_database(self, fields, products):
-        ''' Inserts products in local database.
-        Fields is the list of table columns and
-        products a list of Product objects.'''
-        str_fields = ", ".join(fields)
-        print(str_fields)
+    def _insert_line(self, product):
+        '''
+        Insert 1 product in local database.
+        '''
+        prod_attribs = vars(product)
+        print(prod_attribs)
+        for key, value in prod_attribs:
+            pass
+            # query = f"INSERT INTO product({', '.join(str_fields)}) VALUES ()"
+
+    def fill_database(self, products):
+        '''
+        Insert products in local database.
+        '''
         for product in products:
-            prod_attribs = vars(product)
-            print(prod_attribs)
-            query = f"INSERT INTO product({', '.join(str_fields)}) VALUES ()"
+            self._insert_line(product)
+
+    def reset_table(self):
+        '''
+        Empty tables and recreate its content from API data.
+        '''
+        pass
 
 
 if __name__ == "__main__":
