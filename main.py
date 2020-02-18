@@ -5,7 +5,6 @@ import openfoodfacts_client
 import config as cf
 
 
-schema = cf.DB_SCHEMA
 categories = cf.CATEGORIES
 nb = cf.MAX_PRODUCTS_NB
 db_fields = cf.DB_PRODUCT_FIELDS.keys()
@@ -15,7 +14,7 @@ db_fields = cf.DB_PRODUCT_FIELDS.keys()
 # ##################################################
 db = custom_db_manager.CustomDBManager()
 db.connect_to_database()
-db.create_tables(schema)
+db.create_tables()
 db.fill_category_table(categories)
 
 # ##################################################

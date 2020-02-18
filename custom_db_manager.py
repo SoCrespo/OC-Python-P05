@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import mysql.connector
-from config import DB_CONNECTION_PARAMS
+from config import DB_CONNECTION_PARAMS, DB_SCHEMA
 
 
 class CustomDBManager():
@@ -17,8 +17,8 @@ class CustomDBManager():
     def close_db(self):
         self.cursor.close()
 
-    def create_tables(self, schema):
-        with open(schema, "r") as f:
+    def create_tables(self):
+        with open(DB_SCHEMA, "r") as f:
             lines = f.readlines()
             self.query = " ".join(lines)
         # the try...except... below is there because of a new behavior
