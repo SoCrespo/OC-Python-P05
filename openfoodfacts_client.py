@@ -106,5 +106,5 @@ class OpenFoodFactsClient:
 
 if __name__ == "__main__":
     pr = OpenFoodFactsClient()
-    products = pr.from_API_to_Products('pates-a-tartiner', 20)
-    print([product.nutriscore for product in products])
+    products = pr.get_Products_from_API()
+    print([(product.name, product.nutriscore) for product in products])
