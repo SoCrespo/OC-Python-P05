@@ -4,7 +4,7 @@ import mysql.connector
 from config import DB_CONNECTION_PARAMS
 
 
-class LocalDBManager():
+class CustomDBManager():
 
     def __init__(self):
         self.mydb = None

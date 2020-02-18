@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import local_db_manager
+import custom_db_manager
 import openfoodfacts_client
 import config as cf
 
@@ -13,7 +13,7 @@ db_fields = cf.DB_PRODUCT_FIELDS.keys()
 # ##################################################
 # Database creation
 # ##################################################
-db = local_db_manager.LocalDBManager()
+db = custom_db_manager.CustomDBManager()
 db.connect_to_database()
 db.create_tables(schema)
 db.fill_category_table(categories)
