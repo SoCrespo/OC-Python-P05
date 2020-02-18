@@ -7,7 +7,7 @@
 
 URL = 'https://fr.openfoodfacts.org/cgi/search.pl'
 
-
+# Choose categories that are not overlapping one another.
 CATEGORIES = [
     'pates-a-tartiner',
     'matieres-grasses-a-tartiner',
@@ -16,6 +16,10 @@ CATEGORIES = [
     'confiture-de-lait'
 ]
 
+# Provides matching between :
+# - API fields name, on one hand
+# - Product attributes and custom_database rows (they are the same),
+#   on the other hand.
 API_TO_PRODUCT_FIELDS = {
     'product_name_fr': 'name',
     'generic_name_fr': 'full_name',
@@ -28,12 +32,17 @@ API_TO_PRODUCT_FIELDS = {
     'category': 'category'
     }
 
+# Max number of products that must be returned by each API call for a category.
+# As some products are incomplete, ensure that this limit is at least 20
+# to get enough complete products.
 MAX_PRODUCTS_NB = 50
 
 #######################################
 # DATABASE PARAMETERS
 #######################################
 
+# Change this dict values (strings) according to the database
+# that will be used. Do not change the keys !
 DB_CONNECTION_PARAMS = {
     'user': 'offuser',
     'password': 'my!pass1worD',
@@ -42,16 +51,3 @@ DB_CONNECTION_PARAMS = {
     }
 
 DB_SCHEMA = 'project5/database_schema.sql'
-
-DB_TABLES_NAMES = ['category', 'product', 'substitution']
-
-# Matching between database fields and Product attributes
-DB_PRODUCT_FIELDS = {'brand': 'brand',
-                     'name': 'name',
-                     'full_name': 'full_name',
-                     'quantity': 'quantity',
-                     'nutriscore': 'nutriscore',
-                     'cat_id': 'category',
-                     'url': 'url',
-                     'ingredients': 'ingredients',
-                     'stores': 'stores'}
