@@ -14,7 +14,7 @@ class CustomDBManager():
         self.mydb = mysql.connector.connect(**DB_CONNECTION_PARAMS)
         self.cursor = self.mydb.cursor()
 
-    def close_db(self):
+    def close_database(self):
         self.cursor.close()
 
     def create_tables(self):
