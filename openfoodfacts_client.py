@@ -14,12 +14,16 @@ class OpenFoodFactsClient:
     def __init__(self):
         pass
 
-    def _payload_for(self, category, nb):
+    def _get_data_by_category(self, category, nb):
         '''
-        Returns the payload parameter (dict) for the API,
-        for category and nb of products that the API must return.
-        '''
-        return {
+        Calls the OpenFoodFact API to retrieve products
+        in the given category.
+
+        Downloaded fields are defined in config.py.
+        Returns a list of nb dictionaries (1 dict = data of 1 product).
+
+         '''
+        payload = {
             'action': 'process',
             'tagtype_0': 'categories',
             'tag_contains_0': 'contains',
@@ -30,17 +34,6 @@ class OpenFoodFactsClient:
             'page_size': nb,
             'json': 'true',
         }
-
-    def _get_data_by_category(self, category, nb):
-        '''
-        Calls the OpenFoodFact API to retrieve products
-        in the given category.
-
-        Downloaded fields are defined in config.py.
-        Returns a list of nb dictionaries (1 dict = data of 1 product).
-
-         '''
-        payload = self._payload_for(category, nb)
         req = requests.get(URL, params=payload)
         return req.json().get('products')
 
