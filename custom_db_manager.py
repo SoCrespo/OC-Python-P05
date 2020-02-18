@@ -41,7 +41,7 @@ class CustomDBManager():
             self.mydb.commit()
             print(f'{category} record inserted')
 
-    def _insert_line(self, product):
+    def _insert_product(self, product):
         '''
         Insert 1 product in local database.
         '''
@@ -51,12 +51,12 @@ class CustomDBManager():
             pass
             # query = f"INSERT INTO product({', '.join(str_fields)}) VALUES ()"
 
-    def fill_database(self, products):
+    def insert_products(self, products):
         '''
         Insert products in local database.
         '''
         for product in products:
-            self._insert_line(product)
+            self._insert_product(product)
 
     def reset_table(self):
         '''

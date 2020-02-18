@@ -23,4 +23,4 @@ for product in products:
     print(f'{product.brand} {product.name}'
           f', {product.quantity}, Nutriscore : {product.nutriscore.upper()}')
 
-# db.fill_database(products)
+# db.insert_products(products)
