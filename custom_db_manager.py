@@ -31,7 +31,7 @@ class CustomDBManager():
         except RuntimeError:
             pass
 
-    def fill_category_table(self, categories):
+    def fill_categories_table(self, categories):
         '''
         Take a list of categories as argument
         and insert each as a new line in category table (name).

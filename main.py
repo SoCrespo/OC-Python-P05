@@ -15,7 +15,7 @@ db_fields = cf.DB_PRODUCT_FIELDS.keys()
 db = custom_db_manager.CustomDBManager()
 db.connect_to_database()
 db.create_tables()
-db.fill_category_table(categories)
+db.fill_categories_table(categories)
 
 # ##################################################
 # Data retrieving from API as Product objects
