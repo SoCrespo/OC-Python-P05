@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import mysql.connector
+from config import DB_CONNECTION_PARAMS
 
 
 class LocalDBManager():
@@ -9,13 +10,8 @@ class LocalDBManager():
         self.mydb = None
         self.cursor = None
 
-    def connect_to_database(self, user, password, host, database):
-        self.mydb = mysql.connector.connect(
-            user=user,
-            password=password,
-            host=host,
-            database=database
-            )
+    def connect_to_database(self):
+        self.mydb = mysql.connector.connect(**DB_CONNECTION_PARAMS)
         self.cursor = self.mydb.cursor()
 
     def close_db(self):
