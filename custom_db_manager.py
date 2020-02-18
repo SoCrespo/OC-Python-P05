@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import mysql.connector
-from config import DB_CONNECTION_PARAMS, DB_SCHEMA
+from config import DB_CONNECTION_PARAMS, DB_SCHEMA, CATEGORIES
 
 
 class CustomDBManager():
@@ -31,12 +31,11 @@ class CustomDBManager():
         except RuntimeError:
             pass
 
-    def fill_categories_table(self, categories):
+    def fill_categories_table(self):
         '''
-        Take a list of categories as argument
-        and insert each as a new line in category table (name).
+        Inserts categories in categories table .
         '''
-        for category in categories:
+        for category in CATEGORIES:
             query = f"INSERT INTO category (name) VALUES ('{category}');"
             self.cursor.execute(query)
             self.mydb.commit()

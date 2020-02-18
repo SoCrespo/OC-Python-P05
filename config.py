@@ -61,3 +61,14 @@ DB_CONNECTION_PARAMS = {
 DB_SCHEMA = 'project5/database_schema.sql'
 
 DB_TABLES_NAMES = ['category', 'product', 'substitution']
+
+# Matching between database fields and Product attributes
+DB_PRODUCT_FIELDS = {'brand': 'brand',
+                     'name': 'name',
+                     'full_name': 'full_name',
+                     'quantity': 'quantity',
+                     'nutriscore': 'nutriscore',
+                     'cat_id': 'category',
+                     'url': 'url',
+                     'ingredients': 'ingredients',
+                     'stores': 'stores'}

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import requests
-import config as cf
+from config import URL, CATEGORIES, API_TO_PRODUCT_FIELDS, MAX_PRODUCTS_NB, payload_for
 import product
 
 
@@ -23,8 +23,8 @@ class OpenFoodFactsClient:
         Returns a list of nb dictionaries (1 dict = data of 1 product).
 
          '''
-        url = cf.URL
-        payload = cf.payload_for(category, nb)
+        url = URL
+        payload = payload_for(category, nb)
         req = requests.get(url, params=payload)
         return req.json().get('products')
 
@@ -48,7 +48,7 @@ class OpenFoodFactsClient:
         Returns a list of product data (dict) where keys are translated
         into those expected by Product class.
         '''
-        tags = cf.API_TO_PRODUCT_FIELDS
+        tags = API_TO_PRODUCT_FIELDS
         conv_list = [{tags[key]: value for key, value in product_data.items()}
                      for product_data in list]
         return conv_list
@@ -58,7 +58,7 @@ class OpenFoodFactsClient:
         Checks if dict data comply with arguments for product.Product().
         Returns a boolean.
         '''
-        required_keys = cf.API_TO_PRODUCT_FIELDS.values()
+        required_keys = API_TO_PRODUCT_FIELDS.values()
         dict_keys = dict.keys()
         dict_values = dict.values()
 
@@ -76,13 +76,13 @@ class OpenFoodFactsClient:
         return [product.Product(data) for data in list
                 if self._validate_data(data)]
 
-    def get_Products_from_API(self, categories, nb):
+    def get_Products_from_API(self):
         '''
-        Retrieve data from API, for categories
-        (and for nb products in each category).
+        Retrieve data from API, for CATEGORIES
+        (and for MAX_PRODUCTS_NB products in each category).
         Returns a list of Product objects.
         '''
-        data = self._get_data_by_categories(categories, nb)
+        data = self._get_data_by_categories(CATEGORIES, MAX_PRODUCTS_NB)
         conv_data = self._change_data_keys(data)
         products = self._data_to_product(conv_data)
         return products
