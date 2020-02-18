@@ -28,24 +28,7 @@ API_TO_PRODUCT_FIELDS = {
     'category': 'category'
     }
 
-API_FILTERING_FIELDS = ','.join(API_TO_PRODUCT_FIELDS.keys())
-
 MAX_PRODUCTS_NB = 50
-
-
-def payload_for(category, nb):
-    return {
-            'action': 'process',
-            'tagtype_0': 'categories',
-            'tag_contains_0': 'contains',
-            'tag_0': category,
-            'tagtype_1': 'nutrition_grade',
-            'tag_contains_1': 'contains',
-            'fields': API_FILTERING_FIELDS,
-            'page_size': nb,
-            'json': 'true',
-        }
-
 
 #######################################
 # DATABASE PARAMETERS
