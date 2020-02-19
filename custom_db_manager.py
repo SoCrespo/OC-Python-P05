@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import mysql.connector
-from config import DB_CONNECTION_PARAMS, DB_SCHEMA, API_CATEGORIES
+from config import DB_CONNECTION_PARAMS, DB_SCHEMA, CATEGORIES
 
 
 class CustomDBManager():
@@ -35,11 +35,11 @@ class CustomDBManager():
         '''
         Inserts categories in categories table .
         '''
-        for category in API_CATEGORIES:
-            query = f"INSERT INTO category (name) VALUES ('{category}');"
+        for name, full_name in CATEGORIES.items():
+            query = f"INSERT INTO category (name, full_name) VALUES ('{name}', '{full_name}');"
             self.cursor.execute(query)
             self.mydb.commit()
-            print(f'{category} record inserted')
+            print(f'{full_name} record inserted')
 
     def _insert_product(self, product):
         '''

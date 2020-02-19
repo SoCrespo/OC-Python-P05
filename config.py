@@ -14,7 +14,7 @@ URL = 'https://fr.openfoodfacts.org/cgi/search.pl'
 CATEGORIES = {
     'pates-a-tartiner': 'Pâtes à tartiner',
     'matieres-grasses-a-tartiner': 'Matières grasses à tartiner',
-    'pates-a-tartiner-a-base-de-levures': "pâtes à tartiner à base de levures",
+    'pates-a-tartiner-a-base-de-levures': "Pâtes à tartiner à base de levures",
     'confitures-de-fruits': 'Confitures de fruits',
     'confiture-de-lait': 'Confitures de lait',
 }
