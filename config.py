@@ -8,13 +8,19 @@
 URL = 'https://fr.openfoodfacts.org/cgi/search.pl'
 
 # Choose categories that are not overlapping one another.
-CATEGORIES = [
-    'pates-a-tartiner',
-    'matieres-grasses-a-tartiner',
-    'pates-a-tartiner-a-base-de-levures',
-    'confitures-de-fruits',
-    'confiture-de-lait'
-]
+# This dict ensures correspondence between categories tags in API
+# and their full name in the custom database.
+
+CATEGORIES = {
+    'pates-a-tartiner': 'Pâtes à tartiner',
+    'matieres-grasses-a-tartiner': 'Matières grasses à tartiner',
+    'pates-a-tartiner-a-base-de-levures': "pâtes à tartiner à base de levures",
+    'confitures-de-fruits': 'Confitures de fruits',
+    'confiture-de-lait': 'Confitures de lait',
+}
+
+API_CATEGORIES = CATEGORIES.keys()
+DB_CATEGORIES = CATEGORIES.values()
 
 # Provides matching between :
 # - API fields name, on one hand

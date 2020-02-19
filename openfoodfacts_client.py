@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import requests
-from config import URL, CATEGORIES, API_TO_PRODUCT_FIELDS, MAX_PRODUCTS_NB
+from config import URL, API_CATEGORIES, API_TO_PRODUCT_FIELDS, MAX_PRODUCTS_NB
 import product
 
 
@@ -87,11 +87,11 @@ class OpenFoodFactsClient:
 
     def get_Products_from_API(self):
         '''
-        Retrieve data from API, for CATEGORIES
+        Retrieve data from API, for API_CATEGORIES
         (and for MAX_PRODUCTS_NB products in each category).
         Returns a list of Product objects.
         '''
-        data = self._get_data_by_categories(CATEGORIES, MAX_PRODUCTS_NB)
+        data = self._get_data_by_categories(API_CATEGORIES, MAX_PRODUCTS_NB)
         conv_data = self._change_data_keys(data)
         products = self._data_to_product(conv_data)
         return products
