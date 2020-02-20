@@ -7,13 +7,9 @@ from config import DB_CONNECTION_PARAMS, DB_SCHEMA, CATEGORIES
 class CustomDBManager():
 
     def __init__(self):
-        self.mydb = None
-        self.cursor = None
-        self.categories = None
-
-    def connect_to_database(self):
         self.mydb = mysql.connector.connect(**DB_CONNECTION_PARAMS)
         self.cursor = self.mydb.cursor()
+        self.categories = None
 
     def close_database(self):
         self.cursor.close()
@@ -43,8 +39,8 @@ class CustomDBManager():
             print(f'{full_name} record inserted')
 
     def get_categories_rows(self):
-        '''Returns a dict of categories table content under the form:
-        {id: (name, full_name)}.
+        '''sets self.categories as a dict of categories table content,
+        under the form {id: (name, full_name)}.
         '''
         query = f"SELECT * FROM category"
         self.cursor.execute(query)
@@ -53,14 +49,15 @@ class CustomDBManager():
             content.update({id: (name, full_name)})
         self.categories = content
 
-    # def _insert_product(self, product):
-    #     '''
-    #     Insert 1 product in local database.
-    #     '''
-    #     prod_attribs = vars(product)
-    #     print(prod_attribs)
-    #     for key, value in prod_attribs.items():
-    #         query = f"INSERT INTO product({', '.join(str_fields)}) VALUES ()"
+    def _insert_product(self, product):
+        '''
+        Insert 1 product in local database.
+        '''
+        prod_attribs = vars(product)
+        prod_attribs['category'] = self.categories.get()
+        print(prod_attribs)
+        for key, value in prod_attribs.items():
+            query = f"INSERT INTO product({', '.join(str_fields)}) VALUES ()"
 
     # def insert_products(self, products):
     #     '''
