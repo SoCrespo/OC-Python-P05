@@ -39,8 +39,8 @@ class CustomDBManager():
             self.mydb.commit()
 
     def get_categories_rows(self):
-        '''sets self.categories as a list of RowTranslator objects. These objects
-        have following attributes : id, name, full_name.
+        '''sets self.categories as a list of RowTranslator objects. These
+        objects have following attributes : id, name, full_name.
         '''
         query = f"SELECT * FROM category"
         self.cursor.execute(query)
@@ -63,9 +63,13 @@ class CustomDBManager():
         Insert a product in local database.
         '''
         self._convert_category_to_cat_id(product)
-        keys = ", ".join(vars(product).keys())
-        values = "'" + "', '".join(vars(product).values()) + "'"
-        query = f"INSERT INTO product ({keys}) VALUES ({values});"
+        str_keys = ", ".join(vars(product).keys())
+
+        values = vars(product).values()
+        escaped_values = [value.replace("'", "''") for value in values]
+        str_values = "', '".join(escaped_values)
+        query = f"INSERT INTO product ({str_keys}) VALUES ('{str_values}');"
+
         print(query)
         self.cursor.execute(query)
         self.mydb.commit()
