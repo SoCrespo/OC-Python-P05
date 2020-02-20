@@ -36,7 +36,6 @@ class CustomDBManager():
             query = f"INSERT INTO category (name, full_name) VALUES ('{name}', '{full_name}');"
             self.cursor.execute(query)
             self.mydb.commit()
-            print(f'{full_name} record inserted')
 
     def get_categories_rows(self):
         '''sets self.categories as a dict of categories table content,
