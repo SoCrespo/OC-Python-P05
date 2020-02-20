@@ -9,6 +9,7 @@ class CustomDBManager():
     def __init__(self):
         self.mydb = None
         self.cursor = None
+        self.categories = None
 
     def connect_to_database(self):
         self.mydb = mysql.connector.connect(**DB_CONNECTION_PARAMS)
@@ -41,22 +42,32 @@ class CustomDBManager():
             self.mydb.commit()
             print(f'{full_name} record inserted')
 
-    def _insert_product(self, product):
+    def get_categories_rows(self):
+        '''Returns a dict of categories table content under the form:
+        {id: (name, full_name)}.
         '''
-        Insert 1 product in local database.
-        '''
-        prod_attribs = vars(product)
-        print(prod_attribs)
-        for key, value in prod_attribs:
-            pass
-            # query = f"INSERT INTO product({', '.join(str_fields)}) VALUES ()"
+        query = f"SELECT * FROM category"
+        self.cursor.execute(query)
+        content = dict()
+        for (id, name, full_name) in self.cursor:
+            content.update({id: (name, full_name)})
+        self.categories = content
 
-    def insert_products(self, products):
-        '''
-        Insert products in local database.
-        '''
-        for product in products:
-            self._insert_product(product)
+    # def _insert_product(self, product):
+    #     '''
+    #     Insert 1 product in local database.
+    #     '''
+    #     prod_attribs = vars(product)
+    #     print(prod_attribs)
+    #     for key, value in prod_attribs.items():
+    #         query = f"INSERT INTO product({', '.join(str_fields)}) VALUES ()"
+
+    # def insert_products(self, products):
+    #     '''
+    #     Insert products in local database.
+    #     '''
+    #     for product in products:
+    #         self._insert_product(product)
 
     def reset_table(self):
         '''
