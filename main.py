@@ -19,4 +19,4 @@ off_client = openfoodfacts_client.OpenFoodFactsClient()
 products = off_client.get_Products_from_API()
 
 
-# db.insert_products(products)
+db.insert_products(products)

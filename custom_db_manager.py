@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import mysql.connector
+import row_translator
 from config import DB_CONNECTION_PARAMS, DB_SCHEMA, CATEGORIES
 
 
@@ -38,32 +39,43 @@ class CustomDBManager():
             self.mydb.commit()
 
     def get_categories_rows(self):
-        '''sets self.categories as a dict of categories table content,
-        under the form {id: (name, full_name)}.
+        '''sets self.categories as a list of RowTranslator objects. These objects
+        have following attributes : id, name, full_name.
         '''
         query = f"SELECT * FROM category"
         self.cursor.execute(query)
-        content = dict()
+        categories_rows = []
         for (id, name, full_name) in self.cursor:
-            content.update({id: (name, full_name)})
-        self.categories = content
+            categories_rows.append(row_translator.Rowtranslator(id, name, full_name))
+        self.categories = categories_rows
+
+    def _convert_category_to_cat_id(self, product):
+        '''
+        For a Product instance, creates cat_id attribute (according to
+        category table) and deletes category attribute.
+        '''
+        product.cat_id = str([item.id for item in self.categories
+                             if item.name == product.category][0])
+        del(product.category)
 
     def _insert_product(self, product):
         '''
-        Insert 1 product in local database.
+        Insert a product in local database.
         '''
-        prod_attribs = vars(product)
-        prod_attribs['category'] = self.categories.get()
-        print(prod_attribs)
-        for key, value in prod_attribs.items():
-            query = f"INSERT INTO product({', '.join(str_fields)}) VALUES ()"
+        self._convert_category_to_cat_id(product)
+        keys = ", ".join(vars(product).keys())
+        values = "'" + "', '".join(vars(product).values()) + "'"
+        query = f"INSERT INTO product ({keys}) VALUES ({values});"
+        print(query)
+        self.cursor.execute(query)
+        self.mydb.commit()
 
-    # def insert_products(self, products):
-    #     '''
-    #     Insert products in local database.
-    #     '''
-    #     for product in products:
-    #         self._insert_product(product)
+    def insert_products(self, products):
+        '''
+        Insert products in local database.
+        '''
+        for product in products:
+            self._insert_product(product)
 
     def reset_table(self):
         '''
