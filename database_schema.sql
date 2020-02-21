@@ -7,6 +7,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema offdb2020p5
 -- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `offdb2020p5` DEFAULT CHARACTER SET latin1 ;
 USE `offdb2020p5` ;
 
 -- -----------------------------------------------------
@@ -31,14 +32,14 @@ DROP TABLE IF EXISTS `product` ;
 
 CREATE TABLE IF NOT EXISTS `product` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `brand` VARCHAR(50) NOT NULL COMMENT 'Corresponds to brands_tags',
-  `name` VARCHAR(50) NOT NULL COMMENT 'Corresponds to product_name_fr',
-  `full_name` VARCHAR(100) CHARACTER SET 'utf8' NULL DEFAULT NULL COMMENT 'Corresponds to generic_name_fr',
+  `brand` VARCHAR(200) NOT NULL COMMENT 'Corresponds to brands_tags',
+  `name` VARCHAR(200) NOT NULL COMMENT 'Corresponds to product_name_fr',
+  `full_name` VARCHAR(200) CHARACTER SET 'utf8' NULL DEFAULT NULL COMMENT 'Corresponds to generic_name_fr',
   `nutriscore` CHAR(1) NOT NULL COMMENT 'corresponds to nutriscore_grades',
   `cat_id` INT(11) NOT NULL,
   `url` VARCHAR(2000) NOT NULL COMMENT 'corresponds to url',
   `ingredients` VARCHAR(2000) NULL DEFAULT NULL COMMENT 'corresponds to ingredients_text',
-  `stores` VARCHAR(50) NULL DEFAULT NULL COMMENT 'Corresponds to stores',
+  `stores` VARCHAR(200) NULL DEFAULT NULL COMMENT 'Corresponds to stores',
   `quantity` VARCHAR(8) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_product_category` (`cat_id` ASC),
