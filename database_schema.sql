@@ -13,7 +13,7 @@ USE `offdb2020p5` ;
 -- -----------------------------------------------------
 -- Table `category`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `category` ;
+-- DROP TABLE IF EXISTS `category` ;
 
 CREATE TABLE IF NOT EXISTS `category` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -28,7 +28,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `product`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `product` ;
+-- DROP TABLE IF EXISTS `product` ;
 
 CREATE TABLE IF NOT EXISTS `product` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -54,7 +54,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `substitution`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `substitution` ;
+-- DROP TABLE IF EXISTS `substitution` ;
 
 CREATE TABLE IF NOT EXISTS `substitution` (
   `origin_id` INT(11) NOT NULL,
