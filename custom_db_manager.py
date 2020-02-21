@@ -86,11 +86,19 @@ class CustomDBManager():
         for product in products:
             self._insert_product(product)
 
-    def reset_table(self):
+    def empty_database(self):
         '''
-        Empty tables and recreate its content from API data.
+        Drops all tables.
         '''
-        pass
+        self.cursor.execute("SET FOREIGN_KEY_CHECKS = 0;")
+        self.cursor.execute("SELECT table_name FROM information_schema.tables \
+                            WHERE table_schema = 'offdb2020p5';",)
+        tables = [item[0] for item in self.cursor]
+        for table in tables:
+            query = f"DROP TABLE IF EXISTS {table};"
+            self.cursor.execute(query)
+            print(f'Table {table} deleted...')
+        print('All tables deleted.')    
 
 
 if __name__ == "__main__":
