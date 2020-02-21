@@ -16,14 +16,15 @@ class CustomDBManager():
         self.cursor.close()
 
     def create_tables(self):
+        query = ''
         with open(DB_SCHEMA, "r") as f:
             lines = f.readlines()
-            self.query = " ".join(lines)
+            query = " ".join(lines)
         # the try...except... below is there because of a new behavior
         # of generators in Python 3.7. See here :
         # https://stackoverflow.com/questions/51700960/runtimeerror-generator-raised-stopiteration-every-time-i-try-to-run-app
         try:
-            for item in self.cursor.execute(self.query, multi=True):
+            for item in self.cursor.execute(query, multi=True):
                 # cursor.execute is an iterator if multi=True
                 pass
         except RuntimeError:
@@ -34,7 +35,10 @@ class CustomDBManager():
         Inserts categories in categories table .
         '''
         for name, full_name in CATEGORIES.items():
-            query = f"INSERT INTO category (name, full_name) VALUES ('{name}', '{full_name}');"
+            query = (
+                        f"INSERT INTO category (name, full_name)"
+                        f"VALUES ('{name}', '{full_name}');"
+            )
             self.cursor.execute(query)
             self.mydb.commit()
 
@@ -46,7 +50,8 @@ class CustomDBManager():
         self.cursor.execute(query)
         categories_rows = []
         for (id, name, full_name) in self.cursor:
-            categories_rows.append(row_translator.Rowtranslator(id, name, full_name))
+            categories_rows.append(
+                row_translator.Rowtranslator(id, name, full_name))
         self.categories = categories_rows
 
     def _convert_category_to_cat_id(self, product):
