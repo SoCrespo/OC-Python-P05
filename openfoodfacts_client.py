@@ -8,11 +8,11 @@ import product
 class OpenFoodFactsClient:
     '''
     Retrieves data from openFoodFactAPI and converts them
-    in a list of Product objects.
+    in a list of Product objects as instance attribute.
     '''
 
     def __init__(self):
-        pass
+        self.products = self._get_Products_from_API()
 
     def _get_data_by_category(self, category, nb):
         '''
@@ -50,6 +50,7 @@ class OpenFoodFactsClient:
             for item in data:
                 item['category'] = category
             list.extend(data)
+        print('Data successfully retrieved.')
         return list
 
     def _change_data_keys(self, list):
@@ -85,7 +86,7 @@ class OpenFoodFactsClient:
         return [product.Product(data) for data in list
                 if self._validate_data(data)]
 
-    def get_Products_from_API(self):
+    def _get_Products_from_API(self):
         '''
         Retrieve data from API, for API_CATEGORIES
         (and for MAX_PRODUCTS_NB products in each category).
@@ -99,5 +100,4 @@ class OpenFoodFactsClient:
 
 if __name__ == "__main__":
     pr = OpenFoodFactsClient()
-    products = pr.get_Products_from_API()
-    print([(product.name, product.nutriscore) for product in products])
+    print([(product.name, product.nutriscore) for product in pr.products])
