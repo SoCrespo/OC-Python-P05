@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import mysql.connector
-import row_translator
+import category
 from config import DB_CONNECTION_PARAMS, DB_SCHEMA, CATEGORIES
 
 
@@ -15,7 +15,7 @@ class CustomDBManager():
     def close_database(self):
         self.cursor.close()
 
-    def create_tables(self):
+    def _create_tables(self):
         query = ''
         with open(DB_SCHEMA, "r") as f:
             lines = f.readlines()
@@ -30,7 +30,7 @@ class CustomDBManager():
         except RuntimeError:
             pass
 
-    def fill_categories_table(self):
+    def _fill_categories_table(self):
         '''
         Inserts categories in categories table .
         '''
@@ -42,8 +42,8 @@ class CustomDBManager():
             self.cursor.execute(query)
             self.mydb.commit()
 
-    def get_categories_rows(self):
-        '''sets self.categories as a list of RowTranslator objects. These
+    def _get_categories_rows(self):
+        '''sets self.categories as a list of Category objects. These
         objects have following attributes : id, name, full_name.
         '''
         query = f"SELECT * FROM category"
@@ -51,7 +51,7 @@ class CustomDBManager():
         categories_rows = []
         for (id, name, full_name) in self.cursor:
             categories_rows.append(
-                row_translator.Rowtranslator(id, name, full_name))
+                category.Category(id, name, full_name))
         self.categories = categories_rows
 
     def _convert_category_to_cat_id(self, product):
@@ -74,17 +74,22 @@ class CustomDBManager():
         escaped_values = [value.replace("'", "''") for value in values]
         str_values = "', '".join(escaped_values)
         query = f"INSERT INTO product ({str_keys}) VALUES ('{str_values}');"
-
-        print(query)
         self.cursor.execute(query)
         self.mydb.commit()
 
-    def insert_products(self, products):
+    def _insert_products(self, products):
         '''
         Insert products in local database.
         '''
         for product in products:
             self._insert_product(product)
+        print('Data successfully inserted in database.')
+
+    def set_database(self, products):
+        self._create_tables()
+        self._fill_categories_table()
+        self._get_categories_rows()
+        self._insert_products(products)
 
     def empty_database(self):
         '''
@@ -98,7 +103,7 @@ class CustomDBManager():
             query = f"DROP TABLE IF EXISTS {table};"
             self.cursor.execute(query)
             print(f'Table {table} deleted...')
-        print('All tables deleted.')    
+        print('All tables deleted.')
 
 
 if __name__ == "__main__":
