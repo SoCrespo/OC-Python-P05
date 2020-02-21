@@ -7,7 +7,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema offdb2020p5
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `offdb2020p5` DEFAULT CHARACTER SET latin1 ;
+CREATE SCHEMA IF NOT EXISTS `offdb2020p5` DEFAULT CHARACTER SET utf8 ;
 USE `offdb2020p5` ;
 
 -- -----------------------------------------------------
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 6
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `product` (
     FOREIGN KEY (`cat_id`)
     REFERENCES `category` (`id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `substitution` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
