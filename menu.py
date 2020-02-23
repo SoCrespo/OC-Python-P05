@@ -1,90 +1,50 @@
 # -*- coding: utf-8 -*-
 
 
+MAIN_MENU = ['MENU PRINCIPAL',
+             'Rechercher des substituts à un produit',
+             'Afficher les substitutions enregistrées',
+             'Réinitialisation complète',
+             'Quitter'
+             ]
+
+
 class Menu:
 
     def __init__(self):
         pass
 
-    def choose_in_main_menu(self):
+    def choose_in_list(self, list):
         '''
-        Asks user to choose among 4 options:
-        - search a product
-        - access saved previous searches
-        - reset database
-        - quit
-        returns user's option (int between 1 and 4).
+        Displays a list (1st item is the title of the list)
+        and asks user to choose an option (0 to go back to main menu).
+        Returns the number entered by user (int).
         '''
+        title = list[0]
+        options = list[1:]
+        option_indexes = range(1, len(options)+1)
 
-        options_text = '''
-        Choisissez parmi les options suivantes :
+        print(f'\n{title} \n')
 
-        1 - Rechercher des substituts à un produit
-        2 - Afficher les substitutions enregistrées
-        3 - Réinitialiser la base de données (supprimera vos enregistrements)
-        4 - Quitter
+        for index, option in zip(option_indexes, options):
+            print(f'{index} - {option}')
 
-        '''
-        print(options_text)
-        option = None
-        while option not in [1, 2, 3, 4]:
+        choice = None
+
+        while choice not in option_indexes:
             try:
-                option = int(input("Votre choix (1, 2, 3 ou 4) : "))
+                choice = int(input("Entrez le numéro de votre choix : "))
             except ValueError:
                 pass
+        return choice
 
-        options_dict = {
-            1: self.select_category,
-            2: self.show_substitutes,
-            3: self.reset_database,
-            4: self.quit_app
-        }
-        return options_dict[option]
-
-    def select_category(self):
+    def choose_in_main_menu(self):
         '''
-        Displays categories and aaks user to select one.
+        Ask the user to select one of the main menu options. Returns an int
+        according to MAIN_MENU constant.
         '''
-        print('fonction select_category')
-
-    def select_product(self, list):
-        '''
-        Asks user to choose a product in a given list.
-        '''
-        pass
-
-    def show_substitutes(self, product):
-        '''
-        Displays a list of healthier substitutes (better nutriscore index)
-        for the selected product.
-        '''
-        # provide answer if no healthier substitute can be found.
-        print('fonction show_substitute')
-
-    def display_product(self, product):
-        '''
-        Displays all fields of a product
-        (name, nutriscore, ingredients, url...)
-        '''
-        pass
-
-    def save_substitution(self, product, substitute):
-        '''
-        Records substitute for a product.
-        '''
-        pass
-
-    def reset_database(self):
-        '''Drops all tables of database and recreates the list of products.
-        CAUTION : deletes also all recorded substitutions !
-        '''
-        # provide double validation and warning
-        # for recorded substitutions deletion.
-        print('fonction reset_database')
-
-    def quit_app(self):
-        '''Closes DB and quits app.'''
-        print('fonction quit_app')
+        choice = self.choose_in_list(MAIN_MENU)
+        return choice
 
 
 if __name__ == "__main__":
