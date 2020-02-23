@@ -11,9 +11,22 @@ class CustomDBManager():
         self.mydb = mysql.connector.connect(**DB_CONNECTION_PARAMS)
         self.cursor = self.mydb.cursor()
         self.categories = None
+        self.is_empty = self._is_empty()
 
     def close_database(self):
         self.cursor.close()
+
+    def _is_empty(self):
+        '''Checks if database is empty (no tables). Returns boolean.'''
+        tables = 'information_schema.tables'
+        query = (
+                 f"SELECT {tables}.table_name FROM {tables}"
+                 f" WHERE {tables}.table_schema = "
+                 f"'{DB_CONNECTION_PARAMS['database']}'"
+                 )
+        self.cursor.execute(query)
+        table_number = self.cursor.fetchall()
+        return len(table_number) == 0
 
     def _create_tables(self):
         query = ''
@@ -90,6 +103,7 @@ class CustomDBManager():
         self._fill_categories_table()
         self._get_categories_rows()
         self._insert_products(products)
+        self.is_empty = False
 
     def empty_database(self):
         '''
@@ -104,6 +118,7 @@ class CustomDBManager():
             self.cursor.execute(query)
             print(f'Table {table} deleted...')
         print('All tables deleted.')
+        self.is_empty = True
 
 
 if __name__ == "__main__":
