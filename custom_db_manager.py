@@ -105,6 +105,11 @@ class CustomDBManager():
         self._insert_products(products)
         self.is_empty = False
 
+    def get_categories(self):
+        '''Returns a list of Category objects.'''
+        self._get_categories_rows()
+        return self.categories
+
     def empty_database(self):
         '''
         Drops all tables.
