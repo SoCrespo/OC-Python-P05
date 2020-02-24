@@ -16,7 +16,7 @@ class Main():
             self.off_client = openfoodfacts_client.OpenFoodFactsClient()
             self.db.set_database(self.off_client.products)
 
-    def cls(self):
+    def clear_screen(self):
         os.system('cls||clear')
 
     def _choose_category(self):
@@ -90,10 +90,10 @@ if __name__ == '__main__':
     app = Main()
 
     while True:
-        app.cls()
+        app.clear_screen()
         result = app.choose_in_main_menu()
         if result == 1:
-            app.cls()
+            app.clear_screen()
             app.find_substitute()
             # if user wants to save the substitution:
             # _save_substitution(product, substitute)
