@@ -33,7 +33,7 @@ class Menu:
 
         while choice not in option_indexes:
             try:
-                choice = int(input("Entrez le numéro de votre choix : "))
+                choice = int(input("\nEntrez le numéro de votre choix : "))
             except ValueError:
                 pass
         return choice
@@ -45,6 +45,11 @@ class Menu:
         '''
         choice = self.choose_in_list(MAIN_MENU)
         return choice
+
+    def display_product(self, product):
+        product_dict = vars(product)
+        for key, value in product_dict:
+            print(f'{key}: {value}')
 
 
 if __name__ == "__main__":
