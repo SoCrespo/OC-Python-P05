@@ -4,7 +4,7 @@
 class Product:
 
     def __init__(self, dict):
-        self.id = None
+        self.cat_id = None
         self.category = dict['category']
         self.brand = dict['brand']
         self.name = dict['name']
