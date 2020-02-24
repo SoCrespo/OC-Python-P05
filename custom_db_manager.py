@@ -13,7 +13,34 @@ class CustomDBManager():
         self.categories = None
         self.is_empty = self._is_empty()
 
+    def set_database(self, products):
+        '''Creates tables and fills them with API data.'''
+        self._create_tables()
+        self._fill_categories_table()
+        self._get_categories_rows()
+        self._insert_products(products)
+        self.is_empty = False
+
+    def get_categories(self):
+        '''Returns a list of Category objects.'''
+        self._get_categories_rows()
+        return self.categories
+
+    def empty_database(self):
+        '''Drops all tables.'''
+        self.cursor.execute("SET FOREIGN_KEY_CHECKS = 0;")
+        self.cursor.execute("SELECT table_name FROM information_schema.tables \
+                            WHERE table_schema = 'offdb2020p5';",)
+        tables = [item[0] for item in self.cursor]
+        for table in tables:
+            query = f"DROP TABLE IF EXISTS {table};"
+            self.cursor.execute(query)
+            print(f'Table {table} deleted...')
+        print('All tables deleted.')
+        self.is_empty = True
+
     def close_database(self):
+        '''Closes database.'''
         self.cursor.close()
 
     def _is_empty(self):
@@ -44,9 +71,7 @@ class CustomDBManager():
             pass
 
     def _fill_categories_table(self):
-        '''
-        Inserts categories in categories table .
-        '''
+        '''Inserts categories in categories table.'''
         for name, full_name in CATEGORIES.items():
             query = (
                         f"INSERT INTO category (name, full_name)"
@@ -56,8 +81,8 @@ class CustomDBManager():
             self.mydb.commit()
 
     def _get_categories_rows(self):
-        '''sets self.categories as a list of Category objects. These
-        objects have following attributes : id, name, full_name.
+        '''Sets self.categories as a list of Category objects.
+        These objects have following attributes : id, name, full_name.
         '''
         query = f"SELECT * FROM category"
         self.cursor.execute(query)
@@ -77,9 +102,7 @@ class CustomDBManager():
         del(product.category)
 
     def _insert_product(self, product):
-        '''
-        Insert a product in local database.
-        '''
+        '''Insert 1 product in local database. '''
         self._convert_category_to_cat_id(product)
         str_keys = ", ".join(vars(product).keys())
 
@@ -91,39 +114,14 @@ class CustomDBManager():
         self.mydb.commit()
 
     def _insert_products(self, products):
-        '''
-        Insert products in local database.
-        '''
+        '''Insert products in local database.'''
         for product in products:
             self._insert_product(product)
         print('Data successfully inserted in database.')
 
-    def set_database(self, products):
-        self._create_tables()
-        self._fill_categories_table()
-        self._get_categories_rows()
-        self._insert_products(products)
-        self.is_empty = False
-
-    def get_categories(self):
-        '''Returns a list of Category objects.'''
-        self._get_categories_rows()
-        return self.categories
-
-    def empty_database(self):
-        '''
-        Drops all tables.
-        '''
-        self.cursor.execute("SET FOREIGN_KEY_CHECKS = 0;")
-        self.cursor.execute("SELECT table_name FROM information_schema.tables \
-                            WHERE table_schema = 'offdb2020p5';",)
-        tables = [item[0] for item in self.cursor]
-        for table in tables:
-            query = f"DROP TABLE IF EXISTS {table};"
-            self.cursor.execute(query)
-            print(f'Table {table} deleted...')
-        print('All tables deleted.')
-        self.is_empty = True
+    def _convert_line_to_product(self):
+        ''' Converts an SQL record to a Product object.'''
+        pass
 
 
 if __name__ == "__main__":
