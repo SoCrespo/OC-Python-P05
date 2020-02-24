@@ -16,8 +16,8 @@ class Main():
             self.off_client = openfoodfacts_client.OpenFoodFactsClient()
             self.db.set_database(self.off_client.products)
 
-    # def choose_in_main_menu(self):
-    #     self.menu.choose_in_main_menu()
+    def choose_in_main_menu(self):
+        return self.menu.choose_in_main_menu()
 
     def search_substitute(self):
         print('option 1 en cours de construction')
@@ -68,9 +68,8 @@ if __name__ == '__main__':
     app = Main()
 
     while True:
-        # os.system('cls||clear')
-        result = app.menu.choose_in_main_menu()
-        print(result)
+        os.system('cls||clear')
+        result = app.choose_in_main_menu()
         if result == 1:
             app.search_substitute()
         elif result == 2:
