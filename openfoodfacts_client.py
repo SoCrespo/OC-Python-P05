@@ -59,8 +59,9 @@ class OpenFoodFactsClient:
         Returns a list of product data (dict) where keys are translated
         into those expected by Product class.
         '''
-        tags = API_TO_PRODUCT_FIELDS
-        conv_list = [{tags[key]: value for key, value in product_data.items()}
+
+        conv_list = [{API_TO_PRODUCT_FIELDS[key]: value
+                     for key, value in product_data.items()}
                      for product_data in list]
         return conv_list
 
