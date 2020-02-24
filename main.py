@@ -32,11 +32,11 @@ class Main():
               if categories.index(category) == cat_index][0]
         return id
 
-    def _choose_product(self):
+    def _choose_product(self, category):
         # display products and ask user to choose one
         pass
 
-    def _choose_substitute(self):
+    def _choose_substitute(self, product):
         # display substitutes and ask user to choose one
         pass
 
