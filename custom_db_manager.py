@@ -36,6 +36,7 @@ class CustomDBManager():
             query = f"DROP TABLE IF EXISTS {table};"
             self.cursor.execute(query)
             print(f'Table {table} deleted...')
+        self.cursor.execute("SET FOREIGN_KEY_CHECKS = 1;")
         print('All tables deleted.')
         self.is_empty = True
 
