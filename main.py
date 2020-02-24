@@ -16,23 +16,45 @@ class Main():
             self.off_client = openfoodfacts_client.OpenFoodFactsClient()
             self.db.set_database(self.off_client.products)
 
+    def cls(self):
+        os.system('cls||clear')
+
+    def _choose_category(self):
+        '''
+        Ask user to choose a category of products. Returns category.id.
+        '''
+        categories = self.db.get_categories()
+        categories_list = ['CATEGORIES']
+        categories_list.extend([category.name for category in categories])
+
+        cat_index = self.menu.choose_in_list(categories_list)
+        id = [category.id for category in categories
+              if categories.index(category) == cat_index][0]
+        return id
+
+    def _choose_product(self):
+        # display products and ask user to choose one
+        pass
+
+    def _choose_substitute(self):
+        # display substitutes and ask user to choose one
+        pass
+
+    def _save_substitution(self):
+        # ask user if they want to record the substitution
+        # if yes : save substitution
+        pass
+
     def choose_in_main_menu(self):
         return self.menu.choose_in_main_menu()
 
-    def search_substitute(self):
-        print('option 1 en cours de construction')
-        # retrieve categories
-        # display caterogies and ask user to choose one
-        # display products and ask user to choose one
-        # display substitutes and ask user to choose one
-        # display informations for the selected substitute
-        # ask user if they want to record the substitution
-        # if yes : record substitution
-        # display main menu
-        pass
+    def find_substitute(self):
+        category = self._choose_category()
+        product = self._choose_product(category)
+        substitute = self._choose_substitute(product)
+        self.menu.display_product(substitute)
 
     def show_substitutions(self):
-        print('option 2 en cours de construction')
         # display recorded substitutions and ask user to choose one
         # display information for the selected substitute
         # ask for 0 to go back to main menu
@@ -68,10 +90,13 @@ if __name__ == '__main__':
     app = Main()
 
     while True:
-        os.system('cls||clear')
+        app.cls()
         result = app.choose_in_main_menu()
         if result == 1:
-            app.search_substitute()
+            app.cls()
+            app.find_substitute()
+            # if user wants to save the substitution:
+            # _save_substitution(product, substitute)
         elif result == 2:
             app.show_substitutions()
         elif result == 3:
