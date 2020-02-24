@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
+import constants
 
-
-MAIN_MENU = ['MENU PRINCIPAL',
-             'Rechercher des substituts à un produit',
-             'Afficher les substitutions enregistrées',
-             'Réinitialisation complète',
-             'Quitter'
-             ]
+MAIN_MENU = constants.MAIN_MENU
 
 
 class Menu:
