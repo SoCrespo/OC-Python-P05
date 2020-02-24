@@ -1,32 +1,33 @@
 # -*- coding: utf-8 -*-
 import constants
+import option
 
-MAIN_MENU = constants.MAIN_MENU
+MAIN_MENU_TITLE = constants.MAIN_MENU_TITLE
+MAIN_MENU_CONTENT = constants.MAIN_MENU_CONTENT
 
 
 class Menu:
 
     def __init__(self):
-        pass
+        self.main_menu_options = option.Option(MAIN_MENU_TITLE,
+                                               MAIN_MENU_CONTENT)
 
-    def choose_in_list(self, list):
+    def choose(self, option):
         '''
-        Displays a list (1st item is the title of the list)
-        and asks user to choose an option (0 to go back to main menu).
+        Displays a menu (title and content of Option object)
+        and asks user to choose an option.
         Returns the number entered by user (int).
         '''
-        title = list[0]
-        options = list[1:]
-        option_indexes = range(1, len(options)+1)
+        title = option.title
+        content = option.content
 
         print(f'\n{title} \n')
-
-        for index, option in zip(option_indexes, options):
+        for index, option in enumerate(content, 1):
             print(f'{index} - {option}')
 
         choice = None
 
-        while choice not in option_indexes:
+        while choice not in range(1, len(content)+1):
             try:
                 choice = int(input("\nEntrez le numéro de votre choix : "))
             except ValueError:
@@ -38,8 +39,7 @@ class Menu:
         Ask the user to select one of the main menu options. Returns an int
         according to MAIN_MENU constant.
         '''
-        choice = self.choose_in_list(MAIN_MENU)
-        return choice
+        return self.choose(self.main_menu_options)
 
     def display_product(self, product):
         product_dict = vars(product)

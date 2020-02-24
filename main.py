@@ -4,6 +4,7 @@ import os
 import custom_db_manager
 import openfoodfacts_client
 import menu
+import option
 
 
 class Main():
@@ -61,16 +62,18 @@ class Main():
 
     def _choose_category(self):
         '''
-        Ask user to choose a category of products. Returns category.id.
+        Ask user to choose a category of products. Returns category object.
         '''
         categories = self.db.get_categories()
-        categories_list = ['CATEGORIES']
-        categories_list.extend([category.name for category in categories])
+        categories_options = option.Option('CATEGORIES',
+                                           [category.full_name
+                                            for category in categories]
+                                           )
 
-        cat_index = self.menu.choose_in_list(categories_list)
-        id = [category.id for category in categories
-              if categories.index(category) == cat_index][0]
-        return id
+        selected_category_index = self.menu.choose(categories_options)
+        selected_category = categories_options.content[
+                                        selected_category_index - 1]
+        return selected_category
 
     def _choose_product(self, category):
         # display products and ask user to choose one
