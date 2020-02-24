@@ -79,7 +79,7 @@ class CustomDBManager():
                         f"VALUES ('{name}', '{full_name}');"
             )
             self.cursor.execute(query)
-            self.mydb.commit()
+        self.mydb.commit()
 
     def _get_categories_rows(self):
         '''Sets self.categories as a list of Category objects.

@@ -19,32 +19,6 @@ class Main():
     def clear_screen(self):
         os.system('cls||clear')
 
-    def _choose_category(self):
-        '''
-        Ask user to choose a category of products. Returns category.id.
-        '''
-        categories = self.db.get_categories()
-        categories_list = ['CATEGORIES']
-        categories_list.extend([category.name for category in categories])
-
-        cat_index = self.menu.choose_in_list(categories_list)
-        id = [category.id for category in categories
-              if categories.index(category) == cat_index][0]
-        return id
-
-    def _choose_product(self, category):
-        # display products and ask user to choose one
-        pass
-
-    def _choose_substitute(self, product):
-        # display substitutes and ask user to choose one
-        pass
-
-    def _save_substitution(self):
-        # ask user if they want to record the substitution
-        # if yes : save substitution
-        pass
-
     def choose_in_main_menu(self):
         return self.menu.choose_in_main_menu()
 
@@ -84,6 +58,32 @@ class Main():
         self.db.close_database()
         print('Au revoir !')
         quit()
+
+    def _choose_category(self):
+        '''
+        Ask user to choose a category of products. Returns category.id.
+        '''
+        categories = self.db.get_categories()
+        categories_list = ['CATEGORIES']
+        categories_list.extend([category.name for category in categories])
+
+        cat_index = self.menu.choose_in_list(categories_list)
+        id = [category.id for category in categories
+              if categories.index(category) == cat_index][0]
+        return id
+
+    def _choose_product(self, category):
+        # display products and ask user to choose one
+        pass
+
+    def _choose_substitute(self, product):
+        # display substitutes and ask user to choose one
+        pass
+
+    def _save_substitution(self):
+        # ask user if they want to record the substitution
+        # if yes : save substitution
+        pass
 
 
 if __name__ == '__main__':
