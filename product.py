@@ -15,7 +15,7 @@ class Product:
         self.ingredients = dict['ingredients']
         self.stores = dict['stores']
 
-    def __repr__(self):
+    def __str__(self):
         return self.name
 
 

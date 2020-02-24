@@ -8,7 +8,7 @@ class Category:
         self.name = name
         self.full_name = full_name
 
-    def __repr__(self):
+    def __str__(self):
         return self.full_name
 
 
