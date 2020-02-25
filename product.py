@@ -14,7 +14,7 @@ class Product:
         self.ingredients = dict['ingredients']
         self.stores = dict['stores']
 
-    def __str__(self):
+    def __repr__(self):
         return f'{self.brand} - {self.name}'
 
     def convert_category_to_cat_id(self, categories):
