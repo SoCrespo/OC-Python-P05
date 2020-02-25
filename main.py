@@ -23,16 +23,15 @@ class Main():
     def choose_in_main_menu(self):
         return self.menu.choose_in_main_menu()
 
-    def find_substitute(self):
+    def select_product(self):
         category = self._choose_category()
-        product = self._choose_product(category)
-        substitute = self._choose_substitute(product)
-        substitute.display()
+        products_list = self.db.get_products(category)
+        print(type(products_list))
 
-    def show_substitutions(self):
-        # display recorded substitutions and ask user to choose one
-        # display information for the selected substitute
-        # ask for 0 to go back to main menu
+    def select_substitute(self, product):
+        pass
+
+    def save_substitution(self, product, substitute):
         pass
 
     def reset_app(self):
@@ -72,19 +71,6 @@ class Main():
                                         selected_category_index - 1]
         return selected_category
 
-    def _choose_product(self, category):
-        # display products and ask user to choose one
-        pass
-
-    def _choose_substitute(self, product):
-        # display substitutes and ask user to choose one
-        pass
-
-    def _save_substitution(self):
-        # ask user if they want to record the substitution
-        # if yes : save substitution
-        pass
-
 
 if __name__ == '__main__':
     app = Main()
@@ -94,7 +80,8 @@ if __name__ == '__main__':
         result = app.choose_in_main_menu()
         if result == 1:
             app.clear_screen()
-            app.find_substitute()
+            product = app.select_product()
+            substitute = app.select_substitute(product)
             # if user wants to save the substitution:
             # _save_substitution(product, substitute)
         elif result == 2:
