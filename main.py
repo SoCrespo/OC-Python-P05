@@ -74,8 +74,8 @@ class Main():
 
 if __name__ == '__main__':
     app = Main()
-
-    while True:
+    quit_app = False
+    while not quit_app:
         app.clear_screen()
         result = app.choose_in_main_menu()
         if result == 1:
@@ -89,4 +89,5 @@ if __name__ == '__main__':
         elif result == 3:
             app.reset_app()
         elif result == 4:
-            app.quit_app()
+            quit_app = True
+    app.quit_app()
