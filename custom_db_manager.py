@@ -35,7 +35,6 @@ class CustomDBManager():
         query = f"SELECT * FROM product WHERE cat_id ={cat_id}"
         self.cursor.execute(query)
         for row in self.cursor:
-            print(row)
             products_list.append(product.Product(row))
         return products_list
 
