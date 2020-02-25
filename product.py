@@ -15,7 +15,7 @@ class Product:
         self.stores = dict['stores']
 
     def __str__(self):
-        return self.name
+        return f'{self.brand} - {self.name}'
 
     def convert_category_to_cat_id(self, categories):
         '''Sets product.cat_id according to product.category,
