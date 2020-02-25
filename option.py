@@ -3,9 +3,9 @@
 
 class Option:
 
-    def __init__(self, title, option_list):
+    def __init__(self, title, content):
         self.title = title
-        self.list = option_list
+        self.content = content
 
 
 if __name__ == "__main__":
