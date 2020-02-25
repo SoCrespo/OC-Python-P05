@@ -29,11 +29,21 @@ class Main():
         products_option = option.Option(
                 f'Produits de la catégorie {category} :', products_list)
         selected_product = self.menu.choose(products_option)
-        wait = input(f'Produit sélectionné : {selected_product}')
+        input(f'Produit sélectionné : {selected_product.brand} - '
+              f'{selected_product.name}, '
+              f'nutriscore : {selected_product.nutriscore.upper()}. \n'
+              f'Appuyez sur Entrée pour voir les substituts '
+              f'(meilleur nutriscore) : ')
         return selected_product
 
     def select_substitute(self, product):
-        pass
+        substitutes_list = self.db.get_products_with_better_nutriscore(product)
+        substitutes_option = option.Option(
+            f'Substituts avec un nutriscore meilleur '
+            f'que {product.nutriscore.upper()} :',
+            substitutes_list)
+        selected_substitute = self.menu.choose(substitutes_option)
+        return selected_substitute
 
     def save_substitution(self, product, substitute):
         pass
@@ -83,6 +93,8 @@ if __name__ == '__main__':
             app.clear_screen()
             product = app.select_product()
             substitute = app.select_substitute(product)
+            print(vars(substitute))
+            input('voulez-vous sauvegarder ?')
             # if user wants to save the substitution:
             # _save_substitution(product, substitute)
         elif result == 2:

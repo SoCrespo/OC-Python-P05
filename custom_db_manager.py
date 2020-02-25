@@ -41,6 +41,26 @@ class CustomDBManager():
         self.cursor = self.mydb.cursor()
         return products_list
 
+    def get_products_with_better_nutriscore(self, prod):
+        '''Returns a list of all products with a better nutriscore
+        than given product, for all categories.'''
+        self.cursor = self.mydb.cursor(dictionary=True)
+        nutriscore = prod.nutriscore
+        substitutes_list = []
+        query = (
+                 f"SELECT product.*, category.name AS category FROM product "
+                 f"INNER JOIN category "
+                 f"ON product.cat_id = category.id "
+                 f"WHERE nutriscore < '{nutriscore}'"
+        )
+        self.cursor.execute(query)
+        for row in self.cursor:
+            row.pop('id')
+            substitute = product.Product(row)
+            substitutes_list.append(substitute)
+        self.cursor = self.mydb.cursor()
+        return substitutes_list
+
     def empty_database(self):
         '''Drops all tables.'''
         self.cursor.execute("SET FOREIGN_KEY_CHECKS = 0;")
