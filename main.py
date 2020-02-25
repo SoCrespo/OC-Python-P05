@@ -27,7 +27,7 @@ class Main():
         category = self._choose_category()
         product = self._choose_product(category)
         substitute = self._choose_substitute(product)
-        self.menu.display_product(substitute)
+        substitute.display()
 
     def show_substitutions(self):
         # display recorded substitutions and ask user to choose one
@@ -65,10 +65,7 @@ class Main():
         Ask user to choose a category of products. Returns category object.
         '''
         categories = self.db.get_categories()
-        categories_options = option.Option('CATEGORIES',
-                                           [category.full_name
-                                            for category in categories]
-                                           )
+        categories_options = option.Option('CATEGORIES', categories)
 
         selected_category_index = self.menu.choose(categories_options)
         selected_category = categories_options.content[

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import constants
-import option
+
 
 MAIN_MENU_TITLE = constants.MAIN_MENU_TITLE
 MAIN_MENU_CONTENT = constants.MAIN_MENU_CONTENT
@@ -50,11 +50,6 @@ class Menu:
             except ValueError:
                 pass
         return choice
-
-    def display_product(self, product):
-        product_dict = vars(product)
-        for key, value in product_dict:
-            print(f'{key}: {value}')
 
 
 if __name__ == "__main__":
