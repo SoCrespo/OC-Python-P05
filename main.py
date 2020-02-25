@@ -26,7 +26,10 @@ class Main():
     def select_product(self):
         category = self._choose_category()
         products_list = self.db.get_products_from_category(category)
-        return products_list
+        products_option = option.Option(
+                f'Produits de la catégorie {category} :', products_list)
+        selected_product = self.menu.choose(products_option)
+        return selected_product
 
     def select_substitute(self, product):
         pass

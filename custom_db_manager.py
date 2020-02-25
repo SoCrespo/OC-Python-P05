@@ -35,7 +35,10 @@ class CustomDBManager():
         query = f"SELECT * FROM product WHERE cat_id ={cat_id}"
         self.cursor.execute(query)
         for row in self.cursor:
+            row['category'] = category.name
+            row.pop('cat_id')
             products_list.append(product.Product(row))
+        self.cursor = self.mydb.cursor()
         return products_list
 
     def empty_database(self):
@@ -105,22 +108,13 @@ class CustomDBManager():
                 category.Category(id, name, full_name))
         self.categories = categories_rows
 
-    def _convert_category_to_cat_id(self, product):
-        '''
-        For a Product instance, creates cat_id attribute (according to
-        category table) and deletes category attribute.
-        '''
-        product.cat_id = str([item.id for item in self.categories
-                             if item.name == product.category][0])
-        del(product.category)
+    def _insert_product(self, prod):
+        '''Insert 1 product in local database.'''
 
-    def _insert_product(self, product):
-        '''Insert 1 product in local database. '''
-        self._convert_category_to_cat_id(product)
-        str_keys = ", ".join(vars(product).keys())
-
-        values = vars(product).values()
-        escaped_values = [value.replace("'", "''") for value in values]
+        prod.convert_category_to_cat_id(self.categories)
+        str_keys = ", ".join(vars(prod).keys())
+        values = vars(prod).values()
+        escaped_values = [str(value).replace("'", "''") for value in values]
         str_values = "', '".join(escaped_values)
         query = f"INSERT INTO product ({str_keys}) VALUES ('{str_values}');"
         self.cursor.execute(query)
@@ -129,7 +123,7 @@ class CustomDBManager():
     def _insert_products(self, products):
         '''Insert products in local database.'''
         for prod in products:
-            self._insert_product(product)
+            self._insert_product(prod)
         print('Data successfully inserted in database.')
 
     def _convert_line_to_product(self):
