@@ -94,7 +94,7 @@ if __name__ == '__main__':
             product = app.select_product()
             substitute = app.select_substitute(product)
             print(vars(substitute))
-            input('voulez-vous sauvegarder ?')
+            input('Voulez-vous sauvegarder ?')
             # if user wants to save the substitution:
             # _save_substitution(product, substitute)
         elif result == 2:

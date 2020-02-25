@@ -44,14 +44,14 @@ class OpenFoodFactsClient:
         Returns a list of dictionaries (1 dict = data of  1 product)
         Adds the 'category' key in each dict.
         '''
-        print("Retrieving data, please wait...")
+        print("Téléchargement des données en cours...")
         list = []
         for category in categories:
             data = self._get_data_by_category(category, nb)
             for item in data:
                 item['category'] = category
             list.extend(data)
-        print('Data successfully retrieved.')
+        print('Les données ont été correctement récupérées.')
         return list
 
     def _change_data_keys(self, list):

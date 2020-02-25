@@ -70,9 +70,9 @@ class CustomDBManager():
         for table in tables:
             query = f"DROP TABLE IF EXISTS {table};"
             self.cursor.execute(query)
-            print(f'Table {table} deleted...')
+            print(f'Suppression de la table {table}...')
         self.cursor.execute("SET FOREIGN_KEY_CHECKS = 1;")
-        print('All tables deleted.')
+        print('Toutes les tables ont été supprimées.')
         self.is_empty = True
 
     def close_database(self):
@@ -144,7 +144,7 @@ class CustomDBManager():
         '''Insert products in local database.'''
         for prod in products:
             self._insert_product(prod)
-        print('Data successfully inserted in database.')
+        print('Les données ont été correctement intégrées à la base.')
 
     def _convert_line_to_product(self):
         ''' Converts an SQL record to a Product object.'''
