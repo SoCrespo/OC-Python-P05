@@ -2,6 +2,7 @@
 
 import mysql.connector
 import category
+import product
 from config import DB_CONNECTION_PARAMS, DB_SCHEMA, CATEGORIES
 
 
@@ -25,6 +26,18 @@ class CustomDBManager():
         '''Returns a list of Category objects.'''
         self._get_categories_rows()
         return self.categories
+
+    def get_products_from_category(self, category):
+        '''Returns a list of all Products from the given category.'''
+        self.cursor = self.mydb.cursor(dictionary=True)
+        cat_id = category.id
+        products_list = []
+        query = f"SELECT * FROM product WHERE cat_id ={cat_id}"
+        self.cursor.execute(query)
+        for row in self.cursor:
+            print(row)
+            products_list.append(product.Product(row))
+        return products_list
 
     def empty_database(self):
         '''Drops all tables.'''
@@ -116,7 +129,7 @@ class CustomDBManager():
 
     def _insert_products(self, products):
         '''Insert products in local database.'''
-        for product in products:
+        for prod in products:
             self._insert_product(product)
         print('Data successfully inserted in database.')
 

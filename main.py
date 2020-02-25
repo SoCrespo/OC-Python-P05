@@ -25,8 +25,8 @@ class Main():
 
     def select_product(self):
         category = self._choose_category()
-        products_list = self.db.get_products(category)
-        print(type(products_list))
+        products_list = self.db.get_products_from_category(category)
+        return products_list
 
     def select_substitute(self, product):
         pass
