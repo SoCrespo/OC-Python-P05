@@ -15,23 +15,22 @@ class Menu:
         '''
         Displays a menu (title and content of Option object)
         and asks user to choose an option.
-        Returns the number entered by user (int).
+        Returns the object selected by user.
         '''
-        title = option.title
-        content = option.content
+        # content = option.content
 
-        print(f'\n{title} \n')
-        for index, option in enumerate(content, 1):
-            print(f'{index} - {option}')
+        print(f'\n{option.title} \n')
+        for index, line in enumerate(option.content, 1):
+            print(f'{index} - {line}')
 
         choice = None
 
-        while choice not in range(1, len(content)+1):
+        while choice not in range(1, len(option.content)+1):
             try:
                 choice = int(input("\nEntrez le numéro de votre choix : "))
             except ValueError:
                 pass
-        return choice
+        return option.content[choice - 1]
 
     def choose_in_main_menu(self):
         '''

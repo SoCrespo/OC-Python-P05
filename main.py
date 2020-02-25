@@ -24,11 +24,12 @@ class Main():
         return self.menu.choose_in_main_menu()
 
     def select_product(self):
-        category = self._choose_category()
+        category = self._select_category()
         products_list = self.db.get_products_from_category(category)
         products_option = option.Option(
                 f'Produits de la catégorie {category} :', products_list)
         selected_product = self.menu.choose(products_option)
+        wait = input(f'Produit sélectionné : {selected_product}')
         return selected_product
 
     def select_substitute(self, product):
@@ -62,16 +63,13 @@ class Main():
         print('Au revoir !')
         quit()
 
-    def _choose_category(self):
+    def _select_category(self):
         '''
         Ask user to choose a category of products. Returns category object.
         '''
-        categories = self.db.get_categories()
-        categories_options = option.Option('CATEGORIES', categories)
-
-        selected_category_index = self.menu.choose(categories_options)
-        selected_category = categories_options.content[
-                                        selected_category_index - 1]
+        categories_options = option.Option('CATEGORIES',
+                                           self.db.get_categories())
+        selected_category = self.menu.choose(categories_options)
         return selected_category
 
 
