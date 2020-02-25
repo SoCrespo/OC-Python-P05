@@ -9,8 +9,7 @@ MAIN_MENU_CONTENT = constants.MAIN_MENU_CONTENT
 class Menu:
 
     def __init__(self):
-        self.main_menu_options = option.Option(MAIN_MENU_TITLE,
-                                               MAIN_MENU_CONTENT)
+        pass
 
     def choose(self, option):
         '''
@@ -39,7 +38,18 @@ class Menu:
         Ask the user to select one of the main menu options. Returns an int
         according to MAIN_MENU constant.
         '''
-        return self.choose(self.main_menu_options)
+        print(f'\n{MAIN_MENU_TITLE} \n')
+        for index, option in enumerate(MAIN_MENU_CONTENT, 1):
+            print(f'{index} - {option}')
+
+        choice = None
+
+        while choice not in range(1, len(MAIN_MENU_CONTENT)+1):
+            try:
+                choice = int(input("\nEntrez le numéro de votre choix : "))
+            except ValueError:
+                pass
+        return choice
 
     def display_product(self, product):
         product_dict = vars(product)
