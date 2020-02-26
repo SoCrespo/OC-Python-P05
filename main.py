@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-
 import os
 import custom_db_manager
 import openfoodfacts_client
 import menu
 import option
+import mysql.connector.errors
 
 
 class Main():
@@ -52,12 +52,18 @@ class Main():
             return None
 
     def save_substitution(self, origin, substitute):
-        self.db.save_substitution(origin, substitute)
-        input(
-            f'La substitution du produit {origin.brand} - {origin.name} '
-            f'par {substitute.brand} - {substitute.name} a bien été '
-            f'enregistrée.\nAppuyez sur Entrée pour revenir au menu principal'
+        try:
+            self.db.save_substitution(origin, substitute)
+        except mysql.connector.errors.IntegrityError:
+            print("L'enregistrement existe déjà.")
+        else:
+            print(
+                f"La substitution du produit {origin.brand} - {origin.name} "
+                f"par {substitute.brand} - {substitute.name} a bien été "
+                f"enregistrée."
             )
+        finally:
+            input("Appuyez sur Entrée pour revenir au menu principal :")
 
     def reset_app(self):
         confirmation = input('''ATTENTION :

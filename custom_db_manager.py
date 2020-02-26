@@ -65,14 +65,8 @@ class CustomDBManager():
         query = (
                 f"INSERT INTO substitution (origin_id, substitute_id) "
                 f"VALUES({origin.id}, {substitute.id});"
-        )
-        try:
-            self.cursor.execute(query)
-        except mysql.connector.errors.IntegrityError:
-            input(
-                "L'enregistrement existe déjà. \n"
-                "Appuyez sur Entrée pour retourner au menu principal"
-                )
+            )
+        self.cursor.execute(query)
         self.mydb.commit()
 
     def empty_database(self):
