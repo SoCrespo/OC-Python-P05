@@ -50,6 +50,13 @@ class Menu:
                 pass
         return choice
 
+    def remove_duplicates(self, products_list):
+        '''Takes a list of Products and removes duplicates
+        (same brand and name). Returns a list of Products. '''
+        products_dict = {(item.brand, item.name): item
+                         for item in products_list}
+        return list(products_dict.values())
+
 
 if __name__ == "__main__":
     pass

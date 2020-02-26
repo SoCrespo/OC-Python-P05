@@ -26,6 +26,7 @@ class Main():
     def select_product(self):
         category = self._select_category()
         products_list = self.db.get_products_from_category(category)
+        products_list = self.menu.remove_duplicates(products_list)
         products_option = option.Option(
                 f'Produits de la catégorie {category} :', products_list)
         selected_product = self.menu.choose(products_option)
