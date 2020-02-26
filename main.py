@@ -48,7 +48,7 @@ class Main():
             return selected_substitute
         else:
             print("Il n'existe aucun substitut avec un meilleur nutriscore.")
-            input("Appuyez sur ENTREE pour revenir au menu principal :")
+            self._press_enter()
             return None
 
     def save_substitution(self, origin, substitute):
@@ -63,27 +63,27 @@ class Main():
                 f"enregistrée."
             )
         finally:
-            input("Appuyez sur Entrée pour revenir au menu principal :")
+            self._press_enter()
 
     def reset_app(self):
-        confirmation = input('''ATTENTION :
-        Cette opération réinitialisera la base de données.
-        Toutes les substitutions enregistrées seront effacées
-        de manière IRREVERSIBLE. Voulez-vous continuer ?
-        Tapez 'oui' + Entrée pour confirmer,
-        ou appuyez sur Entrée pour annuler : ''')
+        warning = ("\nATTENTION : Cette opération réinitialisera "
+                   "la base de données.\nToutes les substitutions "
+                   "enregistrées seront DEFINITIVEMENT effacées. "
+                   "\nVoulez-vous continuer ?\n"
+                   "Tapez 'oui' + Entrée pour confirmer, ou "
+                   "appuyez sur Entrée pour annuler : ")
+        confirmation = input(warning)
 
         if confirmation.lower() == 'oui':
             print('Réinitialisation en cours...')
             self.db.empty_database()
             self.off_client = openfoodfacts_client.OpenFoodFactsClient()
             self.db.set_database(self.off_client.products)
-            message = ('Réinitialisation terminée')
+            message = ('Réinitialisation terminée.')
         else:
-            message = ('Opération annulée')
-
-        input(f'{message}. \nAppuyez sur Entrée'
-              ' pour revenir au menu principal ')
+            message = ('Opération annulée.')
+        print(message)
+        self._press_enter()
 
     def quit_app(self):
         self.db.close_database()
@@ -98,6 +98,9 @@ class Main():
                                            self.db.get_categories())
         selected_category = self.menu.choose(categories_options)
         return selected_category
+
+    def _press_enter(self):
+        input("Appuyez sur ENTREE pour revenir au menu principal :")
 
 
 if __name__ == '__main__':
