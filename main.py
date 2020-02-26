@@ -26,9 +26,9 @@ class Main():
     def select_product(self):
         category = self._select_category()
         products_list = self.db.get_products_from_category(category)
-        products_list = self.menu.remove_duplicates(products_list)
+        products_set = self.menu.remove_duplicates(products_list)
         products_option = option.Option(
-                f'Produits de la catégorie {category} :', products_list)
+                f'Produits de la catégorie {category} :', products_set)
         selected_product = self.menu.choose(products_option)
         input(f'Produit sélectionné : {selected_product.brand} - '
               f'{selected_product.name}, '
@@ -114,7 +114,7 @@ if __name__ == '__main__':
             product = app.select_product()
             substitute = app.select_substitute(product)
             if substitute:
-                print(vars(substitute))
+                substitute.display()
                 save = ''
                 while save.lower() not in ('s', 'm'):
                     save = input('Entrez S pour sauvegarder la substitution '

@@ -1,19 +1,22 @@
 # -*- coding: utf-8 -*-
 
+from constants import PRODUCT_ATTRIBUTES
+
 
 class Product:
 
     def __init__(self, dict):
-        self.id = dict['id']
         self.category = dict['category']
         self.brand = dict['brand']
         self.name = dict['name']
         self.full_name = dict['full_name']
         self.quantity = dict['quantity']
-        self.nutriscore = dict['nutriscore']
+        self.nutriscore = dict['nutriscore'].upper()
         self.url = dict['url']
         self.ingredients = dict['ingredients']
         self.stores = dict['stores']
+        if 'id' in dict.keys():
+            self.id = dict['id']
 
     def __repr__(self):
         return f'{self.brand} - {self.name}'
@@ -33,6 +36,11 @@ class Product:
             if self.cat_id == cat.id:
                 self.category = cat.category
         del(self.cat_id)
+
+    def display(self):
+        for key, value in vars(self).items():
+            if key not in ('id', 'category'):
+                print(f'{PRODUCT_ATTRIBUTES[key]} : {value}')
 
 
 if __name__ == "__main__":

@@ -8,3 +8,15 @@ MAIN_MENU_CONTENT = [
                     'Réinitialisation complète',
                     'Quitter'
                     ]
+
+PRODUCT_ATTRIBUTES = {
+        "category": "Catégorie",
+        "brand": "Marque",
+        "name": "Nom",
+        "full_name": "Nom complet",
+        "quantity": "Conditionnement",
+        "nutriscore": "Nutriscore",
+        "url": "Lien vers la fiche OpenFoodFacts",
+        "ingredients": "Ingrédients",
+        "stores": "Magasins"
+    }
