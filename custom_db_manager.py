@@ -61,6 +61,15 @@ class CustomDBManager():
         self.cursor = self.mydb.cursor()
         return substitutes_list
 
+    def save_substitution(self, origin, substitute):
+        '''Saves origin product and substitute in database.'''
+        query = (
+                f"INSERT INTO substitution (origin_id, substitute_id) "
+                f"VALUES({origin.id}, {substitute.id});"
+        )
+        self.cursor.execute(query)
+        self.mydb.commit()
+
     def empty_database(self):
         '''Drops all tables.'''
         self.cursor.execute("SET FOREIGN_KEY_CHECKS = 0;")

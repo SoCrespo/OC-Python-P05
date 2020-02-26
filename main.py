@@ -51,8 +51,13 @@ class Main():
             input("Appuyez sur ENTREE pour revenir au menu principal :")
             return None
 
-    def save_substitution(self, product, substitute):
-        pass
+    def save_substitution(self, origin, substitute):
+        self.db.save_substitution(origin, substitute)
+        input(
+            f'La substitution du produit {origin.brand} - {origin.name} '
+            f'par {substitute.brand} - {substitute.name} a bien été '
+            f'enregistrée.\nAppuyez sur Entrée pour revenir au menu principal'
+            )
 
     def reset_app(self):
         confirmation = input('''ATTENTION :
@@ -101,9 +106,15 @@ if __name__ == '__main__':
             substitute = app.select_substitute(product)
             if substitute:
                 print(vars(substitute))
-                input('Voulez-vous sauvegarder ?')
-                # if user wants to save the substitution:
-                # _save_substitution(product, substitute)
+                save = ''
+                while save.lower() not in ('s', 'm'):
+                    save = input('Entrez S pour sauvegarder la substitution '
+                                 'ou M pour revenir au menu principal : ')
+                    if save.lower() == "s":
+                        app.save_substitution(product, substitute)
+                    else:
+                        pass
+
         elif result == 2:
             app.show_substitutions()
         elif result == 3:
