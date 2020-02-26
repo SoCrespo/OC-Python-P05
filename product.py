@@ -4,6 +4,7 @@
 class Product:
 
     def __init__(self, dict):
+        self.id = dict['id']
         self.category = dict['category']
         self.brand = dict['brand']
         self.name = dict['name']

@@ -55,7 +55,6 @@ class CustomDBManager():
         )
         self.cursor.execute(query)
         for row in self.cursor:
-            row.pop('id')
             substitute = product.Product(row)
             substitutes_list.append(substitute)
         self.cursor = self.mydb.cursor()
