@@ -38,12 +38,17 @@ class Main():
 
     def select_substitute(self, product):
         substitutes_list = self.db.get_products_with_better_nutriscore(product)
-        substitutes_option = option.Option(
-            f'Substituts avec un nutriscore meilleur '
-            f'que {product.nutriscore.upper()} :',
-            substitutes_list)
-        selected_substitute = self.menu.choose(substitutes_option)
-        return selected_substitute
+        if substitutes_list:
+            substitutes_option = option.Option(
+                f'Substituts avec un nutriscore meilleur '
+                f'que {product.nutriscore.upper()} :',
+                substitutes_list)
+            selected_substitute = self.menu.choose(substitutes_option)
+            return selected_substitute
+        else:
+            print("Il n'existe aucun substitut avec un meilleur nutriscore.")
+            input("Appuyez sur ENTREE pour revenir au menu principal :")
+            return None
 
     def save_substitution(self, product, substitute):
         pass
@@ -66,7 +71,7 @@ class Main():
             message = ('Opération annulée')
 
         input(f'{message}. \nAppuyez sur Entrée'
-              ' pour revenir au menu principal.')
+              ' pour revenir au menu principal ')
 
     def quit_app(self):
         self.db.close_database()
@@ -93,10 +98,11 @@ if __name__ == '__main__':
             app.clear_screen()
             product = app.select_product()
             substitute = app.select_substitute(product)
-            print(vars(substitute))
-            input('Voulez-vous sauvegarder ?')
-            # if user wants to save the substitution:
-            # _save_substitution(product, substitute)
+            if substitute:
+                print(vars(substitute))
+                input('Voulez-vous sauvegarder ?')
+                # if user wants to save the substitution:
+                # _save_substitution(product, substitute)
         elif result == 2:
             app.show_substitutions()
         elif result == 3:
