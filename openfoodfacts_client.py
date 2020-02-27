@@ -7,7 +7,7 @@ import product
 
 class OpenFoodFactsClient:
     '''
-    Retrieves data from openFoodFactAPI and converts them
+    Retrieve data from openFoodFactAPI and convert them
     in a list of Product objects as instance attribute.
     '''
 
@@ -16,11 +16,11 @@ class OpenFoodFactsClient:
 
     def _get_data_by_category(self, category, nb):
         '''
-        Calls the OpenFoodFact API to retrieve products
+        Call the OpenFoodFact API to retrieve products
         in the given category.
 
         Downloaded fields are defined in config.py.
-        Returns a list of nb dictionaries (1 dict = data of 1 product).
+        Return a list of nb dictionaries (1 dict = data of 1 product).
 
          '''
         payload = {
@@ -40,8 +40,8 @@ class OpenFoodFactsClient:
     def _get_data_by_categories(self, categories=API_CATEGORIES,
                                 nb=MAX_PRODUCTS_NB):
         '''
-        Calls _get_data_by_category() for a list of categories.
-        Returns a list of dictionaries (1 dict = data of  1 product)
+        Call _get_data_by_category() for a list of categories.
+        Return a list of dictionaries (1 dict = data of  1 product)
         Adds the 'category' key in each dict.
         '''
         print("Téléchargement des données en cours...")
@@ -56,7 +56,7 @@ class OpenFoodFactsClient:
 
     def _change_data_keys(self, list):
         '''
-        Returns a list of product data (dict) where keys are translated
+        Return a list of product data (dict) where keys are translated
         into those expected by Product class.
         '''
         conv_list = [{API_TO_PRODUCT_FIELDS[key]: value
@@ -66,7 +66,7 @@ class OpenFoodFactsClient:
 
     def _validate_data(self, dict):
         '''
-        Checks if dict data comply with arguments for product.Product().
+        Check if dict data comply with arguments for product.Product().
         Returns a boolean.
         '''
         required_keys = API_TO_PRODUCT_FIELDS.values()
@@ -81,7 +81,7 @@ class OpenFoodFactsClient:
 
     def _data_to_product(self, list):
         '''
-        Takes a list of dict (product data), checks arguments
+        Take a list of dict (product data), checks arguments
         and returns a list of Product instances.
         '''
         return [product.Product(data) for data in list
@@ -91,7 +91,7 @@ class OpenFoodFactsClient:
         '''
         Retrieve data from API, for API_CATEGORIES
         (and for MAX_PRODUCTS_NB products in each category).
-        Returns a list of Product objects.
+        Return a list of Product objects.
         '''
         data = self._get_data_by_categories()
         conv_data = self._change_data_keys(data)

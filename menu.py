@@ -48,8 +48,10 @@ class Menu:
         return choice
 
     def remove_duplicates(self, products_list):
-        '''Takes a list of Products and removes duplicates
-        (same brand and name). Returns a list of Products. '''
+        '''
+        Take a list of Products and removes duplicates
+        (same brand and name). Returns a list of Products.
+        '''
         products_dict = {(item.brand, item.name): item
                          for item in products_list}
         return list(products_dict.values())

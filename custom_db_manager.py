@@ -15,7 +15,7 @@ class CustomDBManager():
         self.is_empty = self._is_empty()
 
     def set_database(self, products):
-        '''Creates tables and fills them with API data.'''
+        '''Create tables and fills them with API data.'''
         self._create_tables()
         self._fill_categories_table()
         self._get_categories_rows()
@@ -23,12 +23,12 @@ class CustomDBManager():
         self.is_empty = False
 
     def get_categories(self):
-        '''Returns a list of Category objects.'''
+        '''Return a list of Category objects.'''
         self._get_categories_rows()
         return self.categories
 
     def get_products_from_category(self, category):
-        '''Returns a list of all Products from the given category.'''
+        '''Return a list of all Products from the given category.'''
         self.cursor = self.mydb.cursor(dictionary=True)
         cat_id = category.id
         products_list = []
@@ -42,7 +42,7 @@ class CustomDBManager():
         return products_list
 
     def get_products_with_better_nutriscore(self, prod):
-        '''Returns a list of all products with a better nutriscore
+        '''Return a list of all products with a better nutriscore
         than given product, for all categories.'''
         self.cursor = self.mydb.cursor(dictionary=True)
         nutriscore = prod.nutriscore
@@ -60,8 +60,12 @@ class CustomDBManager():
         self.cursor = self.mydb.cursor()
         return substitutes_list
 
+    def get_recorded_substitutions(self):
+        '''Return all records in table substitution.'''
+        pass
+
     def save_substitution(self, origin, substitute):
-        '''Saves origin product and substitute in database.'''
+        '''Save origin product and substitute in table substitution.'''
         query = (
                 f"INSERT INTO substitution (origin_id, substitute_id) "
                 f"VALUES({origin.id}, {substitute.id});"
@@ -70,7 +74,7 @@ class CustomDBManager():
         self.mydb.commit()
 
     def empty_database(self):
-        '''Drops all tables.'''
+        '''Drop all tables.'''
         self.cursor.execute("SET FOREIGN_KEY_CHECKS = 0;")
         self.cursor.execute("SELECT table_name FROM information_schema.tables \
                             WHERE table_schema = 'offdb2020p5';",)
@@ -84,11 +88,11 @@ class CustomDBManager():
         self.is_empty = True
 
     def close_database(self):
-        '''Closes database.'''
+        '''Close database.'''
         self.cursor.close()
 
     def _is_empty(self):
-        '''Checks if database is empty (no tables). Returns boolean.'''
+        '''Check if database is empty (no tables). Return boolean.'''
         tables = 'information_schema.tables'
         query = (
                  f"SELECT {tables}.table_name FROM {tables}"
@@ -100,6 +104,7 @@ class CustomDBManager():
         return len(table_number) == 0
 
     def _create_tables(self):
+        '''Create tables in database from SQL schema "DB_SCHEMA."'''
         query = ''
         with open(DB_SCHEMA, "r") as f:
             lines = f.readlines()
@@ -115,7 +120,7 @@ class CustomDBManager():
             pass
 
     def _fill_categories_table(self):
-        '''Inserts categories in categories table.'''
+        '''Insert categories in categories table.'''
         for name, full_name in CATEGORIES.items():
             query = (
                         f"INSERT INTO category (name, full_name)"
@@ -125,7 +130,8 @@ class CustomDBManager():
         self.mydb.commit()
 
     def _get_categories_rows(self):
-        '''Sets self.categories as a list of Category objects.
+        '''
+        Set self.categories as a list of Category objects.
         These objects have following attributes : id, name, full_name.
         '''
         query = f"SELECT * FROM category"
@@ -149,7 +155,7 @@ class CustomDBManager():
         self.mydb.commit()
 
     def _insert_products(self, products):
-        '''Insert products in local database.'''
+        '''Insert products (= list of Product) in local database.'''
         for prod in products:
             self._insert_product(prod)
         print('Les données ont été correctement intégrées à la base.')

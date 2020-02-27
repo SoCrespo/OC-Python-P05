@@ -9,6 +9,8 @@ import mysql.connector.errors
 
 class Main():
 
+    '''Manages the main app.'''
+
     def __init__(self):
 
         self.db = custom_db_manager.CustomDBManager()
@@ -18,12 +20,18 @@ class Main():
             self.db.set_database(self.off_client.products)
 
     def clear_screen(self):
+        '''Clear screen.'''
         os.system('cls||clear')
 
     def choose_in_main_menu(self):
+        '''
+        Ask the user to select one of the main menu options. Returns an int
+        according to MAIN_MENU constant.
+        '''
         return self.menu.choose_in_main_menu()
 
     def select_product(self):
+        ''' Ask user to select a product in a list.'''
         category = self._select_category()
         products_list = self.db.get_products_from_category(category)
         products_set = self.menu.remove_duplicates(products_list)
@@ -38,6 +46,10 @@ class Main():
         return selected_product
 
     def select_substitute(self, product):
+        '''
+        Displays a list of products with better nutriscore
+         than argument product. Asks user to selec one if list is not empty.
+        '''
         substitutes_list = self.db.get_products_with_better_nutriscore(product)
         if substitutes_list:
             substitutes_option = option.Option(
@@ -52,6 +64,10 @@ class Main():
             return None
 
     def save_substitution(self, origin, substitute):
+        '''
+        Insert a pair of products (origin and substitute)
+        in substitution table.
+        '''
         try:
             self.db.save_substitution(origin, substitute)
         except mysql.connector.errors.IntegrityError:
@@ -66,6 +82,11 @@ class Main():
             self._press_enter()
 
     def reset_app(self):
+        '''
+        Drop all existing tables in the database, recreate them
+        and fill them with data from API.
+        '''
+
         warning = ("\nATTENTION : Cette opération réinitialisera "
                    "la base de données.\nToutes les substitutions "
                    "enregistrées seront DEFINITIVEMENT effacées. "
@@ -86,6 +107,7 @@ class Main():
         self._press_enter()
 
     def quit_app(self):
+        '''Close connector and end program.'''
         self.db.close_database()
         print('Au revoir !')
         quit()
@@ -100,6 +122,7 @@ class Main():
         return selected_category
 
     def _press_enter(self):
+        '''Ask user to press enter to go back to main menu.'''
         input("Appuyez sur ENTREE pour revenir au menu principal :")
 
 

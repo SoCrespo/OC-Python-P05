@@ -2,6 +2,7 @@
 
 
 class Category:
+    '''Represent a category (id, name, full name).'''
 
     def __init__(self, id, name, full_name):
         self.id = id
