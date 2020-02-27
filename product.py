@@ -19,7 +19,7 @@ class Product:
             self.id = dict['id']
 
     def __repr__(self):
-        return f'{self.brand} - {self.name}'
+        return f'{self.brand} - {self.name} - nutriscore : {self.nutriscore}'
 
     def convert_category_to_cat_id(self, categories):
         '''Sets product.cat_id according to product.category,
