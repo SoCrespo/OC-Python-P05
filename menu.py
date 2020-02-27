@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
-import constants
 
-
-MAIN_MENU_TITLE = constants.MAIN_MENU_TITLE
-MAIN_MENU_CONTENT = constants.MAIN_MENU_CONTENT
+from constants import MAIN_MENU_TITLE, MAIN_MENU_CONTENT
 
 
 class Menu:
