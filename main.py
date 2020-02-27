@@ -81,6 +81,10 @@ class Main():
         finally:
             self._press_enter()
 
+    def display_substitutions(self):
+        self.db.get_recorded_substitutions()
+        self._press_enter()
+
     def reset_app(self):
         '''
         Drop all existing tables in the database, recreate them
@@ -148,7 +152,7 @@ if __name__ == '__main__':
                         pass
 
         elif result == 2:
-            app.show_substitutions()
+            app.display_substitutions()
         elif result == 3:
             app.reset_app()
         elif result == 4:
