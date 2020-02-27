@@ -6,7 +6,6 @@ from constants import PRODUCT_ATTRIBUTES
 class Product:
 
     def __init__(self, dict):
-        self.category = dict['category']
         self.brand = dict['brand']
         self.name = dict['name']
         self.full_name = dict['full_name']
@@ -17,6 +16,8 @@ class Product:
         self.stores = dict['stores']
         if 'id' in dict.keys():
             self.id = dict['id']
+        if'category' in dict.keys():
+            self.category = dict['category']
 
     def __repr__(self):
         return f'{self.brand} - {self.name} - nutriscore : {self.nutriscore}'
