@@ -77,7 +77,7 @@ class Main():
         '''
         if product:
             print(f"Recherche d'un substitut pour le produit {product}")
-            substitutes_list = self.db.get_products_with_better_nutriscore(product)
+            substitutes_list = self.db.get_better_nutriscore_products(product)
             if substitutes_list:
                 substitutes_option = option.Option(
                     f'Substituts avec un nutriscore meilleur '

@@ -37,7 +37,7 @@ class CustomDBManager():
         self.cursor = self.mydb.cursor()
         return products_list
 
-    def get_products_with_better_nutriscore(self, prod):
+    def get_better_nutriscore_products(self, prod):
         '''
         Return a list of all products in MySQL database with a better
         nutriscore than given product, for all categories.
