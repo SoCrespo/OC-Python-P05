@@ -13,7 +13,7 @@ class Menu:
         '''
         Displays a menu (title and content of Option object)
         and asks user to choose an option.
-        Returns the object selected by user.
+        Returns the object selected by user or None if 0 is selected.
         '''
         print(f'\n{option.title} \n')
         for index, line in enumerate(option.content, 1):
@@ -21,12 +21,16 @@ class Menu:
 
         choice = None
 
-        while choice not in range(1, len(option.content)+1):
+        while choice not in range(0, len(option.content)+1):
             try:
-                choice = int(input("\nEntrez le numéro de votre choix : "))
+                choice = int(input("\nEntrez le numéro de votre choix "
+                                   "ou 0 pour revenir au menu principal : "))
             except ValueError:
                 pass
-        return option.content[choice - 1]
+        if choice:
+            return option.content[choice - 1]
+        else:
+            return None
 
     def choose_in_main_menu(self):
         '''

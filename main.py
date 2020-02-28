@@ -30,10 +30,11 @@ class Main():
             if result == 1:
                 self.clear_screen()
                 product = self.select_product()
-                substitute = self.select_substitute(product)
-                if substitute:
-                    substitute.display()
-                    self.save_substitution(product, substitute)
+                if product:
+                    substitute = self.select_substitute(product)
+                    if substitute:
+                        substitute.display()
+                        self.save_substitution(product, substitute)
             elif result == 2:
                 self.display_substitutions()
             elif result == 3:
@@ -59,12 +60,14 @@ class Main():
         Return a Product.
         '''
         category = self.select_category()
-        products_list = self.db.get_products_from_category(category)
-        products_set = self.menu.remove_duplicates(products_list)
-        products_option = option.Option(
-                f'Produits de la catégorie {category} :', products_set)
-        selected_product = self.menu.ask_choice(products_option)
-        return selected_product
+        if category:
+            products_list = self.db.get_products_from_category(category)
+            products_set = self.menu.remove_duplicates(products_list)
+            products_option = option.Option(
+                    f'Produits de la catégorie {category} :', products_set)
+            selected_product = self.menu.ask_choice(products_option)
+            if selected_product:
+                return selected_product
 
     def select_substitute(self, product):
         '''
@@ -72,19 +75,21 @@ class Main():
          than argument product. Asks user to select one if list is not empty.
          Return selected substitute or None.
         '''
-        print(f"Recherche d'un substitut pour le produit {product}")
-        substitutes_list = self.db.get_products_with_better_nutriscore(product)
-        if substitutes_list:
-            substitutes_option = option.Option(
-                f'Substituts avec un nutriscore meilleur '
-                f'que {product.nutriscore.upper()} :',
-                substitutes_list)
-            selected_substitute = self.menu.ask_choice(substitutes_option)
-            return selected_substitute
-        else:
-            print("Il n'existe aucun substitut avec un meilleur nutriscore.")
-            self._press_enter()
-            return None
+        if product:
+            print(f"Recherche d'un substitut pour le produit {product}")
+            substitutes_list = self.db.get_products_with_better_nutriscore(product)
+            if substitutes_list:
+                substitutes_option = option.Option(
+                    f'Substituts avec un nutriscore meilleur '
+                    f'que {product.nutriscore.upper()} :',
+                    substitutes_list)
+                selected_substitute = self.menu.ask_choice(substitutes_option)
+                return selected_substitute
+            else:
+                print("Il n'existe aucun substitut \
+                    avec un meilleur nutriscore.")
+                self._press_enter()
+                return None
 
     def save_substitution(self, product, substitute):
         save = ''
