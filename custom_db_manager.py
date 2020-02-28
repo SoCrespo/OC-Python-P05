@@ -36,30 +36,27 @@ class CustomDBManager():
         Return a list of all Products from the given category.
         '''
         self.cursor = self.mydb.cursor(dictionary=True)
-        cat_id = category.id
+        query = f"SELECT * FROM product WHERE cat_id ={category.id}"
         products_list = []
-        query = f"SELECT * FROM product WHERE cat_id ={cat_id}"
         self.cursor.execute(query)
         for row in self.cursor:
             row['category'] = category.name
-            row.pop('cat_id')
             products_list.append(product.Product(row))
         self.cursor = self.mydb.cursor()
         return products_list
 
     def get_products_with_better_nutriscore(self, prod):
         '''
-        Return a list of all products with a better nutriscore
-        than given product, for all categories.
+        Return a list of all products in MySQL database with a better
+        nutriscore than given product, for all categories.
         '''
         self.cursor = self.mydb.cursor(dictionary=True)
-        nutriscore = prod.nutriscore
         substitutes_list = []
         query = (
                  f"SELECT product.*, category.name AS category FROM product "
                  f"INNER JOIN category "
                  f"ON product.cat_id = category.id "
-                 f"WHERE nutriscore < '{nutriscore}'"
+                 f"WHERE nutriscore < '{prod.nutriscore}'"
         )
         self.cursor.execute(query)
         for row in self.cursor:
