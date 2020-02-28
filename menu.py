@@ -9,7 +9,7 @@ class Menu:
     def __init__(self):
         pass
 
-    def display_choice(self, option):
+    def ask_choice(self, option):
         '''
         Displays a menu (title and content of Option object)
         and asks user to choose an option.
