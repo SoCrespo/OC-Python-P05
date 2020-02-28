@@ -19,6 +19,29 @@ class Main():
             self.off_client = openfoodfacts_client.OpenFoodFactsClient()
             self.db.set_database(self.off_client.products)
 
+    def start(self):
+        '''
+        Main loop of the program.
+        '''
+        quit_app = False
+        while not quit_app:
+            self.clear_screen()
+            result = self.choose_in_main_menu()
+            if result == 1:
+                self.clear_screen()
+                product = self.select_product()
+                substitute = self.select_substitute(product)
+                if substitute:
+                    substitute.display()
+                    self.save_substitution(product, substitute)
+            elif result == 2:
+                self.display_substitutions()
+            elif result == 3:
+                self.reset_app()
+            elif result == 4:
+                quit_app = True
+        self.quit_app()
+
     def clear_screen(self):
         '''Clear screen.'''
         self.menu.clear_screen()
@@ -63,7 +86,17 @@ class Main():
             self._press_enter()
             return None
 
-    def save_substitution(self, origin, substitute):
+    def save_substitution(self, product, substitute):
+        save = ''
+        while save.lower() not in ('s', 'm'):
+            save = input('Entrez S pour sauvegarder la substitution '
+                         'ou M pour revenir au menu principal : ')
+            if save.lower() == "s":
+                self._save_substitution(product, substitute)
+            else:
+                pass
+
+    def _save_substitution(self, origin, substitute):
         '''
         Insert a pair of products (origin and substitute)
         in substitution table.
@@ -133,29 +166,4 @@ class Main():
 
 if __name__ == '__main__':
     app = Main()
-    quit_app = False
-    while not quit_app:
-        app.clear_screen()
-        result = app.choose_in_main_menu()
-        if result == 1:
-            app.clear_screen()
-            product = app.select_product()
-            substitute = app.select_substitute(product)
-            if substitute:
-                substitute.display()
-                save = ''
-                while save.lower() not in ('s', 'm'):
-                    save = input('Entrez S pour sauvegarder la substitution '
-                                 'ou M pour revenir au menu principal : ')
-                    if save.lower() == "s":
-                        app.save_substitution(product, substitute)
-                    else:
-                        pass
-
-        elif result == 2:
-            app.display_substitutions()
-        elif result == 3:
-            app.reset_app()
-        elif result == 4:
-            quit_app = True
-    app.quit_app()
+    app.start()
