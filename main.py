@@ -58,7 +58,7 @@ class Main():
         Ask user to select a category, then a product from this category.
         Return a Product.
         '''
-        category = self._select_category()
+        category = self.select_category()
         products_list = self.db.get_products_from_category(category)
         products_set = self.menu.remove_duplicates(products_list)
         products_option = option.Option(
@@ -150,7 +150,7 @@ class Main():
         print('Au revoir !')
         quit()
 
-    def _select_category(self):
+    def select_category(self):
         '''
         Ask user to choose a category of products. Returns category object.
         '''
