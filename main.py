@@ -25,31 +25,30 @@ class Main():
 
     def choose_in_main_menu(self):
         '''
-        Ask the user to select one of the main menu options. Returns an int
-        according to MAIN_MENU constant.
+        Ask the user to select one of the main menu options.
+        Return an int according to MAIN_MENU constants.
         '''
         return self.menu.choose_in_main_menu()
 
     def select_product(self):
-        ''' Ask user to select a product in a list.'''
+        '''
+        Ask user to select a category, then a product from this category.
+        Return a Product.
+        '''
         category = self._select_category()
         products_list = self.db.get_products_from_category(category)
         products_set = self.menu.remove_duplicates(products_list)
         products_option = option.Option(
                 f'Produits de la catégorie {category} :', products_set)
         selected_product = self.menu.choose(products_option)
-        input(f'Produit sélectionné : {selected_product.brand} - '
-              f'{selected_product.name}, '
-              f'nutriscore : {selected_product.nutriscore.upper()}. \n'
-              f'Appuyez sur Entrée pour voir les substituts '
-              f'(meilleur nutriscore) : ')
         return selected_product
 
     def select_substitute(self, product):
         '''
-        Displays a list of products with better nutriscore
-         than argument product. Asks user to selec one if list is not empty.
+        Display a list of products with better nutriscore
+         than argument product. Asks user to select one if list is not empty.
         '''
+        print(f"Recherche d'un substitut pour le produit {product}")
         substitutes_list = self.db.get_products_with_better_nutriscore(product)
         if substitutes_list:
             substitutes_option = option.Option(
