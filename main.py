@@ -82,7 +82,8 @@ class Main():
             self._press_enter()
 
     def display_substitutions(self):
-        self.db.get_recorded_substitutions()
+        substitutions = self.db.get_recorded_substitutions()
+        self.menu.display_substitutions(substitutions)
         self._press_enter()
 
     def reset_app(self):

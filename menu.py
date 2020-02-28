@@ -56,6 +56,16 @@ class Menu:
                          for item in products_list}
         return list(products_dict.values())
 
+    def display_substitutions(self, substitutions_list):
+        '''
+        Take a list of tuples of Products (origin, substitute)
+        and displays each of them.
+        '''
+        for origin, substitute in substitutions_list:
+            print('****************')
+            print(f"PRODUIT D'ORIGINE : {origin}")
+            print(f"SUBSTITUT : {substitute}")
+
 
 if __name__ == "__main__":
     pass
