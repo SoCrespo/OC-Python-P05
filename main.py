@@ -122,7 +122,7 @@ class Main():
         Ask user to choose a category of products. Returns category object.
         '''
         categories_options = option.Option('CATEGORIES',
-                                           self.db.get_categories())
+                                           self.db.categories)
         selected_category = self.menu.display_choice(categories_options)
         return selected_category
 
