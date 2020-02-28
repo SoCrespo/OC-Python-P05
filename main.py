@@ -47,6 +47,7 @@ class Main():
         '''
         Display a list of products with better nutriscore
          than argument product. Asks user to select one if list is not empty.
+         Return selected substitute or None.
         '''
         print(f"Recherche d'un substitut pour le produit {product}")
         substitutes_list = self.db.get_products_with_better_nutriscore(product)
