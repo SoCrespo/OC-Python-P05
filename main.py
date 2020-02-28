@@ -128,7 +128,7 @@ class Main():
 
     def _press_enter(self):
         '''Ask user to press enter to go back to main menu.'''
-        input("Appuyez sur ENTREE pour revenir au menu principal :")
+        input("\nAppuyez sur ENTREE pour revenir au menu principal :")
 
 
 if __name__ == '__main__':
