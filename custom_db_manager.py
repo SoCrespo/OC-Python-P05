@@ -79,22 +79,6 @@ class CustomDBManager():
         self.cursor.execute(query)
         self.mydb.commit()
 
-    def empty_database(self):
-        '''
-        Drop all tables.
-        '''
-        self.cursor.execute("SET FOREIGN_KEY_CHECKS = 0;")
-        self.cursor.execute("SELECT table_name FROM information_schema.tables \
-                            WHERE table_schema = 'offdb2020p5';",)
-        tables = [item[0] for item in self.cursor]
-        for table in tables:
-            query = f"DROP TABLE IF EXISTS {table};"
-            self.cursor.execute(query)
-            print(f'Suppression de la table {table}...')
-        self.cursor.execute("SET FOREIGN_KEY_CHECKS = 1;")
-        print('Toutes les tables ont été supprimées.')
-        self.is_empty = True
-
     def get_recorded_substitutions(self):
         '''
         Return all records in table substitution,
@@ -112,9 +96,21 @@ class CustomDBManager():
             ]
         return substitutions
 
-        # for origin_id, substitute_id in substitutions_list:
-        #     origin = self._get_product_by_id(origin_id)
-        #     substitute = self._get_product_by_id(substitute_id)
+    def empty_database(self):
+        '''
+        Drop all tables.
+        '''
+        self.cursor.execute("SET FOREIGN_KEY_CHECKS = 0;")
+        self.cursor.execute("SELECT table_name FROM information_schema.tables \
+                            WHERE table_schema = 'offdb2020p5';",)
+        tables = [item[0] for item in self.cursor]
+        for table in tables:
+            query = f"DROP TABLE IF EXISTS {table};"
+            self.cursor.execute(query)
+            print(f'Suppression de la table {table}...')
+        self.cursor.execute("SET FOREIGN_KEY_CHECKS = 1;")
+        print('Toutes les tables ont été supprimées.')
+        self.is_empty = True
 
     def close_database(self):
         '''
