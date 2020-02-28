@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os
+
 import custom_db_manager
 import openfoodfacts_client
 import menu
@@ -21,7 +21,7 @@ class Main():
 
     def clear_screen(self):
         '''Clear screen.'''
-        os.system('cls||clear')
+        self.menu.clear_screen()
 
     def choose_in_main_menu(self):
         '''

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 from constants import MAIN_MENU_TITLE, MAIN_MENU_CONTENT
 
 
@@ -14,8 +15,6 @@ class Menu:
         and asks user to choose an option.
         Returns the object selected by user.
         '''
-        # content = option.content
-
         print(f'\n{option.title} \n')
         for index, line in enumerate(option.content, 1):
             print(f'{index} - {line}')
@@ -65,6 +64,10 @@ class Menu:
             print('****************')
             print(f"PRODUIT D'ORIGINE : {origin}")
             print(f"SUBSTITUT : {substitute}")
+
+    def clear_screen(self):
+        '''Clear screen.'''
+        os.system('cls||clear')
 
 
 if __name__ == "__main__":
