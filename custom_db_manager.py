@@ -11,7 +11,7 @@ class CustomDBManager():
     def __init__(self):
         self.mydb = mysql.connector.connect(**DB_CONNECTION_PARAMS)
         self.cursor = self.mydb.cursor()
-        self.categories = self._get_categories_rows()
+        self.categories = self._get_categories()
         self.is_empty = self._is_empty()
 
     def set_database(self, products):
@@ -150,7 +150,7 @@ class CustomDBManager():
             self.cursor.execute(query)
         self.mydb.commit()
 
-    def _get_categories_rows(self):
+    def _get_categories(self):
         '''
         Set self.categories as a list of Category objects.
         These objects have following attributes : id, name, full_name.
