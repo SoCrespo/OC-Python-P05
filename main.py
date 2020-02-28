@@ -40,7 +40,7 @@ class Main():
         products_set = self.menu.remove_duplicates(products_list)
         products_option = option.Option(
                 f'Produits de la catégorie {category} :', products_set)
-        selected_product = self.menu.choose(products_option)
+        selected_product = self.menu.display_choice(products_option)
         return selected_product
 
     def select_substitute(self, product):
@@ -55,7 +55,7 @@ class Main():
                 f'Substituts avec un nutriscore meilleur '
                 f'que {product.nutriscore.upper()} :',
                 substitutes_list)
-            selected_substitute = self.menu.choose(substitutes_option)
+            selected_substitute = self.menu.display_choice(substitutes_option)
             return selected_substitute
         else:
             print("Il n'existe aucun substitut avec un meilleur nutriscore.")
@@ -122,7 +122,7 @@ class Main():
         '''
         categories_options = option.Option('CATEGORIES',
                                            self.db.get_categories())
-        selected_category = self.menu.choose(categories_options)
+        selected_category = self.menu.display_choice(categories_options)
         return selected_category
 
     def _press_enter(self):

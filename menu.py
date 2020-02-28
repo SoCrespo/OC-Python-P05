@@ -9,7 +9,7 @@ class Menu:
     def __init__(self):
         pass
 
-    def choose(self, option):
+    def display_choice(self, option):
         '''
         Displays a menu (title and content of Option object)
         and asks user to choose an option.
@@ -68,6 +68,9 @@ class Menu:
     def clear_screen(self):
         '''Clear screen.'''
         os.system('cls||clear')
+
+    def get_answer(self):
+        pass
 
 
 if __name__ == "__main__":
