@@ -11,7 +11,7 @@ class CustomDBManager():
     def __init__(self):
         self.mydb = mysql.connector.connect(**DB_CONNECTION_PARAMS)
         self.cursor = self.mydb.cursor()
-        self.categories = self._get_categories()
+        self.categories = None
         self.is_empty = self._is_empty()
 
     def set_database(self, products):
@@ -20,6 +20,7 @@ class CustomDBManager():
         '''
         self._create_tables()
         self._fill_categories_table()
+        self._get_categories_objects()
         self._insert_products(products)
         self.is_empty = False
 
@@ -150,9 +151,9 @@ class CustomDBManager():
             self.cursor.execute(query)
         self.mydb.commit()
 
-    def _get_categories(self):
+    def _get_categories_objects(self):
         '''
-        Set self.categories as a list of Category objects.
+        Creates self.categories as a list of Category objects.
         These objects have following attributes : id, name, full_name.
         '''
         query = f"SELECT * FROM category"
@@ -161,7 +162,7 @@ class CustomDBManager():
         for (id, name, full_name) in self.cursor:
             categories_rows.append(
                 category.Category(id, name, full_name))
-        return categories_rows
+        self.categories = categories_rows
 
     def _insert_product(self, prod):
         '''
