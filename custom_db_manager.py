@@ -140,7 +140,7 @@ class CustomDBManager():
 
     def _fill_categories_table(self):
         '''
-        Insert categories in categories table.
+        Insert categories listed in CATEGORIES into category table.
         '''
         for name, full_name in CATEGORIES.items():
             query = (
