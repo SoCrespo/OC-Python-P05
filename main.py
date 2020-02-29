@@ -142,7 +142,7 @@ class Main():
             print('Réinitialisation en cours...')
             self.db.empty_database()
             self.off_client = openfoodfacts_client.OpenFoodFactsClient()
-            self.db.set_database(self.off_client.products)
+            self.db.reset_database(self.off_client.products)
             message = ('Réinitialisation terminée.')
         else:
             message = ('Opération annulée.')

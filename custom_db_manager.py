@@ -14,7 +14,7 @@ class CustomDBManager():
         self.categories = self._get_categories()
         self.is_empty = self._is_empty()
 
-    def set_database(self, products):
+    def reset_database(self, products):
         '''
         Create tables and fills them with API data.
         '''
