@@ -11,8 +11,8 @@ class CustomDBManager():
     def __init__(self):
         self.mydb = mysql.connector.connect(**DB_CONNECTION_PARAMS)
         self.cursor = self.mydb.cursor()
-        self.categories = self._get_categories_objects()
         self.is_empty = self._is_empty()
+        self.categories = None
 
     def set_database(self, products):
         '''
@@ -20,7 +20,7 @@ class CustomDBManager():
         '''
         self._create_tables()
         self._fill_categories_table()
-        self._get_categories_objects()
+        self.categories = self._get_categories_objects()
         self._insert_products(products)
         self.is_empty = False
 
