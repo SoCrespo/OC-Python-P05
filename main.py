@@ -76,7 +76,8 @@ class Main():
          Return selected substitute or None.
         '''
         if product:
-            print(f"Recherche d'un substitut pour le produit {product}")
+            print(f"Recherche d'un substitut (même catégorie) "
+                  f"pour le produit {product}")
             substitutes_list = self.db.get_better_nutriscore_products(product)
             if substitutes_list:
                 substitutes_option = option.Option(
