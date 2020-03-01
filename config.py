@@ -22,6 +22,12 @@ CATEGORIES = {
 API_CATEGORIES = CATEGORIES.keys()
 DB_CATEGORIES = CATEGORIES.values()
 
+# Max number of products that must be returned by each API call for a category.
+# As some products are incomplete, ensure that this limit is at least 20
+# to get enough complete products.
+
+MAX_PRODUCTS_NB = 50
+
 # Provides matching between :
 # - API fields name, on one hand
 # - Product attributes and custom_database rows (they are the same),
@@ -38,10 +44,6 @@ API_TO_PRODUCT_FIELDS = {
     'category': 'category'
     }
 
-# Max number of products that must be returned by each API call for a category.
-# As some products are incomplete, ensure that this limit is at least 20
-# to get enough complete products.
-MAX_PRODUCTS_NB = 50
 
 #######################################
 # DATABASE PARAMETERS

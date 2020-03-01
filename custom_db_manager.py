@@ -11,8 +11,8 @@ class CustomDBManager():
     def __init__(self):
         self.mydb = mysql.connector.connect(**DB_CONNECTION_PARAMS)
         self.cursor = self.mydb.cursor()
-        self.categories = self._get_categories()
         self.is_empty = self._is_empty()
+        self.categories = None
 
     def reset_database(self, products):
         '''
@@ -20,6 +20,7 @@ class CustomDBManager():
         '''
         self._create_tables()
         self._fill_categories_table()
+        self.categories = self._get_categories_objects()
         self._insert_products(products)
         self.is_empty = False
 
@@ -49,6 +50,7 @@ class CustomDBManager():
                  f"INNER JOIN category "
                  f"ON product.cat_id = category.id "
                  f"WHERE nutriscore < '{prod.nutriscore}'"
+                 f" AND category.name = '{prod.category}'"
         )
         self.cursor.execute(query)
         for row in self.cursor:
@@ -150,18 +152,18 @@ class CustomDBManager():
             self.cursor.execute(query)
         self.mydb.commit()
 
-    def _get_categories(self):
+    def _get_categories_objects(self):
         '''
-        Set self.categories as a list of Category objects.
+        Creates self.categories as a list of Category objects.
         These objects have following attributes : id, name, full_name.
         '''
         query = f"SELECT * FROM category"
         self.cursor.execute(query)
-        categories_rows = []
+        categories_objects = []
         for (id, name, full_name) in self.cursor:
-            categories_rows.append(
+            categories_objects.append(
                 category.Category(id, name, full_name))
-        return categories_rows
+        return categories_objects
 
     def _insert_product(self, prod):
         '''
