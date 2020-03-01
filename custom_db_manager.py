@@ -50,6 +50,7 @@ class CustomDBManager():
                  f"INNER JOIN category "
                  f"ON product.cat_id = category.id "
                  f"WHERE nutriscore < '{prod.nutriscore}'"
+                 f" AND category.name = '{prod.category}'"
         )
         self.cursor.execute(query)
         for row in self.cursor:
