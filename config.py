@@ -5,9 +5,15 @@
 # API PARAMETERS
 #######################################
 
-# Choose categories that are not overlapping one another.
-# This dict ensures concordance between categories tags in API
-# and their full name in the custom database.
+# CATEGORIES
+#
+# To change / add / update a category, use the following syntax:
+# 'API_CATEGORY_NAME': 'CUSTOM_NAME'
+# The API_CATEGORY_NAME MUST be a name provided by the API,
+# The CUSTOM_NAME is a user-friendly version of API_CATEGORY_NAME.
+
+# Choose categories that do not overlapp one another
+# in OpenFoodFacts database.
 
 CATEGORIES = {
     'pates-a-tartiner': 'Pâtes à tartiner',
@@ -18,7 +24,6 @@ CATEGORIES = {
 }
 
 API_CATEGORIES = CATEGORIES.keys()
-DB_CATEGORIES = CATEGORIES.values()
 
 # Max number of products that must be returned by each API call for a category.
 # As some products are incomplete, ensure that this limit is at least 20
