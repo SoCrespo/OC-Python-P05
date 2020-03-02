@@ -12,7 +12,8 @@ class CustomDBManager():
         self.mydb = mysql.connector.connect(**DB_CONNECTION_PARAMS)
         self.cursor = self.mydb.cursor()
         self.is_empty = self._is_empty()
-        self.categories = None
+        if not self.is_empty:
+            self.categories = self._get_categories_objects()
 
     def reset_database(self, products):
         '''
