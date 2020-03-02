@@ -58,4 +58,4 @@ DB_CONNECTION_PARAMS = {
     'database': 'offdb2020p5',
     }
 
-DB_SCHEMA = 'project5/database_schema.sql'
+DB_SCHEMA = 'database_schema.sql'
