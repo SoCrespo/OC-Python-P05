@@ -16,16 +16,6 @@ DB_SCHEMA = 'database_schema.sql'
 # APP PARAMETERS
 # ################################""
 
-MAIN_MENU_TITLE = 'MENU PRINCIPAL'
-
-MAIN_MENU_CONTENT = [
-                    'Rechercher des substituts à un produit',
-                    'Afficher les substitutions enregistrées',
-                    'Réinitialisation complète',
-                    'Quitter'
-                    ]
-
-
 # The following dict is used to manage the transfer of API data
 # (fields = this dict keys) into MySQL database (fields = this dict values)
 # by using Product object (attributes = same fields as MySQL

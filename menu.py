@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-from constants import MAIN_MENU_TITLE, MAIN_MENU_CONTENT
 
 
 class Menu:
@@ -37,13 +36,22 @@ class Menu:
         Ask the user to select one of the main menu options. Returns an int
         according to MAIN_MENU constant.
         '''
-        print(f'\n{MAIN_MENU_TITLE} \n')
-        for index, option in enumerate(MAIN_MENU_CONTENT, 1):
+        title = 'MENU PRINCIPAL'
+
+        content = [
+                            'Rechercher des substituts à un produit',
+                            'Afficher les substitutions enregistrées',
+                            'Réinitialisation complète',
+                            'Quitter'
+                            ]
+
+        print(f'\n{title} \n')
+        for index, option in enumerate(content, 1):
             print(f'{index} - {option}')
 
         choice = None
 
-        while choice not in range(1, len(MAIN_MENU_CONTENT)+1):
+        while choice not in range(1, len(content)+1):
             try:
                 choice = int(input("\nEntrez le numéro de votre choix : "))
             except ValueError:
