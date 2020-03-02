@@ -7,10 +7,10 @@ from config import DB_CONNECTION_PARAMS, DB_SCHEMA, CATEGORIES
 
 
 class CustomDBManager():
+    '''Insert into / retrieve data from custom database.'''
 
     def __init__(self):
         self.mydb = mysql.connector.connect(**DB_CONNECTION_PARAMS)
-        self.cursor = self.mydb.cursor()
         self.is_empty = self._is_empty()
         if not self.is_empty:
             self.categories = self._get_categories_objects()
@@ -36,7 +36,6 @@ class CustomDBManager():
         for row in self.cursor:
             row['category'] = category.name
             products_list.append(product.Product(row))
-        self.cursor = self.mydb.cursor()
         return products_list
 
     def get_better_nutriscore_products(self, prod):
@@ -57,13 +56,13 @@ class CustomDBManager():
         for row in self.cursor:
             substitute = product.Product(row)
             substitutes_list.append(substitute)
-        self.cursor = self.mydb.cursor()
         return substitutes_list
 
     def save_substitution(self, origin, substitute):
         '''
         Save origin product and substitute in table substitution.
         '''
+        self.cursor = self.mydb.cursor()
         query = (
                 f"INSERT INTO substitution (origin_id, substitute_id) "
                 f"VALUES({origin.id}, {substitute.id});"
@@ -76,6 +75,7 @@ class CustomDBManager():
         Return all records in table substitution,
         as a list of tuples of Products (origin, substitute).
         '''
+        self.cursor = self.mydb.cursor()
         query = ('SELECT * FROM substitution')
         substitutions_by_id = []
         self.cursor.execute(query)
@@ -92,6 +92,7 @@ class CustomDBManager():
         '''
         Drop all tables.
         '''
+        self.cursor = self.mydb.cursor()
         self.cursor.execute("SET FOREIGN_KEY_CHECKS = 0;")
         self.cursor.execute("SELECT table_name FROM information_schema.tables \
                             WHERE table_schema = 'offdb2020p5';",)
@@ -102,6 +103,7 @@ class CustomDBManager():
             print(f'Suppression de la table {table}...')
         self.cursor.execute("SET FOREIGN_KEY_CHECKS = 1;")
         print('Toutes les tables ont été supprimées.')
+
         self.is_empty = True
 
     def close_database(self):
@@ -114,6 +116,7 @@ class CustomDBManager():
         '''
         Check if database is empty (no tables). Return boolean.
         '''
+        self.cursor = self.mydb.cursor()
         tables = 'information_schema.tables'
         query = (
                  f"SELECT {tables}.table_name FROM {tables}"
@@ -128,6 +131,7 @@ class CustomDBManager():
         '''
         Create tables in database from SQL schema "DB_SCHEMA."
         '''
+        self.cursor = self.mydb.cursor()
         query = ''
         with open(DB_SCHEMA, "r") as f:
             lines = f.readlines()
@@ -145,6 +149,7 @@ class CustomDBManager():
         '''
         Insert categories listed in CATEGORIES into category table.
         '''
+        self.cursor = self.mydb.cursor()
         for name, full_name in CATEGORIES.items():
             query = (
                         f"INSERT INTO category (name, full_name)"
@@ -158,6 +163,7 @@ class CustomDBManager():
         Creates self.categories as a list of Category objects.
         These objects have following attributes : id, name, full_name.
         '''
+        self.cursor = self.mydb.cursor()
         query = f"SELECT * FROM category"
         self.cursor.execute(query)
         categories_objects = []
@@ -170,12 +176,12 @@ class CustomDBManager():
         '''
         Insert 1 product in local database.
         '''
-
         prod.convert_category_to_cat_id(self.categories)
         str_keys = ", ".join(vars(prod).keys())
         values = vars(prod).values()
         escaped_values = [str(value).replace("'", "''") for value in values]
         str_values = "', '".join(escaped_values)
+        self.cursor = self.mydb.cursor()
         query = f"INSERT INTO product ({str_keys}) VALUES ('{str_values}');"
         self.cursor.execute(query)
         self.mydb.commit()
