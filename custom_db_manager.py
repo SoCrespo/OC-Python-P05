@@ -3,14 +3,19 @@
 import mysql.connector
 import category
 import product
-from config import DB_CONNECTION_PARAMS, DB_SCHEMA, CATEGORIES
+from config import USER, PASSWORD, HOST, DATABASE, DB_SCHEMA, CATEGORIES
 
 
 class CustomDBManager():
     '''Insert into / retrieve data from custom database.'''
 
     def __init__(self):
-        self.mydb = mysql.connector.connect(**DB_CONNECTION_PARAMS)
+        self.mydb = mysql.connector.connect(
+            user=USER,
+            password=PASSWORD,
+            host=HOST,
+            database=DATABASE
+            )
         self.is_empty = self._is_empty()
         if not self.is_empty:
             self.categories = self._get_categories_objects()
@@ -121,7 +126,7 @@ class CustomDBManager():
         query = (
                  f"SELECT {tables}.table_name FROM {tables}"
                  f" WHERE {tables}.table_schema = "
-                 f"'{DB_CONNECTION_PARAMS['database']}'"
+                 f"'{DATABASE}'"
                  )
         self.cursor.execute(query)
         table_number = self.cursor.fetchall()
