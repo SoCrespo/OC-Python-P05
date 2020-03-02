@@ -112,7 +112,10 @@ class Main():
         '''
 
         substitutions = self.db.get_recorded_substitutions()
-        self.menu.display_substitutions(substitutions)
+        if substitutions:
+            self.menu.display_substitutions(substitutions)
+        else:
+            print("Aucune substitution enregistrée.")
         self._press_enter()
 
     def reset_app(self):
