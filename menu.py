@@ -33,17 +33,17 @@ class Menu:
 
     def choose_in_main_menu(self):
         '''
-        Ask the user to select one of the main menu options. Returns an int
-        according to MAIN_MENU constant.
+        Ask the user to select one of the main menu options.
+        Return an int between 1 and 4.
         '''
         title = 'MENU PRINCIPAL'
 
         content = [
-                            'Rechercher des substituts à un produit',
-                            'Afficher les substitutions enregistrées',
-                            'Réinitialisation complète',
-                            'Quitter'
-                            ]
+                    'Rechercher des substituts à un produit',
+                    'Afficher les substitutions enregistrées',
+                    'Réinitialisation complète',
+                    'Quitter'
+                    ]
 
         print(f'\n{title} \n')
         for index, option in enumerate(content, 1):
