@@ -15,7 +15,7 @@ WARNING : this program will handle a database named 'openfoodfacts2020p5' and a 
 
 ### Python
 
-See requirements.txt.
+Install required extensions by doing (in command line) : `python install -r requirements.txt`
 
 ## How it works
 
