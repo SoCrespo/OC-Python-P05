@@ -87,8 +87,8 @@ class Main():
                 selected_substitute = self.menu.ask_choice(substitutes_option)
                 return selected_substitute
             else:
-                print("Il n'existe aucun substitut \
-                    avec un meilleur nutriscore.")
+                print("Il n'existe aucun substitut"
+                      " avec un meilleur nutriscore.")
                 self._press_enter()
                 return None
 
@@ -99,7 +99,7 @@ class Main():
         '''
         save = ''
         while save.lower() not in ('s', 'm'):
-            save = input('Entrez S pour sauvegarder la substitution '
+            save = input('\nEntrez S pour sauvegarder la substitution '
                          'ou M pour revenir au menu principal : ')
             if save.lower() == "s":
                 self._save_substitution(product, substitute)
