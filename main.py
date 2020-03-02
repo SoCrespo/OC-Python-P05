@@ -26,8 +26,8 @@ class Main():
         quit_app = False
         while not quit_app:
             self.clear_screen()
-            result = self.choose_in_main_menu()
-            if result == 1:
+            user_choice = self.choose_in_main_menu()
+            if user_choice == 1:  # Find a substitute
                 self.clear_screen()
                 product = self.select_product()
                 if product:
@@ -35,11 +35,11 @@ class Main():
                     if substitute:
                         substitute.display()
                         self.save_substitution(product, substitute)
-            elif result == 2:
+            elif user_choice == 2:  # Display recorded substitutes
                 self.display_substitutions()
-            elif result == 3:
+            elif user_choice == 3:  # Reset database
                 self.reset_app()
-            elif result == 4:
+            elif user_choice == 4:  # Quit app
                 quit_app = True
         self.quit_app()
 
@@ -50,7 +50,6 @@ class Main():
     def choose_in_main_menu(self):
         '''
         Ask the user to select one of the main menu options.
-        Return an int according to MAIN_MENU constants.
         '''
         return self.menu.choose_in_main_menu()
 
