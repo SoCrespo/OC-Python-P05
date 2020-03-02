@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 
+# API PARAMETERS
+
+URL = 'https://fr.openfoodfacts.org/cgi/search.pl'
+
+
 MAIN_MENU_TITLE = 'MENU PRINCIPAL'
 
 MAIN_MENU_CONTENT = [

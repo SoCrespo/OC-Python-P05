@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import requests
-from config import URL, API_CATEGORIES, API_TO_PRODUCT_FIELDS, MAX_PRODUCTS_NB
+from constants import URL
+from config import API_CATEGORIES, API_TO_PRODUCT_FIELDS, MAX_PRODUCTS_NB
 import product
 
 

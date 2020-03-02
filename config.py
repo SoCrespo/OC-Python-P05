@@ -5,8 +5,6 @@
 # API PARAMETERS
 #######################################
 
-URL = 'https://fr.openfoodfacts.org/cgi/search.pl'
-
 # Choose categories that are not overlapping one another.
 # This dict ensures concordance between categories tags in API
 # and their full name in the custom database.
