@@ -29,34 +29,14 @@ CATEGORIES = {
 
 MAX_PRODUCTS_NB = 50
 
-# Provides matching between :
-# - API fields name, on one hand
-# - Product attributes and custom_database rows (they are the same),
-#   on the other hand.
-API_TO_PRODUCT_FIELDS = {
-    'product_name_fr': 'name',
-    'generic_name_fr': 'full_name',
-    'brands': 'brand',
-    'quantity': 'quantity',
-    'url': 'url',
-    'stores': 'stores',
-    'nutrition_grade_fr': 'nutriscore',
-    'ingredients_text_fr': 'ingredients',
-    'category': 'category'
-    }
-
 
 #######################################
 # DATABASE PARAMETERS
 #######################################
 
-# Change this dict values (strings) according to the database
-# that will be used. Do not change the keys !
-DB_CONNECTION_PARAMS = {
-    'user': 'offuser',
-    'password': 'my!pass1worD',
-    'host': 'localhost',
-    'database': 'offdb2020p5',
-    }
+USER = 'offuser'
+PASSWORD = 'my!pass1worD'
+HOST = 'localhost'
+DATABASE = 'offdb2020p5'
 
 DB_SCHEMA = 'database_schema.sql'

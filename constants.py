@@ -25,3 +25,21 @@ PRODUCT_ATTRIBUTES = {
         "ingredients": "Ingrédients",
         "stores": "Magasins"
     }
+
+# FIELDS CONVERSION DICTIONARY
+# Provides matching between :
+# - API fields name, on one hand
+# - Product attributes and custom_database rows (they are the same),
+#   on the other hand.
+
+API_TO_PRODUCT_FIELDS = {
+    'product_name_fr': 'name',
+    'generic_name_fr': 'full_name',
+    'brands': 'brand',
+    'quantity': 'quantity',
+    'url': 'url',
+    'stores': 'stores',
+    'nutrition_grade_fr': 'nutriscore',
+    'ingredients_text_fr': 'ingredients',
+    'category': 'category'
+    }
