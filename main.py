@@ -3,7 +3,7 @@
 import custom_db_manager
 import openfoodfacts_client
 import menu
-import option
+import list_of_choice
 import mysql.connector.errors
 
 
@@ -63,9 +63,9 @@ class Main():
         if category:
             products_list = self.db.get_products_from_category(category)
             products_set = self.menu.remove_duplicates(products_list)
-            products_option = option.Option(
+            products_list_of_choice = list_of_choice.ListOfChoice(
                     f'Produits de la catégorie {category} :', products_set)
-            selected_product = self.menu.ask_choice(products_option)
+            selected_product = self.menu.ask_choice(products_list_of_choice)
             if selected_product:
                 return selected_product
 
@@ -80,11 +80,13 @@ class Main():
                   f"pour le produit {product}")
             substitutes_list = self.db.get_better_nutriscore_products(product)
             if substitutes_list:
-                substitutes_option = option.Option(
+                substitutes_list_of_choice = list_of_choice.ListOfChoice(
                     f'Substituts avec un nutriscore meilleur '
                     f'que {product.nutriscore.upper()} :',
                     substitutes_list)
-                selected_substitute = self.menu.ask_choice(substitutes_option)
+                selected_substitute = (
+                    self.menu.ask_choice(substitutes_list_of_choice)
+                )
                 return selected_substitute
             else:
                 print("Il n'existe aucun substitut"
@@ -155,9 +157,10 @@ class Main():
         '''
         Ask user to choose a category of products. Return Category object.
         '''
-        categories_options = option.Option('CATEGORIES',
-                                           self.db.categories)
-        selected_category = self.menu.ask_choice(categories_options)
+        categories_list_of_choice = (
+            list_of_choice.ListOfChoice('CATEGORIES', self.db.categories)
+        )
+        selected_category = self.menu.ask_choice(categories_list_of_choice)
         return selected_category
 
     def _save_substitution(self, origin, substitute):

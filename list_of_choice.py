@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-class Option:
+class ListOfChoice:
 
     def __init__(self, title, content):
         self.title = title
