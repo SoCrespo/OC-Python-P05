@@ -2,7 +2,7 @@
 
 import requests
 from constants import URL
-from config import API_CATEGORIES, API_TO_PRODUCT_FIELDS, MAX_PRODUCTS_NB
+from config import CATEGORIES, API_TO_PRODUCT_FIELDS, MAX_PRODUCTS_NB
 import product
 
 
@@ -38,7 +38,7 @@ class OpenFoodFactsClient:
         req = requests.get(URL, params=payload)
         return req.json().get('products')
 
-    def _get_data_by_categories(self, categories=API_CATEGORIES,
+    def _get_data_by_categories(self, categories=CATEGORIES.keys(),
                                 nb=MAX_PRODUCTS_NB):
         '''
         Call _get_data_by_category() for a list of categories.
@@ -90,7 +90,7 @@ class OpenFoodFactsClient:
 
     def _get_Products_from_API(self):
         '''
-        Retrieve data from API, for API_CATEGORIES
+        Retrieve data from API, for CATEGORIES
         (and for MAX_PRODUCTS_NB products in each category).
         Return a list of Product objects.
         '''

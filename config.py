@@ -23,8 +23,6 @@ CATEGORIES = {
     'confiture-de-lait': 'Confitures de lait',
 }
 
-API_CATEGORIES = CATEGORIES.keys()
-
 # Max number of products that must be returned by each API call for a category.
 # As some products are incomplete, ensure that this limit is at least 20
 # to get enough complete products.
