@@ -3,7 +3,8 @@
 import mysql.connector
 import category
 import product
-from config import USER, PASSWORD, HOST, DATABASE, DB_SCHEMA, CATEGORIES
+from constants import DB_SCHEMA
+from config import USER, PASSWORD, HOST, DATABASE, CATEGORIES
 
 
 class CustomDBManager():

@@ -38,5 +38,3 @@ USER = 'offuser'
 PASSWORD = 'my!pass1worD'
 HOST = 'localhost'
 DATABASE = 'offdb2020p5'
-
-DB_SCHEMA = 'database_schema.sql'
