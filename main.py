@@ -17,7 +17,7 @@ class Main():
         self.menu = menu.Menu()
         if self.db.is_empty:
             self.off_client = openfoodfacts_client.OpenFoodFactsClient()
-            self.db.set_database(self.off_client.products)
+            self.db.reset_database(self.off_client.products)
 
     def start(self):
         '''
