@@ -23,9 +23,13 @@ CATEGORIES = {
     'confiture-de-lait': 'Confitures de lait',
 }
 
-# Max number of products that must be returned by each API call for a category.
+# NUMBER OF RETRIEVED PRODUCTS
+#
+# MAX_PRODUCT_NB is the maximum number of products that must be returned
+# by each API call for a category.
 # As some products are incomplete, ensure that this limit is at least 20
-# to get enough complete products.
+# to get enough complete products, but not too high neither, for readability
+# and connection time reasons (50 to 100 are a good limit).
 
 MAX_PRODUCTS_NB = 50
 
@@ -33,6 +37,9 @@ MAX_PRODUCTS_NB = 50
 #######################################
 # DATABASE PARAMETERS
 #######################################
+
+# These parameters must be those of an existing database, emprty, with
+# all privileges granted to mentioned user.
 
 USER = 'offuser'
 PASSWORD = 'my!pass1worD'
