@@ -36,11 +36,13 @@ class Main():
                 if product:
                     print(f"\nRecherche d'un substitut à {product}")
                     substitutes = self._get_substitutes(product)
-                    substitute = self._select_substitute(substitutes)
-                    if substitute:
-                        substitute.display()
+                    selected_substitute = self._select_substitute(substitutes)
+                    if selected_substitute:
+                        selected_substitute.display()
                         if self._ask_for_recording():
-                            self._save_substitution(product, substitute)
+                            self._save_substitution(
+                                product, selected_substitute
+                                )
             elif user_choice == 2:  # Display recorded substitutes
                 self._display_substitutions()
             elif user_choice == 3:  # Reset database
@@ -104,7 +106,6 @@ class Main():
             self._press_enter()
             return None
 
-
     def _display_substitutions(self):
         '''
         Display recorded substitutions.
@@ -123,9 +124,8 @@ class Main():
         '''
         save = ''
         save = input('\nEntrez S pour sauvegarder la substitution '
-                        'ou faites Entrée pour revenir au menu principal : ')
+                     'ou faites Entrée pour revenir au menu principal : ')
         return save.lower() == "s"
-           
 
     def _reset_app(self):
         '''
