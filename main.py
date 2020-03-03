@@ -12,6 +12,9 @@ class Main():
     '''Manage the main app.'''
 
     def __init__(self):
+        '''Instanciate CustomDBManager and Menu objects. If MySQL database
+        is empty, instanciate OpenFoodFactsClient to retrieve data, then
+        fill database.'''
 
         self.db = custom_db_manager.CustomDBManager()
         self.menu = menu.Menu()
@@ -25,35 +28,38 @@ class Main():
         '''
         quit_app = False
         while not quit_app:
-            self.clear_screen()
-            user_choice = self.choose_in_main_menu()
+            self._clear_screen()
+            user_choice = self._choose_in_main_menu()
             if user_choice == 1:  # Find a substitute
-                self.clear_screen()
-                product = self.select_product()
+                self._clear_screen()
+                product = self._select_product()
                 if product:
-                    substitute = self.select_substitute(product)
+                    print(f"\nRecherche d'un substitut à {product}")
+                    substitutes = self._get_substitutes(product)
+                    substitute = self._select_substitute(substitutes)
                     if substitute:
                         substitute.display()
-                        self.save_substitution(product, substitute)
+                        if self._ask_for_recording():
+                            self._save_substitution(product, substitute)
             elif user_choice == 2:  # Display recorded substitutes
-                self.display_substitutions()
+                self._display_substitutions()
             elif user_choice == 3:  # Reset database
-                self.reset_app()
+                self._reset_app()
             elif user_choice == 4:  # Quit app
                 quit_app = True
-        self.quit_app()
+        self._quit_app()
 
-    def clear_screen(self):
+    def _clear_screen(self):
         '''Clear screen.'''
         self.menu.clear_screen()
 
-    def choose_in_main_menu(self):
+    def _choose_in_main_menu(self):
         '''
         Ask the user to select one of the main menu options.
         '''
         return self.menu.choose_in_main_menu()
 
-    def select_product(self):
+    def _select_product(self):
         '''
         Ask user to select a category, then a product from this category.
         Return a Product.
@@ -70,20 +76,24 @@ class Main():
             if selected_product:
                 return selected_product
 
-    def select_substitute(self, product):
+    def _get_substitutes(self, product):
+        '''Retrieve from custom database a list of products with a better
+        nutriscore than argument product.
+        Return a list of Products (that may be empty).
+        '''
+        return self.db.get_better_nutriscore_products(product)
+
+    def _select_substitute(self, substitutes_list):
         '''
         Display a list of products with better nutriscore
-         than argument product. Asks user to select one if list is not empty.
-         Return selected substitute or None.
+        than argument product. Ask user to select one if list is not empty.
+        Return selected substitute, or None if list is empty.
         '''
-        print(f"Recherche d'un substitut (même catégorie) "
-              f"pour le produit {product}")
-        substitutes_list = self.db.get_better_nutriscore_products(product)
+        # print(f"Recherche d'un substitut (même catégorie) "
+        #      f"pour le produit {product}")
         if substitutes_list:
             substitutes_list_of_choice = list_of_choice.ListOfChoice(
-                f'Substituts avec un nutriscore meilleur '
-                f'que {product.nutriscore.upper()} :',
-                substitutes_list)
+                f'Substituts disponibles :', substitutes_list)
             selected_substitute = (
                 self.menu.get_user_choice(substitutes_list_of_choice)
             )
@@ -94,33 +104,30 @@ class Main():
             self._press_enter()
             return None
 
-    def save_substitution(self, product, substitute):
-        '''
-        Ask user if they want to record substitution and, if yes,
-        launch recording.
-        '''
-        save = ''
-        while save.lower() not in ('s', 'm'):
-            save = input('\nEntrez S pour sauvegarder la substitution '
-                         'ou M pour revenir au menu principal : ')
-            if save.lower() == "s":
-                self._save_substitution(product, substitute)
-            else:
-                pass
 
-    def display_substitutions(self):
+    def _display_substitutions(self):
         '''
         Display recorded substitutions.
         '''
 
         substitutions = self.db.get_recorded_substitutions()
         if substitutions:
-            self.menu.display_substitutions(substitutions)
+            self.menu._display_substitutions(substitutions)
         else:
             print("Aucune substitution enregistrée.")
         self._press_enter()
 
-    def reset_app(self):
+    def _ask_for_recording(self):
+        '''
+        Ask user if they want to record substitution. Return boolean.
+        '''
+        save = ''
+        save = input('\nEntrez S pour sauvegarder la substitution '
+                        'ou faites Entrée pour revenir au menu principal : ')
+        return save.lower() == "s"
+           
+
+    def _reset_app(self):
         '''
         Drop all existing tables in the database, recreate them
         and fill them with data from API.
@@ -145,7 +152,7 @@ class Main():
         print(message)
         self._press_enter()
 
-    def quit_app(self):
+    def _quit_app(self):
         '''
         Close connector and end program.
         '''
