@@ -11,6 +11,9 @@ class ListOfChoice:
         self.title = title
         self.content = content
 
+    def sort_by_nutriscore(self):
+        self.content.sort(key=lambda prod: prod.nutriscore)
+
 
 if __name__ == "__main__":
     pass

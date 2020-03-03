@@ -106,6 +106,7 @@ class Main():
         if substitutes_list:
             substitutes_list_of_choice = list_of_choice.ListOfChoice(
                 f'Substituts disponibles :', substitutes_list)
+            substitutes_list_of_choice.sort_by_nutriscore()
             selected_substitute = (
                 self.menu.get_user_choice(substitutes_list_of_choice)
             )
