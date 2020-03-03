@@ -31,7 +31,7 @@ class Main():
             self._clear_screen()
             user_choice = self._choose_in_main_menu()
             if user_choice == 1:
-                self._find_substitute()
+                self._find_and_record_substitute()
             elif user_choice == 2:
                 self._display_substitutions()
             elif user_choice == 3:
@@ -50,9 +50,9 @@ class Main():
         '''
         return self.menu.choose_in_main_menu()
 
-    def _find_substitute(self):
+    def _find_and_record_substitute(self):
         '''
-        Ask user to select a category than a product
+        Ask user to select a category then a product
         and return a list of substitutes.
         '''
         self._clear_screen()
