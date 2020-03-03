@@ -123,7 +123,7 @@ class Main():
 
         substitutions = self.db.get_recorded_substitutions()
         if substitutions:
-            self.menu._display_substitutions(substitutions)
+            self.menu.display_substitutions(substitutions)
         else:
             print("Aucune substitution enregistrée.")
         self._press_enter()
