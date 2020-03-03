@@ -9,7 +9,7 @@ import mysql.connector.errors
 
 class Main():
 
-    '''Manages the main app.'''
+    '''Manage the main app.'''
 
     def __init__(self):
 
@@ -64,7 +64,7 @@ class Main():
             products_set = self.menu.remove_duplicates(products_list)
             products_list_of_choice = list_of_choice.ListOfChoice(
                     f'Produits de la catégorie {category} :', products_set)
-            selected_product = self.menu.ask_choice(products_list_of_choice)
+            selected_product = self.menu.get_user_choice(products_list_of_choice)
             if selected_product:
                 return selected_product
 
@@ -84,7 +84,7 @@ class Main():
                     f'que {product.nutriscore.upper()} :',
                     substitutes_list)
                 selected_substitute = (
-                    self.menu.ask_choice(substitutes_list_of_choice)
+                    self.menu.get_user_choice(substitutes_list_of_choice)
                 )
                 return selected_substitute
             else:
@@ -156,10 +156,10 @@ class Main():
         '''
         Ask user to choose a category of products. Return Category object.
         '''
-        categories_list_of_choice = (
+        category_list_of_choice = (
             list_of_choice.ListOfChoice('CATEGORIES', self.db.categories)
         )
-        selected_category = self.menu.ask_choice(categories_list_of_choice)
+        selected_category = self.menu.get_user_choice(category_list_of_choice)
         return selected_category
 
     def _save_substitution(self, origin, substitute):

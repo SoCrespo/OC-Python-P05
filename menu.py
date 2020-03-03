@@ -8,26 +8,21 @@ class Menu:
     def __init__(self):
         pass
 
-    def ask_choice(self, option):
+    def get_user_choice(self, list_of_choice):
         '''
-        Displays a menu (title and content of Option object)
-        and asks user to choose an option.
-        Returns the object selected by user or None if 0 is selected.
+        Ask user to enter a number corresponding to an item in list_of_choice.
+        Return the chosen item.
         '''
-        print(f'\n{option.title} \n')
-        for index, line in enumerate(option.content, 1):
-            print(f'{index} - {line}')
-
+        self._display_list_of_choice(list_of_choice)
         choice = None
-
-        while choice not in range(0, len(option.content)+1):
+        while choice not in range(0, len(list_of_choice.content)+1):
             try:
                 choice = int(input("\nEntrez le numéro de votre choix "
                                    "ou 0 pour revenir au menu principal : "))
             except ValueError:
                 pass
         if choice:
-            return option.content[choice - 1]
+            return list_of_choice.content[choice - 1]
         else:
             return None
 
@@ -81,8 +76,13 @@ class Menu:
         '''Clear screen.'''
         os.system('cls||clear')
 
-    def get_answer(self):
-        pass
+    def _display_list_of_choice(self, list_of_choice):
+        '''
+        Display a menu (title and content of ListOfChoice object).
+        '''
+        print(f'\n{list_of_choice.title} \n')
+        for index, line in enumerate(list_of_choice.content, 1):
+            print(f'{index} - {line}')
 
 
 if __name__ == "__main__":
