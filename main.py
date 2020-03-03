@@ -61,10 +61,20 @@ class Main():
         '''
         return self.menu.choose_in_main_menu()
 
+    def _select_category(self):
+        '''
+        Ask user to choose a category of products. Return Category object.
+        '''
+        category_list_of_choice = (
+            list_of_choice.ListOfChoice('CATEGORIES', self.db.categories)
+        )
+        selected_category = self.menu.get_user_choice(category_list_of_choice)
+        return selected_category
+
     def _select_product(self):
         '''
         Ask user to select a category, then a product from this category.
-        Return a Product.
+        Return a Product or None.
         '''
         category = self._select_category()
         if category:
@@ -127,6 +137,24 @@ class Main():
                      'ou faites Entrée pour revenir au menu principal : ')
         return save.lower() == "s"
 
+    def _save_substitution(self, origin, substitute):
+        '''
+        Insert a pair of products (origin and substitute)
+        in substitution table.
+        '''
+        try:
+            self.db.save_substitution(origin, substitute)
+        except mysql.connector.errors.IntegrityError:
+            print("L'enregistrement existe déjà.")
+        else:
+            print(
+                f"La substitution du produit {origin.brand} - {origin.name} "
+                f"par {substitute.brand} - {substitute.name} a bien été "
+                f"enregistrée."
+            )
+        finally:
+            self._press_enter()
+
     def _reset_app(self):
         '''
         Drop all existing tables in the database, recreate them
@@ -140,7 +168,6 @@ class Main():
                    "Tapez 'oui' + Entrée pour confirmer, ou "
                    "appuyez sur Entrée pour annuler : ")
         confirmation = input(warning)
-
         if confirmation.lower() == 'oui':
             print('Réinitialisation en cours...')
             self.db.empty_database()
@@ -159,34 +186,6 @@ class Main():
         self.db.close_database()
         print('Au revoir !')
         quit()
-
-    def _select_category(self):
-        '''
-        Ask user to choose a category of products. Return Category object.
-        '''
-        category_list_of_choice = (
-            list_of_choice.ListOfChoice('CATEGORIES', self.db.categories)
-        )
-        selected_category = self.menu.get_user_choice(category_list_of_choice)
-        return selected_category
-
-    def _save_substitution(self, origin, substitute):
-        '''
-        Insert a pair of products (origin and substitute)
-        in substitution table.
-        '''
-        try:
-            self.db.save_substitution(origin, substitute)
-        except mysql.connector.errors.IntegrityError:
-            print("L'enregistrement existe déjà.")
-        else:
-            print(
-                f"La substitution du produit {origin.brand} - {origin.name} "
-                f"par {substitute.brand} - {substitute.name} a bien été "
-                f"enregistrée."
-            )
-        finally:
-            self._press_enter()
 
     def _press_enter(self):
         '''Ask user to press enter to go back to main menu.'''
