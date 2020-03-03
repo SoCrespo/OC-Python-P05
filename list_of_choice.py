@@ -12,9 +12,11 @@ class ListOfChoice:
         self.content = content
 
     def sort_by_brand(self):
+        '''Sort self.content (list of products) by product.brand.'''
         self.content.sort(key=lambda prod: prod.brand)
 
     def sort_by_nutriscore(self):
+        '''Sort self.content (list of products) by product.nutriscore.'''
         self.content.sort(key=lambda prod: prod.nutriscore)
 
 
