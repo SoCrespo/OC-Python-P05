@@ -30,24 +30,13 @@ class Main():
         while not quit_app:
             self._clear_screen()
             user_choice = self._choose_in_main_menu()
-            if user_choice == 1:  # Find a substitute
-                self._clear_screen()
-                product = self._select_product()
-                if product:
-                    print(f"\nRecherche d'un substitut à {product}")
-                    substitutes = self._get_substitutes(product)
-                    selected_substitute = self._select_substitute(substitutes)
-                    if selected_substitute:
-                        selected_substitute.display()
-                        if self._ask_for_recording():
-                            self._save_substitution(
-                                product, selected_substitute
-                                )
-            elif user_choice == 2:  # Display recorded substitutes
+            if user_choice == 1:
+                self._find_substitute()
+            elif user_choice == 2:
                 self._display_substitutions()
-            elif user_choice == 3:  # Reset database
+            elif user_choice == 3:
                 self._reset_app()
-            elif user_choice == 4:  # Quit app
+            elif user_choice == 4:
                 quit_app = True
         self._quit_app()
 
@@ -61,6 +50,26 @@ class Main():
         '''
         return self.menu.choose_in_main_menu()
 
+    def _find_substitute(self):
+        '''
+        Ask user to select a category than a product
+        and return a list of substitutes.
+        '''
+        self._clear_screen()
+        category = self._select_category()
+        if category:
+            product = self._select_product(category)
+            if product:
+                print(f"\nRecherche d'un substitut à {product}")
+                substitutes = self._get_substitutes(product)
+                selected_substitute = self._select_substitute(substitutes)
+                if selected_substitute:
+                    selected_substitute.display()
+                    if self._ask_for_recording():
+                        self._save_substitution(
+                            product, selected_substitute
+                            )
+
     def _select_category(self):
         '''
         Ask user to choose a category of products. Return Category object.
@@ -71,23 +80,21 @@ class Main():
         selected_category = self.menu.get_user_choice(category_list_of_choice)
         return selected_category
 
-    def _select_product(self):
+    def _select_product(self, category):
         '''
         Ask user to select a category, then a product from this category.
         Return a Product or None.
         '''
-        category = self._select_category()
-        if category:
-            products_list = self.db.get_products_from_category(category)
-            products_set = self.menu.remove_duplicates(products_list)
-            products_list_of_choice = list_of_choice.ListOfChoice(
-                    f'Produits de la catégorie {category} :', products_set)
-            products_list_of_choice.sort_by_brand()
-            selected_product = (
-                self.menu.get_user_choice(products_list_of_choice)
-                )
-            if selected_product:
-                return selected_product
+        products_list = self.db.get_products_from_category(category)
+        products_set = self.menu.remove_duplicates(products_list)
+        products_list_of_choice = list_of_choice.ListOfChoice(
+                f'Produits de la catégorie {category} :', products_set)
+        products_list_of_choice.sort_by_brand()
+        selected_product = (
+            self.menu.get_user_choice(products_list_of_choice)
+            )
+        if selected_product:
+            return selected_product
 
     def _get_substitutes(self, product):
         '''Retrieve from custom database a list of products with a better
