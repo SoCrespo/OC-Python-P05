@@ -11,7 +11,7 @@ class Menu:
     def get_user_choice(self, list_of_choice):
         '''
         Ask user to enter a number corresponding to an item in list_of_choice.
-        Return the chosen item.
+        Return the chosen item or None if user enters "0".
         '''
         self._display_list_of_choice(list_of_choice)
         choice = None
