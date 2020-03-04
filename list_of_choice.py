@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from operator import attrgetter
-
 
 class ListOfChoice:
 
@@ -19,8 +17,8 @@ class ListOfChoice:
         in a case-insensitive way.
         '''
         self.content.sort(key=lambda prod: (
-                    attrgetter('brand')(prod).lower(),
-                    attrgetter('name')(prod).lower()
+                    getattr(prod, 'brand').lower(),
+                    getattr(prod, 'name').lower()
                 )
         )
 
