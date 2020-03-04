@@ -60,6 +60,7 @@ class Main():
         self._clear_screen()
         category = self._select_category()
         if category:
+            self._clear_screen()
             product = self._select_product(category)
             if product:
                 self._clear_screen()
@@ -67,6 +68,7 @@ class Main():
                 substitutes = self._get_substitutes(product)
                 substitute = self._select_substitute(substitutes)
                 if substitute:
+                    self._clear_screen()
                     substitute.display()
                     if self._OK_for_recording():
                         self._save_substitution(product, substitute)
