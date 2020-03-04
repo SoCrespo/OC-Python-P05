@@ -14,11 +14,20 @@ class ListOfChoice:
         self.content = content
 
     def sort_by_brand_and_name(self):
-        '''Sort self.content (list of products) by product.brand and .name.'''
-        self.content.sort(key=attrgetter('brand', 'name'))
+        '''
+        Sort self.content (list of products) by product.brand and .name,
+        in a case-insensitive way.
+        '''
+        self.content.sort(key=lambda prod: (
+                    attrgetter('brand')(prod).lower(),
+                    attrgetter('name')(prod).lower()
+                )
+        )
 
     def sort_by_nutriscore(self):
-        '''Sort self.content (list of products) by product.nutriscore.'''
+        '''
+        Sort self.content (list of products) by product.nutriscore.
+        '''
         self.content.sort(key=lambda prod: prod.nutriscore)
 
 
