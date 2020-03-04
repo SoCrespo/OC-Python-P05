@@ -113,8 +113,6 @@ class Main():
         than argument product. Ask user to select one if list is not empty.
         Return selected substitute, or None if list is empty.
         '''
-        # print(f"Recherche d'un substitut (même catégorie) "
-        #      f"pour le produit {product}")
         if substitutes_list:
             substitutes_list_of_choice = list_of_choice.ListOfChoice(
                 f'Substituts disponibles :', substitutes_list)
