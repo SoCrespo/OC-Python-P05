@@ -3,7 +3,7 @@
 
 class MainMenu:
     '''
-    Manages app's main menu.
+    Manage app's main menu.
     '''
 
     FIND_AND_RECORD_SUBSTITUTE = 'Rechercher des substituts à un produit'
