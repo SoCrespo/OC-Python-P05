@@ -122,8 +122,8 @@ class Main():
             )
             return substitute
         else:
-            print("Il n'existe aucun substitut"
-                  " avec un meilleur nutriscore.")
+            print("Il n'existe aucun substitut avec un meilleur "
+                  "nutriscore dans cette catégorie.")
             self._press_enter()
             return None
 
