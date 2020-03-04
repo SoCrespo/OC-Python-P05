@@ -3,6 +3,7 @@
 import mysql.connector.errors
 import custom_db_manager
 import openfoodfacts_client
+import main_menu
 import menu
 import list_of_choice
 
@@ -19,6 +20,7 @@ class Main():
         '''
 
         self.db = custom_db_manager.CustomDBManager()
+        self.main_menu = main_menu.MainMenu()
         self.menu = menu.Menu()
         if self.db.is_empty:
             self.off_client = openfoodfacts_client.OpenFoodFactsClient()
@@ -29,16 +31,18 @@ class Main():
         Main loop of the program.
         '''
         quit_app = False
+        mm = self.main_menu
         while not quit_app:
             self._clear_screen()
-            user_choice = self._choose_in_main_menu()
-            if user_choice == 1:
+            mm.display()
+            user_choice = mm.get_choice()
+            if user_choice == mm.FIND_AND_RECORD_SUBSTITUTE:
                 self._find_and_record_substitute()
-            elif user_choice == 2:
+            elif user_choice == mm.DISPLAY_SUBSTITUTIONS:
                 self._display_substitutions()
-            elif user_choice == 3:
+            elif user_choice == mm.RESET:
                 self._reset_app()
-            elif user_choice == 4:
+            elif user_choice == mm.QUIT:
                 quit_app = True
         self._quit_app()
 
@@ -47,12 +51,6 @@ class Main():
         Clear screen.
         '''
         self.menu.clear_screen()
-
-    def _choose_in_main_menu(self):
-        '''
-        Ask the user to select one of the main menu options.
-        '''
-        return self.menu.choose_in_main_menu()
 
     def _find_and_record_substitute(self):
         '''
@@ -64,6 +62,7 @@ class Main():
         if category:
             product = self._select_product(category)
             if product:
+                self._clear_screen()
                 print(f"\nRecherche d'un substitut à {product}")
                 substitutes = self._get_substitutes(product)
                 substitute = self._select_substitute(substitutes)

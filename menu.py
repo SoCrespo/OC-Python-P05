@@ -26,33 +26,6 @@ class Menu:
         else:
             return None
 
-    def choose_in_main_menu(self):
-        '''
-        Ask the user to select one of the main menu options.
-        Return an int between 1 and 4.
-        '''
-        title = 'MENU PRINCIPAL'
-
-        content = [
-                    'Rechercher des substituts à un produit',
-                    'Afficher les substitutions enregistrées',
-                    'Réinitialisation complète',
-                    'Quitter'
-                    ]
-
-        print(f'\n{title} \n')
-        for index, option in enumerate(content, 1):
-            print(f'{index} - {option}')
-
-        choice = None
-
-        while choice not in range(1, len(content)+1):
-            try:
-                choice = int(input("\nEntrez le numéro de votre choix : "))
-            except ValueError:
-                pass
-        return choice
-
     def remove_duplicates(self, products_list):
         '''
         Take a list of Products and removes duplicates
