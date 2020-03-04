@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from operator import attrgetter
+
 
 class ListOfChoice:
 
@@ -11,9 +13,9 @@ class ListOfChoice:
         self.title = title
         self.content = content
 
-    def sort_by_brand(self):
-        '''Sort self.content (list of products) by product.brand.'''
-        self.content.sort(key=lambda prod: prod.brand)
+    def sort_by_brand_and_name(self):
+        '''Sort self.content (list of products) by product.brand and .name.'''
+        self.content.sort(key=attrgetter('brand', 'name'))
 
     def sort_by_nutriscore(self):
         '''Sort self.content (list of products) by product.nutriscore.'''

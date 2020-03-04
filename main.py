@@ -92,7 +92,7 @@ class Main():
         products_set = self.menu.remove_duplicates(products_list)
         products_list_of_choice = list_of_choice.ListOfChoice(
                 f'Produits de la catégorie {category} :', products_set)
-        products_list_of_choice.sort_by_brand()
+        products_list_of_choice.sort_by_brand_and_name()
         selected_product = (
             self.menu.get_user_choice(products_list_of_choice)
             )
