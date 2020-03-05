@@ -18,7 +18,6 @@ class Main():
         is empty, instanciate OpenFoodFactsClient to retrieve data, then
         fill database.
         '''
-
         self.db = custom_db_manager.CustomDBManager()
         self.main_menu = main_menu.MainMenu()
         self.menu = menu.Menu()
@@ -102,7 +101,7 @@ class Main():
     def _get_substitutes(self, product):
         '''
         Retrieve from custom database a list of products with a better
-        nutriscore than argument product.
+        nutriscore than argument product from same category.
         Return a list of Products (that may be empty).
         '''
         return self.db.get_better_nutriscore_products(product)
@@ -150,7 +149,8 @@ class Main():
     def _save_substitution(self, origin, substitute):
         '''
         Insert a pair of products (origin and substitute)
-        in substitution table.
+        in substitution table if not already recorded. If it is,
+        inform the user.
         '''
         try:
             self.db.save_substitution(origin, substitute)

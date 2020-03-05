@@ -13,16 +13,46 @@ class OpenFoodFactsClient:
     '''
 
     def __init__(self):
-        self.products = self._get_Products_from_API()
+        self.products = self._get_products_from_API()
+
+    def _get_products_from_API(self):
+        '''
+        Retrieve data from API, for CATEGORIES
+        (and for MAX_PRODUCTS_NB products in each category).
+        Return a list of Product objects.
+        '''
+        data = self._get_data_by_categories()
+        conv_data = self._change_data_keys(data)
+        products = self._data_to_product(conv_data)
+        return products
+
+    def _get_data_by_categories(self, categories=CATEGORIES.keys(),
+                                nb=MAX_PRODUCTS_NB):
+        '''
+        Call _get_data_by_category() for a list of categories.
+        Return a list of dictionaries (1 dict = data for 1 product).
+
+        Add the 'category' key in each dict (in openfoodfacts database,
+        a product may belong to several categories, so the original field
+        cannot be used).
+        '''
+        print("Téléchargement des données en cours...")
+        list = []
+        for category in categories:
+            data = self._get_data_by_category(category, nb)
+            for item in data:
+                item['category'] = category
+            list.extend(data)
+        print('Les données ont été correctement récupérées.')
+        return list
 
     def _get_data_by_category(self, category, nb):
         '''
         Call the OpenFoodFact API to retrieve products
         in the given category.
 
-        Downloaded fields are defined in config.py.
+        Downloaded fields are defined in constants.API_TO_PRODUCTS_FIELDS.
         Return a list of nb dictionaries (1 dict = data of 1 product).
-
          '''
         payload = {
             'action': 'process',
@@ -37,23 +67,6 @@ class OpenFoodFactsClient:
         }
         req = requests.get(URL, params=payload)
         return req.json().get('products')
-
-    def _get_data_by_categories(self, categories=CATEGORIES.keys(),
-                                nb=MAX_PRODUCTS_NB):
-        '''
-        Call _get_data_by_category() for a list of categories.
-        Return a list of dictionaries (1 dict = data of  1 product)
-        Adds the 'category' key in each dict.
-        '''
-        print("Téléchargement des données en cours...")
-        list = []
-        for category in categories:
-            data = self._get_data_by_category(category, nb)
-            for item in data:
-                item['category'] = category
-            list.extend(data)
-        print('Les données ont été correctement récupérées.')
-        return list
 
     def _change_data_keys(self, list):
         '''
@@ -87,17 +100,6 @@ class OpenFoodFactsClient:
         '''
         return [product.Product(data) for data in list
                 if self._validate_data(data)]
-
-    def _get_Products_from_API(self):
-        '''
-        Retrieve data from API, for CATEGORIES
-        (and for MAX_PRODUCTS_NB products in each category).
-        Return a list of Product objects.
-        '''
-        data = self._get_data_by_categories()
-        conv_data = self._change_data_keys(data)
-        products = self._data_to_product(conv_data)
-        return products
 
 
 if __name__ == "__main__":

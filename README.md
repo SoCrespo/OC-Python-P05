@@ -72,7 +72,9 @@ stores / stores.
 
 ### User interface
 
-***Menu*** class manages the main menu and selection menus using Option object and constant.py file.
+***MainMenu*** class manages main menu ;-)
+
+***Menu*** class manages selection menus using ListOfChoice objects and constants.py file.
 
 ***ListOfChoice*** class creates objects with a title and a content (list of any item). The Menu class uses ListOfChoice to display easily a list of products with a title.
 

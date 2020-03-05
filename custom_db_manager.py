@@ -8,7 +8,9 @@ from config import USER, PASSWORD, HOST, DATABASE, CATEGORIES
 
 
 class CustomDBManager():
-    '''Insert into / retrieve data from custom database.'''
+    '''
+    Insert into / retrieve data from MySQL database.
+    '''
 
     def __init__(self):
         self.mydb = mysql.connector.connect(
@@ -19,15 +21,15 @@ class CustomDBManager():
             )
         self.is_empty = self._is_empty()
         if not self.is_empty:
-            self.categories = self._get_categories_objects()
+            self.categories = self._get_category_objects()
 
     def reset_database(self, products):
         '''
         Create tables and fills them with API data.
         '''
         self._create_tables()
-        self._fill_categories_table()
-        self.categories = self._get_categories_objects()
+        self._fill_category_table()
+        self.categories = self._get_category_objects()
         self._insert_products(products)
         self.is_empty = False
 
@@ -66,7 +68,7 @@ class CustomDBManager():
 
     def save_substitution(self, origin, substitute):
         '''
-        Save origin product and substitute in table substitution.
+        Save origin product and substitute in table 'substitution'.
         '''
         self.cursor = self.mydb.cursor()
         query = (
@@ -78,7 +80,7 @@ class CustomDBManager():
 
     def get_recorded_substitutions(self):
         '''
-        Return all records in table substitution,
+        Return all records in table 'substitution',
         as a list of tuples of Products (origin, substitute).
         '''
         self.cursor = self.mydb.cursor()
@@ -109,12 +111,11 @@ class CustomDBManager():
             print(f'Suppression de la table {table}...')
         self.cursor.execute("SET FOREIGN_KEY_CHECKS = 1;")
         print('Toutes les tables ont été supprimées.')
-
         self.is_empty = True
 
     def close_database(self):
         '''
-        Close database.
+        Close connection to database.
         '''
         self.cursor.close()
 
@@ -151,9 +152,9 @@ class CustomDBManager():
         except RuntimeError:
             pass
 
-    def _fill_categories_table(self):
+    def _fill_category_table(self):
         '''
-        Insert categories listed in CATEGORIES into category table.
+        Insert categories (listed in CATEGORIES) into 'category' table.
         '''
         self.cursor = self.mydb.cursor()
         for name, full_name in CATEGORIES.items():
@@ -164,7 +165,7 @@ class CustomDBManager():
             self.cursor.execute(query)
         self.mydb.commit()
 
-    def _get_categories_objects(self):
+    def _get_category_objects(self):
         '''
         Creates self.categories as a list of Category objects.
         These objects have following attributes : id, name, full_name.
@@ -202,7 +203,7 @@ class CustomDBManager():
 
     def _get_product_by_id(self, id):
         '''
-        Get product of given id from MySQL product table.
+        Get product of given id from 'product' table.
         Return a Product object.
         '''
         self.cursor = self.mydb.cursor(dictionary=True)
@@ -214,5 +215,4 @@ class CustomDBManager():
 
 
 if __name__ == "__main__":
-    test = CustomDBManager()
-    prod = test.get_recorded_substitutions()
+    pass

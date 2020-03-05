@@ -27,9 +27,9 @@ CATEGORIES = {
 #
 # MAX_PRODUCT_NB is the maximum number of products that must be returned
 # by each API call for a category.
-# As some products are incomplete, ensure that this limit is at least 20
-# to get enough complete products, but not too high neither, for readability
-# and connection time reasons (50 to 100 are a good limit).
+# Given that some products informations are incomplete, ensure that this limit
+# is at least 20 to get enough complete products, but not too high, for
+# readability and connection time reasons (50 to 100 are a good limit).
 
 MAX_PRODUCTS_NB = 50
 

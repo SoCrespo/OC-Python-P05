@@ -5,7 +5,7 @@ class ListOfChoice:
 
     '''Group a list of items (ListOfChoice.content)
     and the title of this list (ListOfChoice.list).
-    Used by Menu class.'''
+    Used by Menu class to display a menu of variable length.'''
 
     def __init__(self, title, content):
         self.title = title
@@ -14,7 +14,7 @@ class ListOfChoice:
     def sort_by_brand_and_name(self):
         '''
         Sort self.content (list of products) by product.brand and .name,
-        in a case-insensitive way.
+        case-insensitively.
         '''
         self.content.sort(key=lambda prod: (
                     getattr(prod, 'brand').lower(),
