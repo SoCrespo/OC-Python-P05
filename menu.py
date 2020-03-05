@@ -29,7 +29,7 @@ class Menu:
     def remove_duplicates(self, products_list):
         '''
         Take a list of Products and removes duplicates
-        (same brand and name). Returns a list of Products.
+        (same brand and name, case-sensitive). Returns a list of Products.
         '''
         products_dict = {(item.brand, item.name): item
                          for item in products_list}
@@ -38,7 +38,7 @@ class Menu:
     def display_substitutions(self, substitutions_list):
         '''
         Take a list of tuples of Products (origin, substitute)
-        and displays each of them.
+        and displays each of them using Product._repr_
         '''
         for origin, substitute in substitutions_list:
             print('****************')
@@ -46,7 +46,9 @@ class Menu:
             print(f"SUBSTITUT : {substitute}")
 
     def clear_screen(self):
-        '''Clear screen.'''
+        '''
+        Clear screen.
+        '''
         os.system('cls||clear')
 
     def _display_list_of_choice(self, list_of_choice):

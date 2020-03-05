@@ -1,20 +1,24 @@
 # -*- coding: utf-8 -*-
 
-# ################################""
+# #######################################################
+# WARNING : DO NOT MODIFY ANY PARAMETER IN THIS PAGE
+# #######################################################
+
+# ################################
 # API PARAMETERS
-# ################################""
+# ################################
 
 URL = 'https://fr.openfoodfacts.org/cgi/search.pl'
 
-# ################################""
+# ################################
 # DATABASE PARAMETERS
-# ################################""
+# ################################
 
 DB_SCHEMA = 'database_schema.sql'
 
-# ################################""
+# ################################
 # APP PARAMETERS
-# ################################""
+# ################################
 
 # The following dict is used to manage the transfer of API data
 # (fields = this dict keys) into MySQL database (fields = this dict values)

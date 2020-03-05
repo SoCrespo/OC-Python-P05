@@ -2,7 +2,9 @@
 
 
 class Category:
-    '''Represent a category (id, name, full name).'''
+    '''
+    Represent a category (id in mySQL database, name from API, full name).
+    '''
 
     def __init__(self, id, name, full_name):
         self.id = id
