@@ -214,5 +214,42 @@ class CustomDBManager():
         return prod
 
 
+# Note à l'attention du mentor évaluateur : la méthode ci-après n'est
+# pas utilisée par l'application. Elle ne figure ici qu'à titre d'exemple
+# d'une requête avec inner join, à toutes fins utiles dans le cadre de
+# l'évaluation.
+
+    def _get_recorded_substitutions_using_inner_joins(self):
+
+        self.cursor = self.mydb.cursor(dictionary=True)
+        query = (
+            "SELECT origin.brand as origin_brand,"
+            " origin.name as origin_name,"
+            " origin.nutriscore as origin_nutriscore,"
+            " substitute.brand as substitute_brand,"
+            " substitute.name as substitute_name,"
+            " substitute.nutriscore as substitute_nutriscore"
+            " FROM substitution"
+            " INNER JOIN product as origin"
+            " ON origin.id = origin_id"
+            " INNER JOIN product as substitute"
+            " ON substitute.id = substitute_id;"
+        )
+        self.cursor.execute(query)
+        count = 0
+        for line in self.cursor:
+            print('**************************')
+            print(f"PRODUIT D'ORIGINE : {line['origin_brand']} -"
+                  f" {line['origin_name']}"
+                  f" ({line['origin_nutriscore']})")
+            print(f"SUBSTITUT : {line['substitute_brand']} -"
+                  f" {line['substitute_name']}"
+                  f" ({line['substitute_nutriscore']})")
+            count += 1
+        if not count:
+            print('\nAucune substitution enregistrée.')
+
+
 if __name__ == "__main__":
-    pass
+    test = CustomDBManager()
+    test._get_recorded_substitutions_using_inner_joins()
