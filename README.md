@@ -32,17 +32,11 @@ Main menu offers 4 options:
 
 2) Display recorded substitutions
 
-3) Reset the database. This can be useful if, for instance, user changed / added categories, or modified the max number of items to be downloaded from the Openfoodfact database. These parameters (categories and max number) can be changed in config.py file, see below. This reset definitely erase substitutions recorded so far.
+3) Reset the database. This can be useful if, for instance, user changed / added categories, or modified the max number of items to be downloaded from the Openfoodfact database. These parameters (categories and max number) can be changed in config.py file, see below. This reset definitely erases substitutions recorded so far.
 
 4) Quit the program.
 
 ## Technical specifications
-
-### Local database
-
-***CustomDBManager*** class manages the MySQL tables : connection, tables creation, data insertion and retrieving.  
-
-***database_schema.sql*** is the MySQL script used to create or reset database.
 
 ### OpenFoodFact data retrieving
 
@@ -54,21 +48,21 @@ Data are then transformed in Category objects and Product objects (see below) be
 
 ***CustomDBManager*** retrieves data from and inserts them into MySQL database offdb2020p5, based on the tables created by ***database_schema.sql script***.
 
-***Category*** class affects categories data, from Mysql Database, to category object with following attributes :
-name (in ASCII, e.g. pates-a-tartiner)
-full name (ex : Pâtes à tartiner)
-id (from MySQL table).
+***Category*** class affects categories data, from Mysql Database, to category object with following attributes :  
+name (in ASCII, e.g. pates-a-tartiner)  
+full name (ex : Pâtes à tartiner)  
+id (from MySQL table).  
 
-***Product*** class affects data for each product to a Product object with the following attributes (and their quivalent in OpenFoodFacts tables:
-category / categories
-brand / brands
-name / product_name_fr
-full_name / generic_name_fr
-quantity / quantity
-nutriscore / nutrition_grade_fr
-url / url
-ingredients / ingredients_text_fr
-stores / stores.
+***Product*** class affects data for each product to a Product object with the following attributes (and their quivalent in OpenFoodFacts tables:  
+category / categories  
+brand / brands  
+name / product_name_fr  
+full_name / generic_name_fr  
+quantity / quantity  
+nutriscore / nutrition_grade_fr  
+url / url  
+ingredients / ingredients_text_fr  
+stores / stores.  
 
 ### User interface
 
