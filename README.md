@@ -8,7 +8,7 @@ This program uses the OpenFoodFacts public database to help to choose a healthie
 
 1. MySQL must be installed on the user's computer.
 
-2. A database named 'openfoodfacts2020p5' has to exist on localhost.
+2. A database named 'openfoodfacts2020p5' must exist on localhost.
 
 3. User 'offuser' must be granted all privileges on this database.
 
@@ -16,7 +16,7 @@ If this database or user already exist on the computer, please modify the databa
 
 ### Python
 
-Python 3.8 required. It can be downloaded here : <https://www.python.org/downloads/>
+Python 3.8 is required. It can be downloaded here : <https://www.python.org/downloads/>
 
 Install required extensions by doing (in command line) : `python install -r requirements.txt`
 
